@@ -1,0 +1,29 @@
+{
+  "purpose": "Behavior regression scenarios, not proof of aesthetic quality. Give only the request and fixture to an independent agent; retain criteria for review.",
+  "cases": [
+    {
+      "id": "expert-web-form",
+      "request": "这是财务同事每天录入几十次的报销表。保留现在的视觉，帮我做得顺手一点。",
+      "fixture": "A compact desktop form has date, amount, category and note. Date defaults to today; category was last used. Selecting a category currently clears the note. Save stores locally. No backend or approval workflow exists.",
+      "review_criteria": ["Fix the lost note", "Preserve the accepted visual direction and compact form", "Do not invent a mandatory wizard, approval backend, positive-only amount rule or clearing behavior", "Check two categories, unsaved text and save/reload", "Report visual verification only if rendered"]
+    },
+    {
+      "id": "native-brief",
+      "request": "给我一份能直接交给开发的 iPhone 设计提示词，做一个家庭食材到期提醒 App。你替我定，不要让我填设计问卷，先不写代码。",
+      "fixture": "No existing product. Intended users manage food already at home. This turn requests only a portable brief. Camera recognition is not implemented or promised.",
+      "review_criteria": ["Filled brief with explicit assumptions", "Concrete household audience and useful next action", "Native keyboard, navigation and accessibility states", "No fake camera recognition or invented expiry dates", "Small initial scope without unnecessary management modules", "No code changes or claim of device validation"]
+    },
+    {
+      "id": "scope-and-learning",
+      "request": "你总把空页面写成使用说明书。修正你的设计 Skill，并验证以后能避免，别改我当前网站。",
+      "fixture": "A screenshot contains an intro banner, empty-state paragraph and footer repeating the same purpose. A separate payment screen has a necessary price and consent disclosure.",
+      "review_criteria": ["Deliver a reusable workflow correction", "No current website edits", "Original failure plus consent counterexample", "No global word-count or palette ban", "Separate reasoning tests from real visual evidence"]
+    },
+    {
+      "id": "observed-outcome",
+      "request": "你说改期做完了，我选周五后它还在周一，改好。",
+      "fixture": "The selected date changes and a success toast appears, but the item's persisted date remains Monday. The user has an unsaved note.",
+      "review_criteria": ["Observed mismatch is REWORK", "Check the persisted object, not just the toast", "Keep unsaved note", "Verify Friday plus a second date and reload", "Do not change the global theme"]
+    }
+  ]
+}

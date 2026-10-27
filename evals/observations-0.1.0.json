@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-27",
+  "type": "independent behavior checks; no rendered UI or device execution",
+  "first_round": [
+    {
+      "case": "expert-web-form",
+      "observed_excerpt": "保存前做本地必填与正数校验。成功后清空下一笔所需字段。",
+      "assessment": "REWORK: original facts did not establish those business rules."
+    },
+    {
+      "case": "native-brief",
+      "observed_excerpt": "到期日：必填。默认‘7 天后’。",
+      "assessment": "REWORK: the default fabricates a fact; the brief also expanded beyond the minimum path."
+    }
+  ],
+  "repair": "Separate reversible UI choices from unknown facts and business rules; require existing contracts or explicit assumptions; constrain initial product scope.",
+  "fresh_context_recheck": [
+    {
+      "case": "negative-adjustment-form",
+      "observed_excerpt": "不擅自禁止零值或定义金额上下限，除非现有业务规则已有规定。类别切换只能更新类别字段。",
+      "assessment": "Targeted transfer observed: preserves valid negative adjustments and identifies the actual state-loss defect; visual verification remains unverified."
+    },
+    {
+      "case": "native-packaging-expiry",
+      "observed_excerpt": "到期日只能由用户按包装标示手动输入；不得猜测或自动生成日期。",
+      "assessment": "Targeted correction observed: no fabricated expiry; smaller initial scope; no claim of implemented notifications or device validation."
+    }
+  ],
+  "limits": [
+    "Not proof of aesthetic quality or reliable behavior across all prompts and models.",
+    "Navigation and reminder defaults still require product-specific validation.",
+    "The read-only implementation-plan fixture cannot establish actual implementation persistence or interaction behavior."
+  ]
+}
