@@ -1,78 +1,102 @@
-# UI Foundry
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/wordmark-dark.svg" />
+    <img src="docs/assets/wordmark-light.svg" width="300" height="70" alt="UI Foundry" />
+  </picture>
+</p>
 
-**Describe the product. Let your agent lead the design.**
+<h3 align="center">Give your agent an eye for design.</h3>
 
-English · [简体中文](README.zh-CN.md)
+<p align="center">A design skill for websites and apps that look good and feel right.</p>
 
-[Install](#install) · [ClawHub](https://clawhub.ai/theosunny/skills/ui-foundry) · [Download ZIP](https://github.com/theosunny/ui-foundry/releases) · [Validation](docs/validation.md)
+<p align="center">
+  <a href="#start"><strong>Get started</strong></a> &nbsp;&nbsp;
+  <a href="docs/installation.md">Choose your agent</a> &nbsp;&nbsp;
+  <a href="https://clawhub.ai/theosunny/skills/ui-foundry">ClawHub</a> &nbsp;&nbsp;
+  <a href="README.zh-CN.md">简体中文</a>
+</p>
 
-A design-lead skill for websites, product workspaces and native apps. Turn “too much text”, “too many fields” or “this feels like a website” into specific design decisions—and check the result through real screens and real tasks.
+<p align="center">
+  <picture>
+    <source media="(max-width: 600px)" srcset="docs/assets/interface-study-mobile.svg" />
+    <img src="docs/assets/interface-study.svg" width="1200" alt="Interface study: a focused publishing workspace and a mobile sheet for directly choosing a date." />
+  </picture>
+  <br/>
+  <sub>Original interface study · Fictional content · An illustration of the design approach, not a shipped app.</sub>
+</p>
 
-## Install
+**You shouldn't have to become a designer to get a well-designed product.**
 
-Run one command, then choose your coding agent:
+Describe what people need to do. UI Foundry guides your coding agent through the design decisions: what to show, what to leave out, how it should feel, and how to check the result. You make the important calls; your agent handles the details.
+
+<p align="center">
+  <strong>Web · Product workspaces · Native apps</strong><br/>
+  <sub>Open source · MIT-0 · No extra service or API key required by the skill</sub>
+</p>
+
+<a id="start"></a>
+
+## Install once. Start with your idea.
 
 ```sh
 npx skills add theosunny/ui-foundry -g
 ```
 
-Requires **Node.js 22.20+** for this installer. `-g` makes the skill available across projects; omit it to install in the current project. The design workflow itself needs no Node.js, API key or Python setup.
+Choose **Codex, Claude Code, Cursor, OpenCode or OpenClaw** in the installer. Then ask:
 
-Targets include **Codex, Claude Code, Cursor, OpenCode and OpenClaw** through the [Skills CLI](https://github.com/vercel-labs/skills). For a specific agent, ClawHub, or installation without a terminal, see [all installation options](docs/installation.md).
+> Use UI Foundry to make this product look and feel good. Decide the design details, make the main task easier, and check the actual result. Keep what already works.
 
-## Then ask normally
+That's enough to start. You can bring an idea, an existing screen, a repository or a rough sketch.
 
-> Use UI Foundry to improve this product. Decide the visual and interaction details, preserve what already works, and verify the result. Ask me only about decisions that materially change the product.
+<details>
+<summary>Installation details, other methods and invocation</summary>
 
-Or choose a smaller task:
+The [Skills CLI](https://github.com/vercel-labs/skills) requires **Node.js 22.20+**. `-g` installs across projects; omit it for the current project. The skill itself needs no Node.js or Python setup.
 
-| You need | Say |
+In Codex, invoke **`$ui-foundry`** explicitly if needed. Other clients use their own skill picker or invocation format; reload the client if required.
+
+[Specific agents & manual installation](docs/installation.md) · [ClawHub](https://clawhub.ai/theosunny/skills/ui-foundry) · [Download ZIP](https://github.com/theosunny/ui-foundry/releases)
+
+</details>
+
+## The details that make a difference
+
+| A clear visual direction | Less effort to get things done | A review of the real result |
+| --- | --- | --- |
+| Composition, typography and states that belong together. A mobile app that behaves like one. | Reuse what's known. Put actions next to the content. Ask for information only when it's needed. | Inspect rendered screens and try the task. Fix observed problems, then check again. |
+
+UI Foundry doesn't prescribe a palette or component library. It works with your project's direction, preserves useful writing and efficient forms, and checks visual quality separately from usability.
+
+## Start wherever you are
+
+| What you have | What to ask |
 | --- | --- |
-| A new app | “Use UI Foundry to design and build this iPhone app. You choose the direction.” |
-| A less demanding workflow | “This screen makes me read and type too much. Make the task easier.” |
-| A brief for another agent | “Give me a complete design brief for this idea. Don't change code yet.” |
-| A better design process | “Find why this design failed, improve the skill and test the correction.” |
+| **An idea** | “Design and build this iPhone app. You choose the direction.” |
+| **A frustrating screen** | “I have to read and type too much here. Make the task easier.” |
+| **A brief for another agent** | “Turn this idea into a complete design brief. Don't change code yet.” |
+| **A result that missed** | “Find why this design failed, fix the cause and check the correction.” |
 
-In Codex, you can explicitly invoke **`$ui-foundry`**. Other clients use their own skill picker or invocation format. Reload the client if it requires that after installation.
+The workflow is simple: **understand the task → design → build → inspect → refine**. Reviews distinguish a checked result, a known defect and missing evidence. A successful build alone doesn't settle the design.
 
-## What changes
+## Inside the skill
 
-| Instead of | UI Foundry asks the agent to |
-| --- | --- |
-| Making you specify every component | Decide the audience, task and coherent design direction |
-| Covering weak interactions with instructions | Reuse context, sensible defaults and direct actions |
-| Replacing one generic theme with another | Design composition, typography, density, states and motion together |
-| Shrinking a desktop page into a phone | Respect native navigation, touch, keyboard and safe areas |
-| Calling a successful build “good design” | Review visual quality and task usability separately |
-| Adding more rules after every failure | Fix the cause and recheck a relevant counterexample |
+Design guidance, review references and a review-record template travel together. An optional helper lives at `ui-foundry/scripts/check_design_gate.py` inside the installed skill. Your agent resolves its location; **you don't need to run Python**. It checks record structure, not beauty or evidence quality.
 
-It preserves useful writing, efficient expert forms and consequential information. It does not require a particular framework, palette or component library.
+[Read the skill](skills/ui-foundry/SKILL.md) · [Review workflow](skills/ui-foundry/references/review.md) · [Advanced helper usage](docs/review-records.md)
 
-## A skill, not another app to configure
+<details>
+<summary>Language, verification and privacy</summary>
 
-Install it, describe your goal, and let the agent work. The package includes its own references, review template and optional helper:
+The READMEs are in English and Chinese. Internal skill instructions currently use Chinese; ask for output in your preferred language.
 
-```text
-ui-foundry/                 # installed skill root
-├── SKILL.md
-├── agents/openai.yaml
-├── references/
-├── assets/review-record.json
-└── scripts/check_design_gate.py
-```
+Installation checks don't establish identical behavior in every client. Browser checks don't certify native-app behavior. See the [behavior checks](docs/validation.md) and [installation checks](docs/installation-validation.md) for the actual scope. The interface study above is original illustrative artwork, not a measured before/after result.
 
-**You don't need to run Python to use UI Foundry.** The optional script checks a review record's structure; it cannot certify beauty or validate the evidence. When needed, the agent resolves it from the installed skill directory—not from your project's `scripts/` folder. [Advanced review checks →](docs/review-records.md)
+UI Foundry guides and reviews design; it cannot guarantee a perfect result every time. Private profiles, chat history, credentials and personal product data are not bundled. It doesn't automatically upload project data or publish its own updates.
 
-## Scope and trust
+</details>
 
-The READMEs are available in English and Chinese. The skill instructions are currently written in Chinese; you can request output in your preferred language.
+## Make it better
 
-Installation checks do not establish identical behavior in every client. Browser checks cannot certify native-app behavior. See [what has actually been verified](docs/validation.md).
+Found a failure? [Open an issue](https://github.com/theosunny/ui-foundry/issues) with a fictional or redacted example: your request, expected result, actual result and client. Useful feedback helps improve the workflow.
 
-UI Foundry guides and reviews design; it cannot guarantee a perfect result on every task. Private profiles, chat history, credentials and personal product data are not bundled. It does not automatically upload project data or publish its own updates.
-
-## Contribute
-
-Found a failure? [Open an issue](https://github.com/theosunny/ui-foundry/issues) with a fictional or redacted example: the request, expected behavior, observed result and client used. Keep private data out of screenshots and logs.
-
-[MIT-0 license](LICENSE) · [Changelog](CHANGELOG.md) · [Acknowledgments](ACKNOWLEDGMENTS.md)
+[MIT-0](LICENSE) · [Changelog](CHANGELOG.md) · [Acknowledgments](ACKNOWLEDGMENTS.md)

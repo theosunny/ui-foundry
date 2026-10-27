@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Redesigned the English and Chinese README opening with an original wordmark, localized interface illustrations, responsive mobile artwork and a shorter introduction.
+- Kept the quick start prominent and moved advanced details into expandable sections. This is a repository presentation update; the installable skill remains 0.1.1.
+
 ## 0.1.1 — 2026-10-27
 
 - Full English and Simplified Chinese READMEs with matching quick-start instructions.

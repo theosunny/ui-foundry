@@ -1,78 +1,102 @@
-# UI Foundry · 界面工坊
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/wordmark-dark.svg" />
+    <img src="docs/assets/wordmark-light.svg" width="300" height="70" alt="UI Foundry · 界面工坊" />
+  </picture>
+</p>
 
-**你说产品目标，AI 负责设计判断。**
+<h3 align="center">让你的 Agent，更懂设计。</h3>
 
-[English](README.md) · 简体中文
+<p align="center">面向网页与 App 的设计 Skill，让界面好看，也好用。</p>
 
-[开始安装](#安装) · [ClawHub](https://clawhub.ai/theosunny/skills/ui-foundry) · [下载 ZIP](https://github.com/theosunny/ui-foundry/releases) · [验证记录](docs/validation.md)
+<p align="center">
+  <a href="#start"><strong>开始使用</strong></a> &nbsp;&nbsp;
+  <a href="docs/installation.zh-CN.md">选择你的 Agent</a> &nbsp;&nbsp;
+  <a href="https://clawhub.ai/theosunny/skills/ui-foundry">ClawHub</a> &nbsp;&nbsp;
+  <a href="README.md">English</a>
+</p>
 
-面向网页、产品工作台和原生 App 的设计主理人 Skill。把“满屏文字”“输入太多”“App 像网页”变成具体的设计决策，再通过真实界面和实际任务核对结果。
+<p align="center">
+  <picture>
+    <source media="(max-width: 600px)" srcset="docs/assets/interface-study-mobile.zh-CN.svg" />
+    <img src="docs/assets/interface-study.zh-CN.svg" width="1200" alt="界面设计示例：聚焦内容的发布工作台，以及直接选择日期的移动端排期面板。" />
+  </picture>
+  <br/>
+  <sub>原创界面示例 · 虚构内容 · 用于展示设计思路，非已上线 App。</sub>
+</p>
 
-## 安装
+**你不必先学会设计，才能做出一个好产品。**
 
-运行一条命令，然后选择你使用的 Agent：
+说清楚用户要做什么，剩下的设计判断交给 Agent：哪些内容该出现、哪些可以省掉、操作怎么更顺手、做完怎么检查。UI Foundry 帮它把这些细节想清楚，让你专注重要的决定。
+
+<p align="center">
+  <strong>网页 · 产品工作台 · 原生 App</strong><br/>
+  <sub>开源 · MIT-0 · Skill 无需额外服务或 API key</sub>
+</p>
+
+<a id="start"></a>
+
+## 安装一次，从你的想法开始
 
 ```sh
 npx skills add theosunny/ui-foundry -g
 ```
 
-这个安装器需要 **Node.js 22.20+**。`-g` 表示跨项目使用；去掉它，只安装到当前项目。Skill 的设计流程本身不要求配置 Node.js、API key 或 Python。
+在安装器里选择 **Codex、Claude Code、Cursor、OpenCode 或 OpenClaw**，然后直接说：
 
-通过 [Skills CLI](https://github.com/vercel-labs/skills) 可选择 **Codex、Claude Code、Cursor、OpenCode、OpenClaw** 等目标。指定客户端、ClawHub 和免终端安装方法见[完整安装说明](docs/installation.zh-CN.md)。
+> 用 UI Foundry 把这个产品做好看、做顺手。设计细节你来定，让主要任务更省力，做完检查实际效果，保留已有的好用功能。
 
-## 然后，正常说需求
+一个想法、一张现有页面、一个仓库，或一份草图，都能作为起点。
 
-> 用 UI Foundry 改好这个产品。替我做视觉和交互决策，保留已有能力，完成后自己验证；让我只做影响产品的重要决策。
+<details>
+<summary>安装要求、其他方式与调用方法</summary>
 
-也可以只做其中一件事：
+[Skills CLI](https://github.com/vercel-labs/skills) 需要 **Node.js 22.20+**。`-g` 表示跨项目使用；去掉它，只安装到当前项目。Skill 本身无需配置 Node.js 或 Python。
 
-| 你需要 | 直接说 |
+Codex 中可用 **`$ui-foundry`** 明确调用。其他客户端使用各自的 Skill 选择器或调用格式；按客户端要求重新加载。
+
+[指定客户端与手动安装](docs/installation.zh-CN.md) · [ClawHub](https://clawhub.ai/theosunny/skills/ui-foundry) · [下载 ZIP](https://github.com/theosunny/ui-foundry/releases)
+
+</details>
+
+## 把功夫花在这些细节上
+
+| 视觉有整体感 | 用起来更省力 | 做完，真的检查 |
+| --- | --- | --- |
+| 构图、字体、层次和状态一起设计。App 按移动端的习惯来做。 | 已有信息直接用，操作放在内容旁，需要时才让用户补充。 | 看实际页面，走真实任务。发现问题就修，再核对结果。 |
+
+不预设某套配色或组件库。沿用项目合适的方向，保留有用的写作和高效表单，分别检查“看起来好不好”和“用起来顺不顺”。
+
+## 你在哪一步，就从哪一步开始
+
+| 手上有什么 | 直接这样说 |
 | --- | --- |
-| 做一个新 App | “用 UI Foundry 设计并实现这个 iPhone App，方向你来定。” |
-| 减少使用负担 | “这个页面让我读太多、填太多，把任务做得更顺手。” |
-| 给其他 Agent 的提示词 | “把这个想法变成完整设计任务书，先不改代码。” |
-| 改进设计方法 | “找出这次设计失败的原因，修正 Skill 并复测。” |
+| **一个想法** | “设计并实现这个 iPhone App，方向你来定。” |
+| **一个难用的页面** | “这里让我读太多、填太多，把任务做得更顺手。” |
+| **要交给其他 Agent 的需求** | “把想法整理成完整设计任务书，先不改代码。” |
+| **一个不满意的结果** | “找出这次设计失败的原因，修正后再检查。” |
 
-Codex 中可明确使用 **`$ui-foundry`**。其他客户端使用各自的 Skill 选择器或调用方式；安装后按客户端要求重新加载。
+流程很简单：**理解任务 → 设计 → 实现 → 检查 → 改进**。检查时分清已验证、明确有问题和缺少证据；能构建成功，只是其中一步。
 
-## 它会改变什么
+## Skill 里有什么
 
-| 常见问题 | UI Foundry 要求 Agent 做什么 |
-| --- | --- |
-| 让你逐项指定控件 | 主动确定人群、任务和一致的设计方向 |
-| 用大段说明补救交互 | 复用上下文、合理默认和直接操作 |
-| 从一种模板换到另一种模板 | 一起设计构图、排版、密度、状态和动效 |
-| 把桌面网页压进手机 | 按平台处理导航、触摸、键盘和安全区 |
-| 能构建就说设计完成 | 分别审核视觉品质与任务可用性 |
-| 出一次问题就堆一条口号 | 找根因，用相关反例检验修正 |
+设计方法、审核参考和记录模板随包提供。可选脚本位于已安装 Skill 的 `ui-foundry/scripts/check_design_gate.py`，由 Agent 定位，**你不需要手动运行 Python**。它检查记录格式，不认证审美或证据真假。
 
-保留有用的自由写作、高效专业表单和行动前的必要信息。不强制使用某套框架、配色或组件库。
+[查看 Skill](skills/ui-foundry/SKILL.md) · [审核方法](skills/ui-foundry/references/review.md) · [进阶脚本说明](docs/review-records.md#中文)
 
-## 安装的是 Skill，不是又一个要配置的 App
+<details>
+<summary>语言、验证范围与隐私</summary>
 
-安装、说目标、让 Agent 开始工作。参考材料、审核模板与可选脚本都随 Skill 分发：
+README 提供中英文版本。Skill 内部指令目前使用中文，你可以要求 Agent 用偏好的语言输出。
 
-```text
-ui-foundry/                 # 已安装的 Skill 根目录
-├── SKILL.md
-├── agents/openai.yaml
-├── references/
-├── assets/review-record.json
-└── scripts/check_design_gate.py
-```
-
-**普通使用不需要手动运行 Python。** 可选脚本只检查审核记录格式，不认证审美或证据真假。需要时由 Agent 从已安装的 Skill 目录定位，不会去你的项目里猜测 `scripts/` 目录。[进阶审核说明 →](docs/review-records.md#中文)
-
-## 能力与边界
-
-README 提供中英文版本。Skill 内部指令目前使用中文；你可以要求 Agent 用偏好的语言输出。
-
-安装成功不代表每个客户端的行为都一样；浏览器检查也不能代替原生 App 验收。[实际验证范围](docs/validation.md)单独记录。
+安装成功不代表每个客户端行为相同，浏览器检查也不能代替原生 App 验收。[行为验证](docs/validation.md)与[安装验证](docs/installation-validation.md)分别记录实际范围。上方界面是原创示意，不是实测的前后对比成果。
 
 UI Foundry 提供设计判断与审核流程，不能保证每次产出都完美。公开包不含私人偏好、聊天记录、凭据或真实用户资料，也不会自动上传项目数据或发布自身更新。
 
-## 反馈
+</details>
 
-发现问题可以[提交 Issue](https://github.com/theosunny/ui-foundry/issues)，提供虚构或脱敏案例：原始要求、预期行为、实际结果和使用的客户端。截图和日志中请移除私人信息。
+## 一起把它做好
+
+发现问题可以[提交 Issue](https://github.com/theosunny/ui-foundry/issues)，附上虚构或脱敏案例：你的要求、预期结果、实际结果和客户端。有用的反馈，会帮助改进这套方法。
 
 [MIT-0 许可](LICENSE) · [版本记录](CHANGELOG.md) · [参考致谢](ACKNOWLEDGMENTS.md)
