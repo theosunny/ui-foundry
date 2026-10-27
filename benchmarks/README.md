@@ -54,7 +54,7 @@ From the repository root, Node 24 and an installed Chrome channel are required. 
 cd benchmarks
 npm ci --ignore-scripts
 python3 ../tooling/package_skill.py
-node check_release.mjs ../dist/ui-foundry-0.1.2.zip
+node check_release.mjs ../dist/ui-foundry-0.2.0.zip
 node check_schedule.mjs runs/2026-10-27/pilot --output output/replay/schedule A B
 node check_reading.mjs runs/2026-10-27/repair/reading --output output/replay/reading
 node check_foundation.mjs --css ../skills/ui-foundry/assets/web-foundation.css --output output/replay/foundation
@@ -63,6 +63,8 @@ node check_foundation.mjs --css ../skills/ui-foundry/assets/web-foundation.css -
 The pilot command intentionally exits nonzero because it reproduces the preserved empty-list defect. The release command verifies the **actual ZIP and manifest**, extracts a fresh copy, and tests those installed assets; use the matching archive version. Each release check creates a new ignored evidence directory. Other replays need an explicit, separate output directory. The runners reject output under `benchmarks/runs/`, or any output that overlaps its input; committed evidence is read-only. Use ignored `output/` for local replay evidence and create a new attempt only when recording a new repair.
 
 For the optional HeroUI fixture, run `npm ci --ignore-scripts` and `npm run verify` inside `integrations/heroui/`; its locked dependencies and scope are documented there. This does not add HeroUI to the public Skill's dependencies.
+
+The release gate also installs and builds the shipped Web interaction kit **from the verified archive**, then operates the demo and a separate deterministic failure probe. See [component runner](integrations/web-patterns/README.md) and [failures and repairs](../docs/component-kit-verification.md). Runtime dependencies stay in the isolated extraction, never in canonical Skill source.
 
 ## 复测与自动修复
 

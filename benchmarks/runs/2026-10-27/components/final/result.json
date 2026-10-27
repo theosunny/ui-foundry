@@ -1,0 +1,77 @@
+{
+  "runner": "check.mjs",
+  "kit": "verified extracted package",
+  "fixture": {
+    "demo": "offline fixture places only",
+    "probe": "deterministic, network-free provider"
+  },
+  "browser": {
+    "version": "156.0.8078.48"
+  },
+  "checks": [
+    {
+      "name": "demo calendar opens and selects date",
+      "status": "pass",
+      "evidence": {
+        "text": "2026/10/15"
+      }
+    },
+    {
+      "name": "demo saves, reloads and cancels edit without replacing saved record",
+      "status": "pass",
+      "evidence": {
+        "before": "{\"title\":\"产品讨论\",\"date\":\"2026-10-28\",\"place\":{\"id\":\"fixture:river\",\"label\":\"河畔咖啡\",\"address\":\"滨江区江南大道\",\"coordinateSystem\":null,\"source\":\"fixture\"},\"id\":\"f986cdd0-9b0e-495f-bb62-6864e9ab42eb\"}",
+        "after": "{\"title\":\"产品讨论\",\"date\":\"2026-10-28\",\"place\":{\"id\":\"fixture:river\",\"label\":\"河畔咖啡\",\"address\":\"滨江区江南大道\",\"coordinateSystem\":null,\"source\":\"fixture\"},\"id\":\"f986cdd0-9b0e-495f-bb62-6864e9ab42eb\"}"
+      }
+    },
+    {
+      "name": "demo mobile fits 390px and reduced-motion removes opened popover animation",
+      "status": "pass",
+      "evidence": {
+        "width": 390,
+        "body": 390,
+        "document": 390,
+        "animation": "1e-05s"
+      }
+    },
+    {
+      "name": "invalid stored record is ignored",
+      "status": "pass",
+      "evidence": {}
+    },
+    {
+      "name": "empty result has manual fallback",
+      "status": "pass",
+      "evidence": {
+        "selected": "楼下大厅手动地点"
+      }
+    },
+    {
+      "name": "probe prevents stale result and reports provider/remote failure",
+      "status": "pass",
+      "evidence": {
+        "starts": [
+          "慢",
+          "新"
+        ],
+        "options": [
+          "新结果测试地址"
+        ],
+        "saves": 1
+      }
+    },
+    {
+      "name": "IME composition defers searches and manual Enter does not commit",
+      "status": "pass",
+      "evidence": {
+        "before": [],
+        "committedDuringComposition": 0
+      }
+    }
+  ],
+  "errors": [],
+  "summary": {
+    "pass": 7,
+    "fail": 0
+  }
+}

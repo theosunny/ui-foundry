@@ -67,6 +67,10 @@ In Codex, invoke **`$ui-foundry`** explicitly if needed. Other clients use their
 
 It includes ready-to-use typography, spacing, light/dark color tokens and a working interface example. Your agent selects and adapts them to the task, preserves an accepted project identity and uses compatible components. You don't have to choose a library or invent a palette. [See the complete system](docs/design-system.md).
 
+**Common interactions are part of the design.** Dates, search, places, selection, uploads, navigation and feedback route to suitable Web, iOS or Android controls. The package includes a runnable Web interaction kit, a server-side place-search adapter and a SwiftUI reference. The agent connects data, cancellation, errors and meaningful motion. [Component kit and verified scope](docs/component-kit.md).
+
+The standard extends to unnamed scenarios: reuse common implementations or design for a special task within explicit data, platform, state and verification requirements. Quality requirements stay consistent; creative decisions remain open.
+
 ## Start wherever you are
 
 | What you have | What to ask |

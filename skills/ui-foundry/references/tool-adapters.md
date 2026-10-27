@@ -14,6 +14,8 @@
 
 ## 采用前检查
 
+具体控件根据 [场景组件路由](component-patterns.md) 决定。框架适配只是第一层：地点需要搜索/地图服务及地点对象，日期需要正确的日期语义，搜索需要结果状态和过期请求处理。包内可复用实现位于 `assets/web-patterns/`、`assets/place-service/` 和 `assets/native-patterns/`；按任务读取对应部分，不把整个示例应用塞入目标产品。
+
 先检查已安装版本、许可、包体、CSS/reset、token 命名、暗色主题、icon、国际化和现有组件覆盖率。确认触发、键盘、焦点、禁用、加载、错误、长文本、触摸目标与动画减弱设置仍符合当前交互契约。
 
 HeroUI v3 仅在 React 19+ 与 Tailwind CSS v4 兼容时采用。其 React 包为 `@heroui/react`，样式包为 `@heroui/styles`；全量入口需要先 `@import "tailwindcss"`，再 `@import "@heroui/styles"`。局部 CSS 仍依赖 utilities、variants 和 theme prelude。接入前在可回退变更中确认 Provider、主题变量和 CSS 层级不与现有系统冲突；不要凭文档宣布已完成集成。Agent 自行完成适配选择，不让用户从库清单中挑选。

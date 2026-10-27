@@ -15,6 +15,7 @@
 | Reading repair | 9/9; direct links, persistent read state, exact Undo, empty state, no forced typing | Concrete defect fixed; now a regression case, not held-out evidence |
 | HeroUI adapter | Build plus 3/3 Chrome checks on genuine locked components | Tested integration, not proof every HeroUI product is good |
 | Existing-brand counterexample | Brief keeps charcoal/red brand, React 18/Tailwind 3/shadcn; selects public introduction rather than workspace | Routing preserved; document-only, not rendered evidence |
+| 0.2.0 component release | Actual 31-file ZIP: 22 browser checks; server adapter 7 mocked groups; iOS 17 typecheck and 12 civil-date checks | Integration/regression evidence, not a new blind generation win; no live map or native runtime claim |
 
 ## Inspect the work
 
@@ -25,6 +26,7 @@
 - [Reading forward-check manifest](runs/2026-10-27/transfer/manifest.json), [initial artifact](runs/2026-10-27/transfer/reading/), [repair](runs/2026-10-27/repair/reading/)
 - [HeroUI fixture, versions and build observations](integrations/heroui/report.md), [browser results](integrations/heroui/result.json)
 - [Counterexample request, criteria and brief](runs/2026-10-27/counterexample/): existing brand and incompatible stack remain intact; known trial terms remain beside the CTA. The brief's unconfirmed input workflow is provisional, not an established product capability.
+- [Component failures and repairs](../docs/component-kit-verification.md), [initial observations](runs/2026-10-27/components/initial/), [final component evidence](runs/2026-10-27/components/final/): actual calendar and combobox operation, persistence, stale searches, failure recovery and IME checks. Independent screenshot review was scoped to visible states.
 
 ### Real reference, after repair
 

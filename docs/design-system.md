@@ -8,6 +8,7 @@ UI Foundry combines **design decisions, concrete visual foundations, component a
 | Usable foundation | Original scoped CSS; runnable local scheduling reference with editing, draft retention and persistence | [CSS](../skills/ui-foundry/assets/web-foundation.css), [reference](../skills/ui-foundry/assets/workspace-reference.html); fictional demo, not a production backend |
 | Interaction implementation | Object selection, direct editing, feedback, undo patterns; existing components take precedence | [Practice](../skills/ui-foundry/references/design-practice.md); do not transplant the reference's domain into another product |
 | Stack adapters | HeroUI for compatible React/Tailwind projects; existing shadcn/Base UI; plain HTML; native toolkit routing | [Adapters](../skills/ui-foundry/references/tool-adapters.md); installing a library does not certify the product |
+| Task components | Platform routing for dates, places, search, selection, files, navigation and feedback; reusable Web and server code plus SwiftUI example | [Component kit](component-kit.md); actual service connection and native execution remain separate checks |
 | Validation | Browser task checks, same-content screenshots, contrast/focus/layout checks, independent review | [Benchmark](../benchmarks/README.md); visual and functional results remain separate |
 | Improvement | Retained failure, diagnosed cause, new attempt, original regression and a new-task check | [Maintenance](../skills/ui-foundry/references/maintenance.md); authorized changes only |
 

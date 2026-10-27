@@ -1,0 +1,60 @@
+{
+  "runner": "check.mjs",
+  "browser": {
+    "engine": "chromium",
+    "channel": "installed Chrome",
+    "version": "156.0.8078.48"
+  },
+  "checks": [
+    {
+      "name": "HeroUI date picker opens calendar and retains local YYYY-MM-DD",
+      "status": "error",
+      "evidence": {
+        "message": "locator.click: Timeout 3500ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[role=\"dialog\"] [role=\"button\"]').filter({ hasText: '15' }).last()\u001b[22m\n\u001b[2m    - locator resolved to <div data-rac=\"\" tabindex=\"-1\" role=\"button\" class=\"calendar__cell\" data-slot=\"calendar-cell\" aria-label=\"2026年10月15日星期四\" data-react-aria-pressable=\"true\">15</div>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <body>…</body> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <body>…</body> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    7 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <body>…</body> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n"
+      }
+    },
+    {
+      "name": "query chooses a fixture place, saves then undo clears saved record",
+      "status": "error",
+      "evidence": {
+        "message": "locator.click: Timeout 3500ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[role=\"dialog\"] [role=\"button\"]').filter({ hasText: '15' }).last()\u001b[22m\n\u001b[2m    - locator resolved to <div data-rac=\"\" tabindex=\"-1\" role=\"button\" class=\"calendar__cell\" data-slot=\"calendar-cell\" aria-label=\"2026年10月15日星期四\" data-react-aria-pressable=\"true\">15</div>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <body>…</body> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <body>…</body> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    7 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <body>…</body> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n"
+      }
+    },
+    {
+      "name": "out-of-order search cannot replace newer query",
+      "status": "pass",
+      "evidence": {
+        "labels": [
+          "城市图书馆西湖区文三路"
+        ]
+      }
+    },
+    {
+      "name": "provider failure gives retry and manual fallback",
+      "status": "error",
+      "evidence": {
+        "message": "locator.waitFor: Timeout 3500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '重试' }) to be visible\u001b[22m\n"
+      }
+    },
+    {
+      "name": "390px viewport stays within width and respects reduced motion",
+      "status": "pass",
+      "evidence": {
+        "viewport": 390,
+        "body": 390,
+        "document": 390,
+        "motion": "1e-05s"
+      }
+    }
+  ],
+  "observedErrors": [
+    {
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    }
+  ],
+  "summary": {
+    "pass": 2,
+    "fail": 3
+  }
+}

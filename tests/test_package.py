@@ -37,9 +37,19 @@ class PackageTests(unittest.TestCase):
             "SKILL.md", "LICENSE", "agents/openai.yaml",
             "references/design-practice.md", "references/review.md",
             "references/maintenance.md", "assets/review-record.json",
-            "references/visual-recipes.md", "references/tool-adapters.md",
+            "references/visual-recipes.md", "references/tool-adapters.md", "references/component-patterns.md",
             "assets/web-foundation.css", "assets/workspace-reference.html",
             "scripts/check_design_gate.py", ".clawhubignore",
+            "assets/native-patterns/MeetingEditor.swift",
+            "assets/place-service/README.md", "assets/place-service/amap-place-service.mjs",
+            "assets/place-service/route-handler.mjs",
+            "assets/web-patterns/README.md", "assets/web-patterns/MeetingPicker.tsx",
+            "assets/web-patterns/PlacePicker.tsx", "assets/web-patterns/demo.tsx",
+            "assets/web-patterns/http-provider.ts", "assets/web-patterns/index.html",
+            "assets/web-patterns/index.ts", "assets/web-patterns/package-lock.json",
+            "assets/web-patterns/package.json", "assets/web-patterns/styles.css",
+            "assets/web-patterns/tsconfig.json", "assets/web-patterns/types.ts", "assets/web-patterns/usePlaceSearch.ts",
+            "assets/web-patterns/vite.config.ts",
         })
         for path in SKILL.rglob("*"):
             self.assertFalse(path.is_symlink(), str(path))

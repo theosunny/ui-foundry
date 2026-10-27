@@ -11,6 +11,7 @@
 | 产品内选择、阅读、完成、比较或编辑对象 | 精密工作台，任务简单时用单列对象列表 | 不因内容与阅读有关就改成营销首屏 |
 | 产品介绍、案例、文档入口、单一转化 | 编辑式产品介绍 | 多对象连续操作改用精密工作台 |
 | 原生 iOS | iOS 原生方向 | 不把网页 CSS 压进手机框 |
+| 原生 Android | Material 3 与项目品牌，按窗口大小选导航 | 不照抄 iOS 控件外观或缩小桌面布局 |
 
 共享基线：正文 15–16px、行高 1.5–1.65；小标签 12–13px；输入与按钮至少 44px 高；触控目标至少 44×44px。中文优先 `PingFang SC, Hiragino Sans GB, Microsoft YaHei, Noto Sans CJK SC, system-ui, sans-serif`；代码或等宽数据用 `ui-monospace, SFMono-Regular, Menlo, monospace`。标题不要仅靠放大正文：字重 600–700、较紧行高 1.1–1.25，中文避免过度负字距。
 
@@ -43,5 +44,7 @@
 使用 NavigationStack、large/inline title、List/Form、toolbar、sheet、context menu、swipe action 和系统 SF Symbols；颜色使用 `Color.primary`、`secondary`、`accentColor`、`systemBackground`、`secondarySystemBackground`、`separator` 与语义红黄绿，支持浅深色和辅助功能对比。编辑放在原生表单或对象详情，保存置 navigation bar 或键盘工具栏，依任务支持 Done/Cancel/自动保存。对象选择用列表、分段控件或可搜索选择页，不能依赖悬停和隐藏抽屉。遵守安全区、动态字体、VoiceOver、触觉反馈及返回手势；必须在真机或模拟器检查键盘、长中文、文字放大、暗色和横竖屏。网页截图或手机壳图不算验证。
 
 ## 交付时
+
+Android 默认使用项目 Material 3 typography、colorScheme、shapes 与 Compose 控件；导航、底部面板、系统返回、IME、深色与字体缩放跟随平台。触控目标通常至少 48dp，文字使用 sp，不能直接复用 Web px 尺寸。已有定制品牌仍保留。常用控件、状态与动效按 [场景组件](component-patterns.md) 选择；平台文档不等于已在设备运行。
 
 从 [web-foundation.css](../assets/web-foundation.css) 复制 token 和少量原语，再贴合现有栈、品牌和任务。它不是组件库，也不承诺未实现控件。先实际检查默认与窄屏，再检查本次受影响的长内容、空态、错误、焦点和动态效果；提供深色时检查深色。配方若产生重复卡片、大段说明、空洞的指标或主操作被挤出首屏，回到对象和操作重新构图，不能只换 accent 色。

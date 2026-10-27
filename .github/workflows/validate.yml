@@ -41,11 +41,36 @@ jobs:
         working-directory: benchmarks
       - run: npx playwright install --with-deps chrome
         working-directory: benchmarks
+      - run: node --test tests/test_place_service.mjs
       - run: python3 tooling/package_skill.py
       - run: node benchmarks/check_release.mjs dist/ui-foundry-*.zip
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: always()
         with:
           name: current-foundation-browser-evidence
-          path: output/release-browser/
+          path: |
+            output/release-browser/**/result.json
+            output/release-browser/**/observation.json
+            output/release-browser/**/archive-receipt.json
+            output/release-browser/**/*.png
+            !output/release-browser/**/node_modules/**
+            !output/release-browser/**/installed/**
+            !output/release-browser/**/probe/**
           if-no-files-found: warn
+  native:
+    name: Native compilation and date semantics
+    runs-on: macos-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: iOS 17 semantic typecheck (warnings retained)
+        run: |
+          UI_FOUNDRY_IOS_SDK="$(xcrun --sdk iphonesimulator --show-sdk-path)"
+          xcrun swiftc -sdk "$UI_FOUNDRY_IOS_SDK" -target arm64-apple-ios17.0-simulator -typecheck \
+            skills/ui-foundry/assets/native-patterns/MeetingEditor.swift
+      - name: Run 12 civil-date semantics
+        run: |
+          UI_FOUNDRY_NATIVE_CHECK="$(mktemp -d)/native-date-check"
+          xcrun swiftc skills/ui-foundry/assets/native-patterns/MeetingEditor.swift \
+            tests/native_date_check.swift -o "$UI_FOUNDRY_NATIVE_CHECK"
+          "$UI_FOUNDRY_NATIVE_CHECK"

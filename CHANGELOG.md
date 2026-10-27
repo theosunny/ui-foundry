@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0 — 2026-10-27
+
+- Task-aware common-component routing for Web, SwiftUI and Android Compose: dates, search, places, selection, files, editing, navigation and feedback.
+- An extensible interaction contract chooses between built-in, existing, mature and custom implementations; it fixes quality requirements without prescribing one visual style or limiting the agent to the example catalog.
+- Reusable Web interaction kit with mature controls and explicit provider boundaries; server-only AMap place-search adapter and SwiftUI reference.
+- Civil-date, committed-place, IME, stale-search, cancellation and motion guidance tied to actual data/state behavior.
+- Separate evidence for browser behavior, native compilation/date semantics, mocked provider integration and unverified live service/device paths.
+
 ## 0.1.2 — 2026-10-27
 
 - Standard MIT license for this version; previously published MIT-0 archives remain unchanged.
