@@ -27,7 +27,7 @@ jobs:
             dist/ui-foundry-*.manifest.json
           if-no-files-found: error
   browser:
-    name: Current web foundations
+    name: Release archive web foundations
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -41,7 +41,8 @@ jobs:
         working-directory: benchmarks
       - run: npx playwright install --with-deps chrome
         working-directory: benchmarks
-      - run: node benchmarks/check_release.mjs
+      - run: python3 tooling/package_skill.py
+      - run: node benchmarks/check_release.mjs dist/ui-foundry-*.zip
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: always()
         with:

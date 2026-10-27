@@ -1,13 +1,31 @@
 import { createServer } from "node:http";
-import { access, readFile, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import { constants } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { dirname, join, resolve } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 import { chromium } from "playwright";
 
 const root = dirname(fileURLToPath(import.meta.url));
-const defaultDirectory = join(root, "runs/2026-10-27/transfer/reading");
-const targetDirectory = process.argv[2] ? resolve(process.argv[2]) : defaultDirectory;
+const usage = "Usage: node check_reading.mjs INPUT_DIRECTORY --output OUTPUT_DIRECTORY";
+const arguments_ = process.argv.slice(2);
+const outputFlag = arguments_.indexOf("--output");
+if (arguments_.length !== 3 || outputFlag !== 1 || !arguments_[0] || !arguments_[2]) throw new Error(usage);
+const targetDirectory = resolve(arguments_[0]);
+const outputDirectory = resolve(arguments_[2]);
+
+function isWithin(path, parent) {
+  const pathFromParent = relative(parent, path);
+  return pathFromParent === "" || (!pathFromParent.startsWith(`..${process.platform === "win32" ? "\\" : "/"}`) && pathFromParent !== ".." && !isAbsolute(pathFromParent));
+}
+
+function assertSeparateOutput(input, output) {
+  const historicalRuns = resolve(root, "runs");
+  if (isWithin(output, historicalRuns)) throw new Error(`Output directory must not be inside preserved benchmark evidence: ${historicalRuns}`);
+  if (isWithin(output, input) || isWithin(input, output)) throw new Error(`Output directory must be separate from input directory. Input: ${input}; output: ${output}`);
+}
+
+assertSeparateOutput(targetDirectory, outputDirectory);
+await mkdir(outputDirectory, { recursive: true });
 const storageKey = "uf-reading-benchmark-v1";
 const articles = JSON.parse(await readFile(join(root, "tasks/reading/articles.json"), "utf8"));
 
@@ -42,6 +60,8 @@ const server = await serve();
 const browser = await chromium.launch({ channel: "chrome" });
 const result = {
   runner: "benchmarks/check_reading.mjs",
+  source_directory: targetDirectory,
+  output_directory: outputDirectory,
   source_data: "benchmarks/tasks/reading/articles.json",
   server: "loopback HTTP",
   browser: { engine: "chromium", channel: "installed Chrome channel", version: browser.version() },
@@ -98,8 +118,8 @@ async function savedArticles(page) {
 
 try {
   try {
-    await inPage({}, (page) => page.screenshot({ path: join(targetDirectory, "initial-1280x900.png"), fullPage: false }));
-    await inPage({ viewport: { width: 390, height: 844 } }, (page) => page.screenshot({ path: join(targetDirectory, "initial-390x844.png"), fullPage: false }));
+    await inPage({}, (page) => page.screenshot({ path: join(outputDirectory, "initial-1280x900.png"), fullPage: false }));
+    await inPage({ viewport: { width: 390, height: 844 } }, (page) => page.screenshot({ path: join(outputDirectory, "initial-390x844.png"), fullPage: false }));
   } catch (error) {
     result.observed_errors.push({ type: "runner", check: "initial screenshots", message: error.message });
   }
@@ -200,6 +220,6 @@ result.summary = {
   fail: result.checks.filter((item) => item.status === "fail").length,
   error: result.checks.filter((item) => item.status === "error").length,
 };
-await writeFile(join(targetDirectory, "observation.json"), `${JSON.stringify(result, null, 2)}\n`);
+await writeFile(join(outputDirectory, "observation.json"), `${JSON.stringify(result, null, 2)}\n`);
 console.log(`reading: ${result.summary.pass} pass, ${result.summary.fail} fail, ${result.summary.error} error`);
 if (result.checks.some((item) => item.status !== "pass")) process.exitCode = 1;

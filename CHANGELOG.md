@@ -8,6 +8,7 @@
 - Explicit automatic repair within authorized scope, with original-case and counterexample checks; no claim of guaranteed visual quality.
 - Record parser rejects duplicate JSON members and malformed status types.
 - Deterministic allowlisted ZIP, per-file manifest, cross-platform CI and contributor/security/release documentation.
+- Browser release checks run from a verified, freshly extracted ZIP; replay commands keep historical evidence separate from new output.
 
 - Redesigned the English and Chinese README opening with an original wordmark, localized interface illustrations, responsive mobile artwork and a shorter introduction.
 - Kept the quick start prominent and moved advanced details into expandable sections. The installable skill now includes concrete design foundations as well as workflow guidance.

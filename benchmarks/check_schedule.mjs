@@ -1,13 +1,31 @@
 import { createServer } from "node:http";
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
-import { dirname, join, resolve } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 import { chromium } from "playwright";
 
 const root = dirname(fileURLToPath(import.meta.url));
-const runRoot = process.argv[2] ? resolve(process.argv[2]) : join(root, "runs/2026-10-27/pilot");
-const arms = process.argv.slice(3).length ? process.argv.slice(3) : ["A", "B"];
+const usage = "Usage: node check_schedule.mjs RUN_ROOT --output OUTPUT_ROOT [ARM...]";
+const arguments_ = process.argv.slice(2);
+const outputFlag = arguments_.indexOf("--output");
+if (arguments_.length === 0 || outputFlag !== 1 || !arguments_[outputFlag + 1]) throw new Error(usage);
+const runRoot = resolve(arguments_[0]);
+const outputRoot = resolve(arguments_[outputFlag + 1]);
+const arms = arguments_.slice(outputFlag + 2).length ? arguments_.slice(outputFlag + 2) : ["A", "B"];
 if (arms.some((arm) => !/^[A-Za-z0-9_-]+$/.test(arm))) throw new Error("Arm names must be directory names, not paths");
+
+function isWithin(path, parent) {
+  const pathFromParent = relative(parent, path);
+  return pathFromParent === "" || (!pathFromParent.startsWith(`..${process.platform === "win32" ? "\\" : "/"}`) && pathFromParent !== ".." && !isAbsolute(pathFromParent));
+}
+
+function assertSeparateOutput(input, output) {
+  const historicalRuns = resolve(root, "runs");
+  if (isWithin(output, historicalRuns)) throw new Error(`Output directory must not be inside preserved benchmark evidence: ${historicalRuns}`);
+  if (isWithin(output, input) || isWithin(input, output)) throw new Error(`Output directory must be separate from input directory. Input: ${input}; output: ${output}`);
+}
+
+assertSeparateOutput(runRoot, outputRoot);
 const storageKey = "uf-schedule-benchmark-v1";
 const fields = ["title", "date", "time", "location", "note"];
 
@@ -45,11 +63,15 @@ async function stored(page) {
 }
 
 async function runArm(arm, browser, channel) {
-  const directory = join(runRoot, arm, "schedule");
-  const server = await serve(join(directory, "index.html"));
+  const sourceDirectory = join(runRoot, arm, "schedule");
+  const outputDirectory = join(outputRoot, arm, "schedule");
+  await mkdir(outputDirectory, { recursive: true });
+  const server = await serve(join(sourceDirectory, "index.html"));
   const observation = {
     arm,
     runner: "benchmarks/check_schedule.mjs",
+    source_directory: sourceDirectory,
+    output_directory: outputDirectory,
     server: "loopback HTTP",
     browser: { engine: "chromium", channel, version: browser.version() },
     checks: [],
@@ -92,8 +114,8 @@ async function runArm(arm, browser, channel) {
 
   try {
     try {
-      await withPage({ width: 1280, height: 900 }, undefined, (page) => page.screenshot({ path: join(directory, "initial-1280x900.png"), fullPage: false }));
-      await withPage({ width: 390, height: 844 }, undefined, (page) => page.screenshot({ path: join(directory, "initial-390x844.png"), fullPage: false }));
+      await withPage({ width: 1280, height: 900 }, undefined, (page) => page.screenshot({ path: join(outputDirectory, "initial-1280x900.png"), fullPage: false }));
+      await withPage({ width: 390, height: 844 }, undefined, (page) => page.screenshot({ path: join(outputDirectory, "initial-390x844.png"), fullPage: false }));
     } catch (error) {
       observation.observed_errors.push({ type: "runner", check: "initial screenshots", message: error.message });
     }
@@ -187,7 +209,7 @@ async function runArm(arm, browser, channel) {
     fail: observation.checks.filter((item) => item.status === "fail").length,
     error: observation.checks.filter((item) => item.status === "error").length,
   };
-  await writeFile(join(directory, "observation.json"), `${JSON.stringify(observation, null, 2)}\n`);
+  await writeFile(join(outputDirectory, "observation.json"), `${JSON.stringify(observation, null, 2)}\n`);
   return observation;
 }
 

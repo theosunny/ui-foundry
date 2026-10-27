@@ -1,12 +1,31 @@
 import { createServer } from "node:http";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
-import { dirname, join, resolve } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 import { chromium } from "playwright";
 
 const root = dirname(fileURLToPath(import.meta.url));
-const cssPath = join(root, "../skills/ui-foundry/assets/web-foundation.css");
-const outputDirectory = process.argv[2] ? resolve(process.argv[2]) : join(root, "runs/2026-10-27/foundation/primitives");
+const usage = "Usage: node check_foundation.mjs --css CSS_PATH --output OUTPUT_DIRECTORY";
+const arguments_ = process.argv.slice(2);
+const cssFlag = arguments_.indexOf("--css");
+const outputFlag = arguments_.indexOf("--output");
+if (arguments_.length !== 4 || cssFlag < 0 || outputFlag < 0 || !arguments_[cssFlag + 1] || !arguments_[outputFlag + 1]) throw new Error(usage);
+const cssPath = resolve(arguments_[cssFlag + 1]);
+const outputDirectory = resolve(arguments_[outputFlag + 1]);
+
+function isWithin(path, parent) {
+  const pathFromParent = relative(parent, path);
+  return pathFromParent === "" || (!pathFromParent.startsWith(`..${process.platform === "win32" ? "\\" : "/"}`) && pathFromParent !== ".." && !isAbsolute(pathFromParent));
+}
+
+function assertSeparateOutput(input, output) {
+  const historicalRuns = resolve(root, "runs");
+  if (isWithin(output, historicalRuns)) throw new Error(`Output directory must not be inside preserved benchmark evidence: ${historicalRuns}`);
+  const inputDirectory = dirname(input);
+  if (isWithin(output, inputDirectory) || isWithin(inputDirectory, output)) throw new Error(`Output directory must be separate from CSS source directory. Source: ${input}; output: ${output}`);
+}
+
+assertSeparateOutput(cssPath, outputDirectory);
 await mkdir(outputDirectory, { recursive: true });
 
 const fixture = `<!doctype html>
@@ -59,7 +78,8 @@ const browser = await chromium.launch({ channel: "chrome" });
 const server = await serve();
 const result = {
   runner: "benchmarks/check_foundation.mjs",
-  source_css: "skills/ui-foundry/assets/web-foundation.css",
+  source_css: cssPath,
+  output_directory: outputDirectory,
   server: "loopback HTTP",
   browser: { engine: "chromium", channel: "installed Chrome channel", version: browser.version() },
   checks: [],
