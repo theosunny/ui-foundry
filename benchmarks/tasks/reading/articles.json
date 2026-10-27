@@ -1,0 +1,38 @@
+[
+  {
+    "id": "small",
+    "title": "The small team advantage",
+    "source": "Field notes",
+    "minutes": 4,
+    "url": "https://example.com/articles/small",
+    "done": false,
+    "tag": "preserve-small"
+  },
+  {
+    "id": "craft",
+    "title": "A quieter kind of software",
+    "source": "Studio journal",
+    "minutes": 12,
+    "url": "https://example.com/articles/craft",
+    "done": false,
+    "tag": "preserve-craft"
+  },
+  {
+    "id": "tools",
+    "title": "When tools get out of the way",
+    "source": "Build log",
+    "minutes": 22,
+    "url": "https://example.com/articles/tools",
+    "done": false,
+    "tag": "preserve-tools"
+  },
+  {
+    "id": "defaults",
+    "title": "The cost of another choice",
+    "source": "Design notes",
+    "minutes": 8,
+    "url": "https://example.com/articles/defaults",
+    "done": false,
+    "tag": "preserve-defaults"
+  }
+]

@@ -1,0 +1,193 @@
+{
+  "arm": "B",
+  "runner": "benchmarks/check_schedule.mjs",
+  "server": "loopback HTTP",
+  "browser": {
+    "engine": "chromium",
+    "channel": "installed Chrome channel",
+    "version": "156.0.8078.48"
+  },
+  "checks": [
+    {
+      "name": "note survives date edit",
+      "status": "pass",
+      "evidence": {
+        "note": "date edit draft note"
+      }
+    },
+    {
+      "name": "keyboard submit saves date time and note after reload",
+      "status": "pass",
+      "evidence": {
+        "expected": {
+          "date": "2027-01-12",
+          "time": "08:45",
+          "note": "saved with keyboard"
+        },
+        "rendered": {
+          "date": "2027-01-12",
+          "time": "08:45",
+          "note": "saved with keyboard"
+        },
+        "stored_first_record": {
+          "id": "review",
+          "title": "方案评审",
+          "date": "2027-01-12",
+          "time": "08:45",
+          "location": "线上",
+          "note": "saved with keyboard",
+          "owner": "团队 A"
+        }
+      }
+    },
+    {
+      "name": "second record edit preserves other records and unknown properties",
+      "status": "pass",
+      "evidence": {
+        "before": [
+          {
+            "id": "review",
+            "title": "方案评审",
+            "date": "2026-11-03",
+            "time": "10:00",
+            "location": "线上",
+            "note": "带上交互原型",
+            "owner": "团队 A",
+            "unknown": "preserve-0"
+          },
+          {
+            "id": "workshop",
+            "title": "写作小组",
+            "date": "2026-11-05",
+            "time": "19:30",
+            "location": "二楼活动室",
+            "note": "每人带一段草稿",
+            "owner": "团队 B",
+            "unknown": "preserve-1"
+          },
+          {
+            "id": "walk",
+            "title": "周末散步",
+            "date": "2026-11-07",
+            "time": "09:00",
+            "location": "图书馆门口",
+            "note": "下雨改约",
+            "owner": "团队 C",
+            "unknown": "preserve-2"
+          }
+        ],
+        "after": [
+          {
+            "id": "review",
+            "title": "方案评审",
+            "date": "2026-11-03",
+            "time": "10:00",
+            "location": "线上",
+            "note": "带上交互原型",
+            "owner": "团队 A",
+            "unknown": "preserve-0"
+          },
+          {
+            "id": "workshop",
+            "title": "第二条已编辑",
+            "date": "2026-11-05",
+            "time": "19:30",
+            "location": "新的地点",
+            "note": "每人带一段草稿",
+            "owner": "团队 B",
+            "unknown": "preserve-1"
+          },
+          {
+            "id": "walk",
+            "title": "周末散步",
+            "date": "2026-11-07",
+            "time": "09:00",
+            "location": "图书馆门口",
+            "note": "下雨改约",
+            "owner": "团队 C",
+            "unknown": "preserve-2"
+          }
+        ]
+      }
+    },
+    {
+      "name": "switching away and back retains unsaved note",
+      "status": "pass",
+      "evidence": {
+        "note": "draft survives selection switch"
+      }
+    },
+    {
+      "name": "title and location remain editable",
+      "status": "pass",
+      "evidence": {
+        "expected": {
+          "title": "可编辑安排",
+          "location": "可编辑地点"
+        },
+        "actual": {
+          "title": "可编辑安排",
+          "location": "可编辑地点"
+        }
+      }
+    },
+    {
+      "name": "no redundant name confirmation",
+      "status": "pass",
+      "evidence": {
+        "confirmation_fields": 0,
+        "required_field_ids": [
+          "title",
+          "date",
+          "time"
+        ]
+      }
+    },
+    {
+      "name": "fields have accessible labels",
+      "status": "pass",
+      "evidence": {
+        "labels": {
+          "title": [
+            "安排名称"
+          ],
+          "date": [
+            "日期"
+          ],
+          "time": [
+            "时间"
+          ],
+          "location": [
+            "地点"
+          ],
+          "note": [
+            "备注 可选"
+          ]
+        }
+      }
+    },
+    {
+      "name": "390px viewport has no horizontal overflow with long content",
+      "status": "pass",
+      "evidence": {
+        "viewport_width": 390,
+        "document_width": 390,
+        "body_width": 390
+      }
+    },
+    {
+      "name": "valid empty storage array remains empty and is never reseeded",
+      "status": "fail",
+      "evidence": {
+        "raw_storage": "[]",
+        "rendered_event_count": 3
+      }
+    }
+  ],
+  "observed_errors": [],
+  "summary": {
+    "pass": 8,
+    "fail": 1,
+    "error": 0
+  }
+}

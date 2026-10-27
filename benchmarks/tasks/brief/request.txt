@@ -1,0 +1,1 @@
+Write a ready-to-use design brief in English for an iPhone app that helps a household track food expiry. Choose the design details; don't give me a questionnaire. Dates must come from packaging or the user. We don't have camera recognition. Keep the first version focused. This is a brief only: do not implement an app, claim you ran one, or modify other files.

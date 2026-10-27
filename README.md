@@ -5,14 +5,14 @@
   </picture>
 </p>
 
-<h3 align="center">Give your agent an eye for design.</h3>
+<h3 align="center">Your coding agent. Your design lead.</h3>
 
-<p align="center">A design skill for websites and apps that look good and feel right.</p>
+<p align="center">For independent developers and small teams building without a designer.</p>
 
 <p align="center">
   <a href="#start"><strong>Get started</strong></a> &nbsp;&nbsp;
   <a href="docs/installation.md">Choose your agent</a> &nbsp;&nbsp;
-  <a href="https://clawhub.ai/theosunny/skills/ui-foundry">ClawHub</a> &nbsp;&nbsp;
+  <a href="benchmarks/README.md">Public benchmark</a> &nbsp;&nbsp;
   <a href="README.zh-CN.md">简体中文</a>
 </p>
 
@@ -27,11 +27,11 @@
 
 **You shouldn't have to become a designer to get a well-designed product.**
 
-Describe what people need to do. UI Foundry guides your coding agent through the design decisions: what to show, what to leave out, how it should feel, and how to check the result. You make the important calls; your agent handles the details.
+UI Foundry gives your coding agent a practical design system: **concrete visual foundations, a runnable interface reference, interaction patterns, component adapters and a repair loop**. Bring an idea or an existing screen. Your agent chooses and builds the design; you decide the product goal and important constraints.
 
 <p align="center">
   <strong>Web · Product workspaces · Native apps</strong><br/>
-  <sub>Open source · MIT-0 · No extra service or API key required by the skill</sub>
+  <sub>Public beta · MIT · No extra service or API key required by the skill</sub>
 </p>
 
 <a id="start"></a>
@@ -65,7 +65,7 @@ In Codex, invoke **`$ui-foundry`** explicitly if needed. Other clients use their
 | --- | --- | --- |
 | Composition, typography and states that belong together. A mobile app that behaves like one. | Reuse what's known. Put actions next to the content. Ask for information only when it's needed. | Inspect rendered screens and try the task. Fix observed problems, then check again. |
 
-UI Foundry doesn't prescribe a palette or component library. It works with your project's direction, preserves useful writing and efficient forms, and checks visual quality separately from usability.
+It includes ready-to-use typography, spacing, light/dark color tokens and a working interface example. Your agent selects and adapts them to the task, preserves an accepted project identity and uses compatible components. You don't have to choose a library or invent a palette. [See the complete system](docs/design-system.md).
 
 ## Start wherever you are
 
@@ -78,9 +78,15 @@ UI Foundry doesn't prescribe a palette or component library. It works with your 
 
 The workflow is simple: **understand the task → design → build → inspect → refine**. Reviews distinguish a checked result, a known defect and missing evidence. A successful build alone doesn't settle the design.
 
+## Show the evidence
+
+We compare the same tasks with and without UI Foundry, preserve both outputs, test actual saved data, and review anonymized screens. Failures stay in the record; repairs get a new attempt and a counterexample check. The first pilot is small and does not establish reliable superiority.
+
+[Benchmark & results](benchmarks/README.md) · [Open-source review](docs/open-source-readiness.md) · [What our claims require](docs/claims.md)
+
 ## Inside the skill
 
-Design guidance, review references and a review-record template travel together. An optional helper lives at `ui-foundry/scripts/check_design_gate.py` inside the installed skill. Your agent resolves its location; **you don't need to run Python**. It checks record structure, not beauty or evidence quality.
+Visual recipes, CSS foundations, a runnable reference, component adapters and review tools travel together. An optional helper lives at `ui-foundry/scripts/check_design_gate.py` inside the installed skill. Your agent resolves its location; **you don't need to run Python**. It checks record structure, not beauty or evidence quality.
 
 [Read the skill](skills/ui-foundry/SKILL.md) · [Review workflow](skills/ui-foundry/references/review.md) · [Advanced helper usage](docs/review-records.md)
 
@@ -91,7 +97,7 @@ The READMEs are in English and Chinese. Internal skill instructions currently us
 
 Installation checks don't establish identical behavior in every client. Browser checks don't certify native-app behavior. See the [behavior checks](docs/validation.md) and [installation checks](docs/installation-validation.md) for the actual scope. The interface study above is original illustrative artwork, not a measured before/after result.
 
-UI Foundry guides and reviews design; it cannot guarantee a perfect result every time. Private profiles, chat history, credentials and personal product data are not bundled. It doesn't automatically upload project data or publish its own updates.
+UI Foundry supplies design foundations and an implementation/review workflow; it cannot guarantee a perfect result every time. Private profiles, chat history, credentials and personal product data are not bundled. It doesn't automatically upload project data or publish its own updates.
 
 </details>
 
@@ -99,4 +105,4 @@ UI Foundry guides and reviews design; it cannot guarantee a perfect result every
 
 Found a failure? [Open an issue](https://github.com/theosunny/ui-foundry/issues) with a fictional or redacted example: your request, expected result, actual result and client. Useful feedback helps improve the workflow.
 
-[MIT-0](LICENSE) · [Changelog](CHANGELOG.md) · [Acknowledgments](ACKNOWLEDGMENTS.md)
+[Contribute](CONTRIBUTING.md) · [Security](SECURITY.md) · [MIT](LICENSE) · [Changelog](CHANGELOG.md) · [Acknowledgments](ACKNOWLEDGMENTS.md)

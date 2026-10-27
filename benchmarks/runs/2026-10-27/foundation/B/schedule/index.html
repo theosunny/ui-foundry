@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>小组排期</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #edf1ee; color: #18231f; font: 15px/1.5 "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif; }
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid rgb(34 112 79 / 34%); outline-offset: 2px; }
+    .shell { max-width: 1200px; min-height: 100vh; margin: 0 auto; padding: 28px 28px 48px; }
+    .masthead { display: flex; align-items: end; justify-content: space-between; gap: 24px; padding: 6px 4px 28px; }
+    .eyebrow { margin: 0 0 6px; color: #43715d; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    h1, h2, p { margin: 0; }
+    h1 { font-family: Georgia, "Songti SC", serif; font-size: clamp(30px, 4vw, 45px); font-weight: 600; letter-spacing: -.045em; line-height: 1; }
+    .today { color: #5c6862; font-size: 13px; white-space: nowrap; }
+    .workspace { display: grid; grid-template-columns: 335px minmax(0, 1fr); overflow: hidden; background: #fbfcfa; border: 1px solid #d4dcd6; border-radius: 18px; box-shadow: 0 22px 60px rgb(26 46 37 / 12%); }
+    .agenda { padding: 28px 20px 22px; background: #f4f7f3; border-right: 1px solid #dce3de; }
+    .agenda-header { display: flex; align-items: center; justify-content: space-between; margin: 0 6px 18px; }
+    .agenda h2 { font-size: 18px; letter-spacing: -.02em; }
+    .count { display: grid; min-width: 27px; height: 27px; place-items: center; padding: 0 7px; color: #31684f; background: #dcebe1; border-radius: 99px; font-size: 12px; font-weight: 700; }
+    #events { display: grid; gap: 8px; }
+    .event { position: relative; width: 100%; min-height: 104px; padding: 14px 15px 14px 18px; overflow: hidden; color: #26362e; text-align: left; background: transparent; border: 1px solid transparent; border-radius: 11px; }
+    .event::before { position: absolute; top: 16px; bottom: 16px; left: 6px; width: 3px; content: ""; background: #a6bcb0; border-radius: 4px; }
+    .event:hover { background: #eaf0eb; }
+    .event.active { color: #133525; background: #fff; border-color: #cfdcd3; box-shadow: 0 5px 15px rgb(34 62 47 / 7%); }
+    .event.active::before { background: #27815a; }
+    .event-title { display: block; overflow: hidden; font-size: 15px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .event-when { display: block; margin-top: 6px; color: #64746b; font-size: 13px; }
+    .event-place { display: block; margin-top: 2px; overflow: hidden; color: #7b8881; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+    .editor-pane { display: flex; flex-direction: column; min-width: 0; }
+    .editor-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding: 30px 34px 24px; border-bottom: 1px solid #e2e7e3; }
+    .editor-heading h2 { max-width: 620px; overflow-wrap: anywhere; font-family: Georgia, "Songti SC", serif; font-size: clamp(28px, 3vw, 38px); font-weight: 600; letter-spacing: -.04em; line-height: 1.1; }
+    .editor-heading p { margin-top: 9px; color: #68766e; }
+    .draft-tag { flex: 0 0 auto; padding: 5px 9px; color: #6b756f; background: #f0f3f0; border: 1px solid #dce3de; border-radius: 99px; font-size: 12px; }
+    #editor { padding: 28px 34px 16px; }
+    .schedule-summary { display: grid; grid-template-columns: 1fr 1fr; margin-bottom: 27px; overflow: hidden; border: 1px solid #dce4de; border-radius: 12px; background: #f7faf7; }
+    .summary-item { min-width: 0; padding: 13px 15px; }
+    .summary-item + .summary-item { border-left: 1px solid #dce4de; }
+    .summary-label { display: block; margin-bottom: 2px; color: #728078; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .summary-value { display: block; overflow: hidden; color: #244332; font-size: 15px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 19px 18px; }
+    .field { min-width: 0; }
+    .field--wide { grid-column: 1 / -1; }
+    label { display: block; margin-bottom: 7px; color: #425148; font-size: 13px; font-weight: 700; }
+    input, textarea { width: 100%; color: #18231f; background: #fff; border: 1px solid #cdd8d0; border-radius: 8px; transition: border-color .15s ease, box-shadow .15s ease; }
+    input { height: 45px; padding: 0 12px; }
+    textarea { min-height: 112px; padding: 11px 12px; resize: vertical; }
+    input:hover, textarea:hover { border-color: #99ad9f; }
+    input:focus, textarea:focus { border-color: #3b8a64; box-shadow: 0 0 0 3px rgb(59 138 100 / 12%); outline: 0; }
+    .field-hint { margin-top: 6px; color: #78847e; font-size: 12px; }
+    .savebar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 4px -34px -16px; padding: 18px 34px; background: #f7faf7; border-top: 1px solid #e1e8e2; }
+    #status { min-height: 22px; color: #68766e; font-size: 13px; }
+    #status.saved { color: #187149; font-weight: 700; }
+    #status.draft { color: #946b22; }
+    .primary { min-height: 43px; padding: 0 19px; color: #fff; background: #216e4c; border: 1px solid #216e4c; border-radius: 8px; box-shadow: 0 3px 0 #155238; font-weight: 700; }
+    .primary:hover { background: #185d3e; }
+    .primary:active { transform: translateY(2px); box-shadow: 0 1px 0 #155238; }
+    @media (max-width: 720px) { .shell { padding: 18px 14px 32px; } .masthead { align-items: flex-start; padding: 4px 3px 20px; } .today { display: none; } .workspace { grid-template-columns: 1fr; border-radius: 14px; } .agenda { padding: 19px 14px; border-right: 0; border-bottom: 1px solid #dce3de; } #events { grid-auto-flow: column; grid-auto-columns: minmax(180px, 76%); grid-template-columns: none; overflow-x: auto; padding-bottom: 3px; } .event { min-height: 92px; } .editor-heading { padding: 24px 20px 20px; } #editor { padding: 23px 20px 0; } .savebar { position: sticky; bottom: 0; margin: 4px -20px 0; padding: 15px 20px; } }
+    @media (max-width: 420px) { .form-grid, .schedule-summary { grid-template-columns: 1fr; } .summary-item + .summary-item { border-top: 1px solid #dce4de; border-left: 0; } .editor-heading h2 { font-size: 29px; } .draft-tag { display: none; } .savebar { align-items: flex-start; flex-direction: column; } .primary { width: 100%; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <div><p class="eyebrow">Team calendar</p><h1>小组排期</h1></div>
+      <p class="today">安排集中在此，修改即时可见</p>
+    </header>
+    <div class="workspace">
+      <aside class="agenda" aria-label="安排列表">
+        <div class="agenda-header"><h2>近期安排</h2><span class="count" id="event-count"></span></div>
+        <div id="events"></div>
+      </aside>
+      <section class="editor-pane" aria-labelledby="heading">
+        <header class="editor-heading">
+          <div><h2 id="heading">编辑安排</h2><p>在这里调整时间、地点与备注。</p></div>
+          <span class="draft-tag" id="draft-tag">已保存</span>
+        </header>
+        <form id="editor">
+          <div class="schedule-summary" aria-label="当前安排概览">
+            <div class="summary-item"><span class="summary-label">日期与时间</span><span class="summary-value" id="summary-when"></span></div>
+            <div class="summary-item"><span class="summary-label">地点</span><span class="summary-value" id="summary-location"></span></div>
+          </div>
+          <div class="form-grid">
+            <div class="field field--wide"><label for="title">安排名称</label><input id="title" required></div>
+            <div class="field"><label for="date">日期</label><input id="date" type="date" required></div>
+            <div class="field"><label for="time">时间</label><input id="time" type="time" required></div>
+            <div class="field field--wide"><label for="location">地点</label><input id="location"></div>
+            <div class="field field--wide"><label for="note">备注</label><textarea id="note" placeholder="添加需要带上的材料或临时说明"></textarea><p class="field-hint">备注会和本次修改一起保存。</p></div>
+          </div>
+          <div class="savebar"><p id="status" role="status" aria-live="polite"></p><button class="primary" type="submit">保存更改</button></div>
+        </form>
+      </section>
+    </div>
+  </main>
+  <script>
+    const storageKey = 'uf-schedule-benchmark-v1';
+    const seed = [
+      { id: 'review', title: '方案评审', date: '2026-11-03', time: '10:00', location: '线上', note: '带上交互原型', owner: '团队 A' },
+      { id: 'workshop', title: '写作小组', date: '2026-11-05', time: '19:30', location: '二楼活动室', note: '每人带一段草稿', owner: '团队 B' },
+      { id: 'walk', title: '周末散步', date: '2026-11-07', time: '09:00', location: '图书馆门口', note: '下雨改约', owner: '团队 C' }
+    ];
+    const fields = ['title', 'date', 'time', 'location', 'note'];
+    let records = JSON.parse(localStorage.getItem(storageKey) || 'null') || seed;
+    let selectedId = records[0]?.id;
+    const drafts = new Map();
+    const $ = (id) => document.getElementById(id);
+
+    function selectedRecord() { return records.find((record) => record.id === selectedId); }
+    function formatWhen(record) { return `${record.date} · ${record.time || '未定时间'}`; }
+    function getFormValues() { return Object.fromEntries(fields.map((field) => [field, $(field).value])); }
+    function setDraftState(isDraft) {
+      $('draft-tag').textContent = isDraft ? '有未保存更改' : '已保存';
+      $('status').textContent = isDraft ? '更改会在切换安排时保留为草稿。' : '';
+      $('status').className = isDraft ? 'draft' : '';
+    }
+    function updateSummary(values = getFormValues()) {
+      $('summary-when').textContent = `${values.date || '未选择日期'} · ${values.time || '未定时间'}`;
+      $('summary-location').textContent = values.location || '未填写地点';
+    }
+    function preserveCurrentDraft() {
+      if (!selectedId) return;
+      const current = selectedRecord();
+      const values = getFormValues();
+      const changed = fields.some((field) => values[field] !== String(current[field] || ''));
+      if (changed) drafts.set(selectedId, values); else drafts.delete(selectedId);
+    }
+    function renderList() {
+      $('event-count').textContent = records.length;
+      $('events').replaceChildren(...records.map((record) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = `event${selectedId === record.id ? ' active' : ''}`;
+        button.setAttribute('aria-current', selectedId === record.id ? 'true' : 'false');
+        const shown = { ...record, ...(drafts.get(record.id) || {}) };
+        button.innerHTML = `<span class="event-title"></span><span class="event-when"></span><span class="event-place"></span>`;
+        const parts = button.querySelectorAll('span');
+        parts[0].textContent = shown.title || '未命名安排';
+        parts[1].textContent = formatWhen(shown);
+        parts[2].textContent = shown.location || '未填写地点';
+        button.onclick = () => { preserveCurrentDraft(); selectedId = record.id; renderList(); fill(); };
+        return button;
+      }));
+    }
+    function fill() {
+      const record = selectedRecord();
+      if (!record) return;
+      const values = { ...record, ...(drafts.get(selectedId) || {}) };
+      fields.forEach((field) => { $(field).value = values[field] || ''; });
+      $('heading').textContent = values.title || '未命名安排';
+      updateSummary(values);
+      setDraftState(drafts.has(selectedId));
+    }
+    fields.forEach((field) => $(field).addEventListener('input', () => { preserveCurrentDraft(); $('heading').textContent = $('title').value || '未命名安排'; updateSummary(); setDraftState(drafts.has(selectedId)); renderList(); }));
+    $('editor').onsubmit = (event) => {
+      event.preventDefault();
+      const values = getFormValues();
+      records = records.map((record) => record.id === selectedId ? { ...record, ...values } : record);
+      localStorage.setItem(storageKey, JSON.stringify(records));
+      drafts.delete(selectedId);
+      renderList();
+      fill();
+      $('status').textContent = '已保存。安排列表已更新。';
+      $('status').className = 'saved';
+    };
+    renderList();
+    fill();
+  </script>
+</body>
+</html>

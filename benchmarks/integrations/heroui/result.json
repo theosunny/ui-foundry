@@ -1,0 +1,50 @@
+{
+  "runner": "check.mjs",
+  "packages": {
+    "@tailwindcss/vite": "4.3.3",
+    "@heroui/react": "3.2.6",
+    "@heroui/styles": "3.2.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "tailwindcss": "4.3.3",
+    "vite": "8.3.5"
+  },
+  "browser": {
+    "engine": "chromium",
+    "channel": "installed Chrome",
+    "version": "156.0.8078.48"
+  },
+  "checks": [
+    {
+      "name": "dialog opens, editable labelled input saves visible selection feedback",
+      "status": "pass",
+      "evidence": {
+        "name": "Noor Ali",
+        "feedback": "Noor Ali saved for this fixture session."
+      }
+    },
+    {
+      "name": "Escape closes dialog and focus returns to trigger",
+      "status": "pass",
+      "evidence": {
+        "dialogCount": 0,
+        "activeText": "Edit name"
+      }
+    },
+    {
+      "name": "390px viewport has no horizontal overflow",
+      "status": "pass",
+      "evidence": {
+        "viewport": 390,
+        "document": 390,
+        "body": 390
+      }
+    }
+  ],
+  "observed_errors": [],
+  "summary": {
+    "pass": 3,
+    "fail": 0,
+    "error": 0
+  }
+}

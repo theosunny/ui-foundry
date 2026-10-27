@@ -1,9 +1,9 @@
 ---
 name: ui-foundry
-description: "Design lead for polished websites, product workspaces and native apps. Turn plain-language goals into coherent visual decisions, lower-effort interactions and verified implementation. Use for new UI, redesigns, text-heavy or generic interfaces, mobile experiences that feel like websites, portable design briefs, and improvements to this design workflow. Not for unrelated engineering tasks."
-license: MIT-0
+description: "Design lead with ready-to-use visual foundations, interaction patterns and component adapters for websites and native apps. Choose a complete direction from a plain-language goal, implement it, inspect actual screens and repair failures. Use for new UI, redesigns, text-heavy or generic interfaces, mobile experiences, portable design briefs and design-system improvements."
+license: MIT
 metadata:
-  version: "0.1.1"
+  version: "0.1.2"
   openclaw:
     homepage: "https://github.com/theosunny/ui-foundry"
 ---
@@ -11,6 +11,8 @@ metadata:
 # UI Foundry · 界面工坊
 
 承担设计判断，让用户决定重要的事。交付有辨识度、用起来省力、适合平台的界面；不要把“高级”翻译成某种配色、组件库或满屏动效。
+
+**开箱交付完整设计。** 用户不提供色板、字体或专业提示词时，主动选定构图、排版、色彩、组件和交互。内置底稿提供具体起点；“本 Skill 只有流程，审美留给模型”不符合交付要求。
 
 ## 1. 锁定这次交付
 
@@ -43,7 +45,9 @@ metadata:
 
 ## 3. 用操作减少工作，用设计建立品质
 
-读取 [设计实践](references/design-practice.md)，按平台和任务应用，不机械执行全部清单。
+先读取 [视觉配方](references/visual-recipes.md)，选定一个适合任务的完整起点；用 [设计实践](references/design-practice.md) 减少用户工作，按 [工具适配](references/tool-adapters.md) 接到已有组件与验证工具。Web 可直接采用包内 CSS 底稿，再贴合产品；原生使用平台控件。不要只交一段风格建议或把选库交回用户。
+
+在项目已有设计记录里留下选定的 token、构图、组件来源及版本、关键状态；后续页面沿用。小修无需另建文档。沿用已接受方向时调整对应底稿，不覆盖整个主题。
 
 - 主对象和下一步一眼可见。用直接选择、就地编辑、上下文预览和真实反馈表达能力。
 - 输入前先复用上下文与合理默认。保留有用的自由写作和高效专家表单，不强制语音或逐页向导。

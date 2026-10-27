@@ -1,0 +1,16 @@
+{
+  "reviewer": "fresh-context independent agent",
+  "artifact_mapping": {
+    "X": "B (UI Foundry)",
+    "Y": "A (without UI Foundry)"
+  },
+  "verdict": "prefer X, both contain defects",
+  "limits": [
+    "AI review, not a human usability study",
+    "Documents only; native rendering and runtime not tested"
+  ],
+  "additional_root_observations": [
+    "B defaults to No date on package. An unrecorded date does not establish that packaging has no date; use an unknown/not-recorded state until the user supplies evidence.",
+    "A basic remove-used-food action completes the core inventory lifecycle; it should not itself be classified as scope expansion. B omitted that necessary exit path. Independent reviewer preference is not sufficient acceptance."
+  ]
+}

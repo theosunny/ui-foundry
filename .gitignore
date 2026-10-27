@@ -8,3 +8,4 @@ dist/
 private/
 output/
 .playwright-cli/
+node_modules/

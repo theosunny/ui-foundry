@@ -1,0 +1,25 @@
+{
+  "kind": "held-out single-task forward check after schedule-guided revisions",
+  "model": "inherited platform model; exact resolved id unavailable",
+  "comparison": "none; no claim of causal improvement",
+  "input_sha256": {
+    "CONTRACT.md": "23c80d6277bc501e77dcbf96fdbd228e7a6f4a7d25bf11cc0dab72116a838974",
+    "criteria.md": "251051da245c1cc89306b8f252a45faaba4510731c54511462651adf899df90e",
+    "request.txt": "98f1ef4e1a73b78adc5e1df9eec429fc2f1aca984681411b12980ad82feeef79",
+    "articles.json": "a4521134b7065a287cf3d66b9a536e7d02b6aaa4b12a4de352f11397164ce206"
+  },
+  "skill_sha256": {
+    "LICENSE": "adda501e9b5041cac0715321f737b6c44128c04909b5e855c55cb945c177a298",
+    "SKILL.md": "7c55bd3480a59624eb7bbc264da66e0662e13008e376901071eee63c063a9333",
+    "references/visual-recipes.md": "0a34096d694caac6133b3174a3ec2369d16eee79c71ebe10a76d22e09ecec3fd",
+    "references/tool-adapters.md": "43c7b63513b7782366d93d16b02390b7c432d15b9ae7f6f754c2d5d25d1da447",
+    "references/review.md": "4b0c00cc0528d802b0549b5f4963aff9a8226bdef0c514cb83dc38e27e5f11f1",
+    "references/design-practice.md": "a67e65ea3b85e73fd4c0c7b7128efc59a90fa7061b06e68571760ba74be4bdb6",
+    "references/maintenance.md": "36753482089a2789ee5f7b1951937752de785905be21e8352400ba65122024af",
+    "agents/openai.yaml": "1bcd855aeabce1fbbe25339f0fdee88048716a4062a3d8cc884eb361e6be370a",
+    "scripts/check_design_gate.py": "a559ea559193818736b4419aeebc4d4de3c98b9198a51f3cbfef03572f588a48",
+    "assets/review-record.json": "269abbd184ee57820e3c4e29c39f56aab00f96d03d1941ed50556604b0b61915",
+    "assets/workspace-reference.html": "9f1a88893e3a91bd7627120f144c598bfa2c5fc30d00f351ae7e18a842a8cf06",
+    "assets/web-foundation.css": "7046fc4ff2dd8052bcbcd9eff8290ea5b8a777afaf390bc9bb9e7ff011829665"
+  }
+}

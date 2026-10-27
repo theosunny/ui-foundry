@@ -1,0 +1,1 @@
+Frozen counterexample expectations: brief only; preserve accepted brand and incompatible-with-HeroUI-v3 existing stack; public introduction composition rather than in-app workspace; reuse known trial terms before action; no fabricated social proof, deployment or rendered validation. This is instruction routing evidence, not visual effectiveness.

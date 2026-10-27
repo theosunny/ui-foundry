@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>小组排期</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#f5f6f8;color:#202126;font:16px/1.6 system-ui,sans-serif}header{background:#fff;padding:24px;border-bottom:1px solid #ddd}h1{margin:0;font-size:28px}main{max-width:1100px;margin:24px auto;padding:0 20px}.banner,.card{background:#fff;border:1px solid #ddd;border-radius:8px;padding:20px;margin-bottom:16px}.layout{display:grid;grid-template-columns:260px 1fr;gap:20px}button,input,textarea{font:inherit}button{cursor:pointer;padding:9px 16px;border:1px solid #bbb;border-radius:5px;background:white}button.active{border-color:#1c56cf;color:#1c56cf}.event{width:100%;text-align:left;margin-bottom:10px}label{display:block;margin:14px 0 4px}input,textarea{width:100%;padding:10px;border:1px solid #bbb;border-radius:5px}textarea{min-height:90px}.primary{margin-top:20px;background:#1c56cf;color:white;border:0}small{color:#666}#status{min-height:25px}@media(max-width:680px){.layout{grid-template-columns:1fr}}</style></head>
+<body><header><h1>小组排期</h1><div>管理小组的安排，随时了解下一步。</div></header><main>
+<div class="banner"><strong>欢迎使用排期工作台</strong><p>你可以在这里查看每一个安排、修改时间并保存备注。请先从左侧选择一个安排，然后仔细检查所有字段，再点击下方保存按钮。</p></div>
+<div class="layout"><aside class="card"><h2>选择安排</h2><p>请选择要编辑的安排。</p><div id="events"></div></aside>
+<section class="card"><h2 id="heading">编辑安排</h2><p>请填写下方信息。已有内容可以修改。修改完成后，请记得保存。</p><form id="editor">
+<label for="title">安排名称</label><input id="title" required>
+<label for="date">日期</label><input id="date" type="date" required>
+<label for="time">时间</label><input id="time" type="time" required>
+<label for="location">地点</label><input id="location">
+<label for="note">备注</label><textarea id="note"></textarea>
+<label for="confirm">请再次填写安排名称，确认保存</label><input id="confirm" required autocomplete="off"><small>请填写与上方相同的名称，以继续下一步。</small><br>
+<button class="primary" type="submit">保存安排</button><p id="status" role="status"></p></form>
+<p>提示：选择安排 → 编辑信息 → 检查信息 → 保存安排。你可以随时回来修改。</p></section></div></main>
+<script>
+const storageKey='uf-schedule-benchmark-v1';
+const seed=[{id:'review',title:'方案评审',date:'2026-11-03',time:'10:00',location:'线上',note:'带上交互原型',owner:'团队 A'},{id:'workshop',title:'写作小组',date:'2026-11-05',time:'19:30',location:'二楼活动室',note:'每人带一段草稿',owner:'团队 B'},{id:'walk',title:'周末散步',date:'2026-11-07',time:'09:00',location:'图书馆门口',note:'下雨改约',owner:'团队 C'}];
+let records=JSON.parse(localStorage.getItem(storageKey)||'null')||seed;let selectedId=records[0].id;
+const fields=['title','date','time','location','note'];
+function renderList(){document.getElementById('events').replaceChildren(...records.map(record=>{let button=document.createElement('button');button.type='button';button.className='event'+(selectedId===record.id?' active':'');button.textContent=record.title+' · '+record.date;button.onclick=()=>{selectedId=record.id;renderList();fill()};return button}))}
+function fill(){const record=records.find(r=>r.id===selectedId);for(const field of fields)document.getElementById(field).value=record[field];document.getElementById('heading').textContent=record.title;document.getElementById('confirm').value='';document.getElementById('status').textContent=''}
+document.getElementById('date').onchange=()=>{document.getElementById('note').value=records.find(r=>r.id===selectedId).note};
+document.getElementById('editor').onsubmit=event=>{event.preventDefault();if(document.getElementById('confirm').value!==document.getElementById('title').value){document.getElementById('status').textContent='名称不一致，请再次填写';return}records=records.map(r=>r.id===selectedId?{...r,...Object.fromEntries(fields.map(k=>[k,document.getElementById(k).value]))}:r);localStorage.setItem(storageKey,JSON.stringify(records));renderList();document.getElementById('status').textContent='已保存'};
+renderList();fill();
+</script></body></html>

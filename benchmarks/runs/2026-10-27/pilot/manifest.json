@@ -1,0 +1,40 @@
+{
+  "protocol_version": "1",
+  "started_at": "2026-10-27T03:18:53.746612+00:00",
+  "source_commit": "c5ed6807c5a84077151f8fe0a5efa63eae8cd8de",
+  "skill_workflow_version": "0.1.1",
+  "skill_snapshot_sha256": {
+    ".clawhubignore": "f3f940f37ca86da1fdc9194efae31333777818b46cc5948f13456bf5a06081eb",
+    "LICENSE": "72f9ac91c805306de232be4c1eb10f1ac262bc14414b86d39c9354b657d37329",
+    "SKILL.md": "80f66b63764e1fc4d121c699ffcfc8bc1964d00709230c89e11d5020673d20c2",
+    "references/review.md": "e5dc0df1be6207e29b6343fb6cc2f8c879594496c442a298de8732f86ab3b6fd",
+    "references/design-practice.md": "bc0c87bad255bea2d8219241f2826ceb00f793a4c5bd6c4836454958b07f3077",
+    "references/maintenance.md": "3329e6efbdab880712e3422b64678220636a814534b6496520c04d01842491f8",
+    "agents/openai.yaml": "1bcd855aeabce1fbbe25339f0fdee88048716a4062a3d8cc884eb361e6be370a",
+    "scripts/check_design_gate.py": "a559ea559193818736b4419aeebc4d4de3c98b9198a51f3cbfef03572f588a48",
+    "assets/review-record.json": "269abbd184ee57820e3c4e29c39f56aab00f96d03d1941ed50556604b0b61915"
+  },
+  "arms": {
+    "A": "same platform agent without UI Foundry",
+    "B": "same platform agent with frozen public UI Foundry"
+  },
+  "model_requested": "inherited parent model, no override",
+  "resolved_model_id": null,
+  "temperature": null,
+  "limitations": [
+    "Resolved model ID and sampling settings were not exposed by the agent tool.",
+    "Both arms inherit the platform system/tool environment; this is not a comparison with a bare language model.",
+    "One attempt per arm per task; small pilot, not a general effectiveness claim.",
+    "Both tasks share one fresh agent context within each arm; cross-task contamination is part of this pilot, not a per-task isolated design."
+  ],
+  "artifact_sha256": {
+    "A/report.md": "27444d4869293244adeda186c80e8fb36d16abb4713e126997bd1117d23e8f3e",
+    "A/schedule/index.html": "3c146126fe647302a4a4210a1ce54b724b33539d77f2171ffcd66de52f1fa8b8",
+    "A/brief/result.md": "1f8168856091fc6afa6009fe55b5d71af3a852dc3d2696fc212411ed1312b583",
+    "B/report.md": "87f794bb97ed2befae8006d5353a5c742ba37b063126158d25c45a567342047f",
+    "B/schedule/index.html": "f3f2dba23a119a16588bbc34c2d068822e484979abf9d6018de3ec07019b093d",
+    "B/brief/result.md": "01b49079bf55ee1ac5ceeac9e9cf37ef047ba9abfcc4107587d922af84489142"
+  },
+  "snapshot_note": "Workflow version 0.1.1, with an in-progress record-parser repair already present; exact tested snapshot is included. It is not an untouched released 0.1.1 package.",
+  "snapshot_hash_mismatches": []
+}

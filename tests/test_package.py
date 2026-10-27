@@ -13,14 +13,14 @@ SKILL = ROOT / "skills/ui-foundry"
 
 class PackageTests(unittest.TestCase):
     def test_entrypoint_and_name(self):
-        text = (SKILL / "SKILL.md").read_text()
+        text = (SKILL / "SKILL.md").read_text(encoding="utf-8")
         self.assertTrue(text.startswith("---\nname: ui-foundry\n"))
-        self.assertIn("license: MIT-0", text)
+        self.assertRegex(text, r"(?m)^license: MIT$")
         self.assertLess(len(text.splitlines()), 150)
 
     def test_local_markdown_links_resolve_inside_package(self):
         for path in SKILL.rglob("*.md"):
-            for target in re.findall(r"\]\(([^)]+)\)", path.read_text()):
+            for target in re.findall(r"\]\(([^)]+)\)", path.read_text(encoding="utf-8")):
                 if target.startswith(("https://", "http://", "#")):
                     continue
                 resolved = (path.parent / target.split("#")[0]).resolve()
@@ -37,6 +37,8 @@ class PackageTests(unittest.TestCase):
             "SKILL.md", "LICENSE", "agents/openai.yaml",
             "references/design-practice.md", "references/review.md",
             "references/maintenance.md", "assets/review-record.json",
+            "references/visual-recipes.md", "references/tool-adapters.md",
+            "assets/web-foundation.css", "assets/workspace-reference.html",
             "scripts/check_design_gate.py", ".clawhubignore",
         })
         for path in SKILL.rglob("*"):
@@ -47,7 +49,7 @@ class PackageTests(unittest.TestCase):
             for path in root.rglob("*"):
                 if not path.is_file() or "__pycache__" in path.parts:
                     continue
-                text = path.read_text()
+                text = path.read_text(encoding="utf-8")
                 self.assertNotRegex(text, r"/Users/[^/\s]+|/home/[^/\s]+")
                 self.assertNotRegex(text, r"[\w.+-]+@(?:gmail|outlook|qq)\.com")
                 self.assertNotIn("preferences.md", text)
@@ -55,7 +57,7 @@ class PackageTests(unittest.TestCase):
 
     def test_template_remains_unverified(self):
         path = SKILL / "assets/review-record.json"
-        record = json.loads(path.read_text())
+        record = json.loads(path.read_text(encoding="utf-8"))
         self.assertTrue(all(check["status"] == "unverified" for check in record["checks"]))
         result = subprocess.run(
             [sys.executable, str(SKILL / "scripts/check_design_gate.py"), str(path)],

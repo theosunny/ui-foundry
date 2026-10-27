@@ -1,9 +1,16 @@
 # Changelog
 
-## Unreleased
+## 0.1.2 — 2026-10-27
+
+- Standard MIT license for this version; previously published MIT-0 archives remain unchanged.
+- Original light/dark CSS foundation, runnable responsive interface reference, explicit visual recipes and optional component adapters.
+- Public paired pilot, preserved failures, browser/contrast checks, independent visual reviews, a fresh reading task and a real HeroUI integration fixture.
+- Explicit automatic repair within authorized scope, with original-case and counterexample checks; no claim of guaranteed visual quality.
+- Record parser rejects duplicate JSON members and malformed status types.
+- Deterministic allowlisted ZIP, per-file manifest, cross-platform CI and contributor/security/release documentation.
 
 - Redesigned the English and Chinese README opening with an original wordmark, localized interface illustrations, responsive mobile artwork and a shorter introduction.
-- Kept the quick start prominent and moved advanced details into expandable sections. This is a repository presentation update; the installable skill remains 0.1.1.
+- Kept the quick start prominent and moved advanced details into expandable sections. The installable skill now includes concrete design foundations as well as workflow guidance.
 
 ## 0.1.1 — 2026-10-27
 

@@ -1,0 +1,11 @@
+{
+  "name": "ui-foundry-benchmarks",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check:schedule": "node check_schedule.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.64.1"
+  }
+}

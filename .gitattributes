@@ -1,0 +1,5 @@
+# Canonical Skill bytes must not depend on Windows checkout line endings.
+skills/ui-foundry/** text eol=lf
+
+# Visual benchmark evidence remains binary.
+*.png binary

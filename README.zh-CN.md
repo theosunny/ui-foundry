@@ -5,14 +5,14 @@
   </picture>
 </p>
 
-<h3 align="center">让你的 Agent，更懂设计。</h3>
+<h3 align="center">让你的编程 Agent，兼任设计负责人。</h3>
 
-<p align="center">面向网页与 App 的设计 Skill，让界面好看，也好用。</p>
+<p align="center">为没有专职设计师的独立开发者与小团队而做。</p>
 
 <p align="center">
   <a href="#start"><strong>开始使用</strong></a> &nbsp;&nbsp;
   <a href="docs/installation.zh-CN.md">选择你的 Agent</a> &nbsp;&nbsp;
-  <a href="https://clawhub.ai/theosunny/skills/ui-foundry">ClawHub</a> &nbsp;&nbsp;
+  <a href="benchmarks/README.md">公开对照测试</a> &nbsp;&nbsp;
   <a href="README.md">English</a>
 </p>
 
@@ -27,11 +27,11 @@
 
 **你不必先学会设计，才能做出一个好产品。**
 
-说清楚用户要做什么，剩下的设计判断交给 Agent：哪些内容该出现、哪些可以省掉、操作怎么更顺手、做完怎么检查。UI Foundry 帮它把这些细节想清楚，让你专注重要的决定。
+UI Foundry 给编程 Agent 一套能落地的设计体系：**具体视觉底稿、可运行界面范例、交互模式、组件适配和审核返修**。从想法或现有页面出发，由 Agent 选择并实现完整设计；你决定产品目标和重要约束。
 
 <p align="center">
   <strong>网页 · 产品工作台 · 原生 App</strong><br/>
-  <sub>开源 · MIT-0 · Skill 无需额外服务或 API key</sub>
+  <sub>公开测试版 · MIT · Skill 无需额外服务或 API key</sub>
 </p>
 
 <a id="start"></a>
@@ -65,7 +65,7 @@ Codex 中可用 **`$ui-foundry`** 明确调用。其他客户端使用各自的 
 | --- | --- | --- |
 | 构图、字体、层次和状态一起设计。App 按移动端的习惯来做。 | 已有信息直接用，操作放在内容旁，需要时才让用户补充。 | 看实际页面，走真实任务。发现问题就修，再核对结果。 |
 
-不预设某套配色或组件库。沿用项目合适的方向，保留有用的写作和高效表单，分别检查“看起来好不好”和“用起来顺不顺”。
+内置可直接采用的排版、间距、浅深色 token 和可运行范例。Agent 按任务选用并调整，沿用项目已认可的视觉方向，接上兼容的组件。你不必自己选库、配色或拼提示词。[查看完整体系](docs/design-system.md)。
 
 ## 你在哪一步，就从哪一步开始
 
@@ -78,9 +78,15 @@ Codex 中可用 **`$ui-foundry`** 明确调用。其他客户端使用各自的 
 
 流程很简单：**理解任务 → 设计 → 实现 → 检查 → 改进**。检查时分清已验证、明确有问题和缺少证据；能构建成功，只是其中一步。
 
+## 效果，拿证据来说
+
+同一任务，对比加载和不加载 Skill 的结果：两组产物都公开，检查实际保存的数据，再匿名评审界面。失败保留，修复另开一轮并复测反例。首轮样本很小，不足以证明稳定领先。
+
+[对照方法与结果](benchmarks/README.md) · [开源验收](docs/open-source-readiness.md) · [宣传与证据](docs/claims.md)
+
 ## Skill 里有什么
 
-设计方法、审核参考和记录模板随包提供。可选脚本位于已安装 Skill 的 `ui-foundry/scripts/check_design_gate.py`，由 Agent 定位，**你不需要手动运行 Python**。它检查记录格式，不认证审美或证据真假。
+视觉配方、CSS 底稿、可运行范例、组件适配与审核工具随包提供。可选脚本位于已安装 Skill 的 `ui-foundry/scripts/check_design_gate.py`，由 Agent 定位，**你不需要手动运行 Python**。它检查记录格式，不认证审美或证据真假。
 
 [查看 Skill](skills/ui-foundry/SKILL.md) · [审核方法](skills/ui-foundry/references/review.md) · [进阶脚本说明](docs/review-records.md#中文)
 
@@ -91,7 +97,7 @@ README 提供中英文版本。Skill 内部指令目前使用中文，你可以�
 
 安装成功不代表每个客户端行为相同，浏览器检查也不能代替原生 App 验收。[行为验证](docs/validation.md)与[安装验证](docs/installation-validation.md)分别记录实际范围。上方界面是原创示意，不是实测的前后对比成果。
 
-UI Foundry 提供设计判断与审核流程，不能保证每次产出都完美。公开包不含私人偏好、聊天记录、凭据或真实用户资料，也不会自动上传项目数据或发布自身更新。
+UI Foundry 提供设计基础及实现、审核流程，不能保证每次产出都完美。公开包不含私人偏好、聊天记录、凭据或真实用户资料，也不会自动上传项目数据或发布自身更新。
 
 </details>
 
@@ -99,4 +105,4 @@ UI Foundry 提供设计判断与审核流程，不能保证每次产出都完美
 
 发现问题可以[提交 Issue](https://github.com/theosunny/ui-foundry/issues)，附上虚构或脱敏案例：你的要求、预期结果、实际结果和客户端。有用的反馈，会帮助改进这套方法。
 
-[MIT-0 许可](LICENSE) · [版本记录](CHANGELOG.md) · [参考致谢](ACKNOWLEDGMENTS.md)
+[参与贡献](CONTRIBUTING.md) · [安全报告](SECURITY.md) · [MIT 许可](LICENSE) · [版本记录](CHANGELOG.md) · [参考致谢](ACKNOWLEDGMENTS.md)

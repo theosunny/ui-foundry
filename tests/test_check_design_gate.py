@@ -1,13 +1,19 @@
 """Regression checks for review verdicts, not for aesthetic judgment."""
 
 import copy
+import json
+import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "skills/ui-foundry/scripts"))
 
 from check_design_gate import REQUIRED, check
+
+ROOT = Path(__file__).resolve().parents[1]
+SCRIPT = ROOT / "skills/ui-foundry/scripts/check_design_gate.py"
 
 
 class DesignGateTests(unittest.TestCase):
@@ -80,6 +86,42 @@ class DesignGateTests(unittest.TestCase):
             item["status"] = "not_applicable"
         with self.assertRaises(ValueError):
             check(self.review)
+
+    def test_cli_rejects_duplicate_root_json_member(self):
+        payload = '{"scope":"superseded",' + json.dumps(self.review)[1:]
+        result = self.run_cli(payload)
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(json.loads(result.stdout)["record_valid"], False)
+        self.assertIn("Duplicate JSON key: scope", result.stdout)
+
+    def test_cli_rejects_duplicate_nested_json_member(self):
+        payload = json.dumps(self.review).replace(
+            '"status": "pass"', '"status": "rework", "status": "pass"', 1
+        )
+        result = self.run_cli(payload)
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(json.loads(result.stdout)["record_valid"], False)
+        self.assertIn("Duplicate JSON key: status", result.stdout)
+
+    def test_cli_returns_error_json_for_unhashable_ids_and_statuses(self):
+        for field, value in (("id", ["claims"]), ("status", ["pass"])):
+            with self.subTest(field=field):
+                review = copy.deepcopy(self.review)
+                review["checks"][0][field] = value
+                result = self.run_cli(json.dumps(review))
+                self.assertEqual(result.returncode, 1)
+                response = json.loads(result.stdout)
+                self.assertFalse(response["record_valid"])
+                self.assertIn("error", response)
+                self.assertEqual(result.stderr, "")
+
+    def run_cli(self, payload):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "review.json"
+            path.write_text(payload, encoding="utf-8")
+            return subprocess.run(
+                [sys.executable, str(SCRIPT), str(path)], capture_output=True, text=True, check=False
+            )
 
 
 if __name__ == "__main__":

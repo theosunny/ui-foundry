@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Later — Reading queue</title>
+  <style>
+    :root { color-scheme: light; --ink:#1c2728; --muted:#647071; --paper:#f6f4ee; --sheet:#fffdf8; --line:#d9d8d0; --lime:#d8ee8a; --lime-ink:#344415; --blue:#b7d5dc; --coral:#f3b7a7; --radius:18px; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-width:320px; color:var(--ink); background:var(--paper); font:16px/1.5 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    button, a { font:inherit; } button { color:inherit; } button:focus-visible, a:focus-visible { outline:3px solid #205a6b; outline-offset:3px; }
+    .shell { width:min(1120px, calc(100% - 48px)); margin:auto; padding:28px 0 54px; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:5px 2px 39px; }
+    .brand { display:flex; align-items:center; gap:11px; font-size:18px; font-weight:800; letter-spacing:-.04em; }
+    .brand-mark { display:grid; place-items:center; width:30px; height:30px; border-radius:50% 50% 45% 45%; background:var(--ink); color:var(--lime); font-family:Georgia,serif; font-size:23px; line-height:1; }
+    .local { color:var(--muted); font-size:13px; }
+    .board { display:grid; grid-template-columns:minmax(0, 1fr) 330px; overflow:hidden; border:1px solid var(--line); border-radius:var(--radius); background:var(--sheet); box-shadow:0 18px 50px rgb(42 49 41 / 7%); }
+    .queue { min-width:0; padding:42px 42px 34px; }
+    .eyebrow { margin:0 0 11px; color:#52696d; font-size:12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+    h1 { max-width:620px; margin:0; font:700 clamp(34px, 4vw, 54px)/1.03 Georgia, "Times New Roman", serif; letter-spacing:-.055em; }
+    .intro { max-width:530px; margin:18px 0 28px; color:var(--muted); }
+    .budget-label { display:block; margin-bottom:9px; font-size:13px; font-weight:750; }
+    .budgets { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:29px; }
+    .budget { min-height:42px; padding:0 14px; border:1px solid var(--line); border-radius:999px; background:transparent; cursor:pointer; font-size:14px; font-weight:700; transition:background-color 140ms ease, transform 140ms ease; }
+    .budget:hover { background:#f0eee5; } .budget:active { transform:translateY(1px); }
+    .budget[aria-pressed="true"] { border-color:var(--ink); background:var(--ink); color:#fffef8; }
+    .list-heading { display:flex; align-items:baseline; justify-content:space-between; gap:20px; padding:0 1px 10px; border-bottom:1px solid var(--line); }
+    .list-heading h2 { margin:0; font-size:14px; letter-spacing:-.01em; } .count { color:var(--muted); font-size:13px; font-variant-numeric:tabular-nums; }
+    .articles { display:grid; }
+    .article { display:grid; grid-template-columns:auto minmax(0, 1fr) auto; align-items:center; gap:17px; padding:18px 2px; border-bottom:1px solid var(--line); }
+    .time { display:grid; place-items:center; width:45px; height:45px; border-radius:50%; background:var(--blue); color:#23424a; font-size:12px; font-weight:800; line-height:1.05; text-align:center; }
+    .time span { display:block; font-size:9px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; }
+    .article-copy { min-width:0; } .article-title { margin:0; font-size:17px; font-weight:780; letter-spacing:-.027em; } .source { margin:3px 0 0; color:var(--muted); font-size:13px; }
+    .read { min-height:38px; padding:0 12px; border:1px solid var(--line); border-radius:8px; background:var(--sheet); cursor:pointer; font-size:13px; font-weight:750; white-space:nowrap; }
+    .read:hover { border-color:var(--ink); background:#f5f3ea; }
+    .empty { padding:42px 2px 12px; color:var(--muted); } .empty h2 { margin:0 0 7px; color:var(--ink); font:700 26px/1.1 Georgia,serif; letter-spacing:-.04em; } .empty p { margin:0; }
+    .pick { display:flex; flex-direction:column; padding:35px 30px 28px; background:#e5e6db; border-left:1px solid var(--line); }
+    .pick h2 { margin:0; font:700 29px/1.05 Georgia,serif; letter-spacing:-.05em; } .pick > p { margin:12px 0 22px; color:#536062; font-size:14px; }
+    .feature { display:flex; flex:1; flex-direction:column; justify-content:space-between; min-height:258px; padding:21px; border:1px solid #afb8a4; border-radius:14px; background:var(--lime); }
+    .feature small { color:#526126; font-size:11px; font-weight:850; letter-spacing:.09em; text-transform:uppercase; } .feature h3 { margin:11px 0 6px; font:700 27px/1.07 Georgia,serif; letter-spacing:-.045em; } .feature p { margin:0; color:#526126; font-size:13px; }
+    .open { display:inline-flex; align-items:center; justify-content:space-between; min-height:48px; margin-top:22px; padding:0 15px; border-radius:9px; background:var(--ink); color:#fffef9; font-weight:800; text-decoration:none; } .open:hover { background:#344344; }
+    .feature[hidden], .empty[hidden], .undo[hidden] { display:none; }
+    .undo { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-top:20px; padding:11px 12px 11px 14px; border:1px solid #d1bcae; border-radius:10px; background:#fff8ed; color:#5a4234; font-size:13px; }
+    .undo button { min-height:34px; padding:0 10px; border:1px solid #7a5947; border-radius:7px; background:transparent; color:#5a4234; cursor:pointer; font-size:13px; font-weight:800; }
+    .note { margin:21px 0 0; color:#687476; font-size:12px; }
+    @media (max-width:760px) { .shell { width:min(100% - 28px, 600px); padding-top:17px; } header { padding-bottom:20px; } .local { display:none; } .board { grid-template-columns:1fr; } .queue { padding:29px 20px 22px; } h1 { font-size:39px; } .pick { min-height:302px; padding:26px 20px 23px; border-top:1px solid var(--line); border-left:0; } .feature { min-height:180px; } .article { grid-template-columns:auto minmax(0,1fr); gap:13px; } .read { grid-column:2; justify-self:start; } }
+    @media (prefers-reduced-motion:reduce) { * { transition-duration:.01ms !important; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header><div class="brand"><span class="brand-mark" aria-hidden="true">↳</span>Later</div><span class="local">Your local reading shelf</span></header>
+    <div class="board">
+      <section class="queue" aria-labelledby="page-title">
+        <p class="eyebrow">Reading queue</p>
+        <h1 id="page-title">Find a good use for the minutes you have.</h1>
+        <p class="intro">Everything here is already saved. Choose your window, then start with one clear thing.</p>
+        <span class="budget-label" id="budget-label">I have…</span>
+        <div class="budgets" role="group" aria-labelledby="budget-label">
+          <button class="budget" type="button" data-budget="5" aria-pressed="false">5 min</button>
+          <button class="budget" type="button" data-budget="15" aria-pressed="false">15 min</button>
+          <button class="budget" type="button" data-budget="30" aria-pressed="false">30 min</button>
+          <button class="budget" type="button" data-budget="all" aria-pressed="true">Any time</button>
+        </div>
+        <div class="list-heading"><h2>Ready to read</h2><span class="count" id="count"></span></div>
+        <div class="articles" id="articles" aria-live="polite"></div>
+        <div class="empty" id="empty" hidden><h2 id="empty-title"></h2><p id="empty-copy"></p></div>
+      </section>
+      <aside class="pick" aria-labelledby="pick-title">
+        <div><p class="eyebrow">Start here</p><h2 id="pick-title">A small, considered pick.</h2><p>Shortest matching unread article, ready when you are.</p></div>
+        <div class="feature" id="feature"></div>
+        <div class="undo" id="undo" role="status" aria-live="polite" hidden><span id="undo-copy"></span><button type="button" data-action="undo" aria-label="Undo marking article as read">Undo</button></div>
+        <p class="note">This fictional demo saves only in this browser.</p>
+      </aside>
+    </div>
+  </main>
+  <script>
+    const STORAGE_KEY = "uf-reading-benchmark-v1";
+    const SEED = [
+      { id: "small", title: "The small team advantage", source: "Field notes", minutes: 4, url: "https://example.com/articles/small", done: false, tag: "preserve-small" },
+      { id: "craft", title: "A quieter kind of software", source: "Studio journal", minutes: 12, url: "https://example.com/articles/craft", done: false, tag: "preserve-craft" },
+      { id: "tools", title: "When tools get out of the way", source: "Build log", minutes: 22, url: "https://example.com/articles/tools", done: false, tag: "preserve-tools" },
+      { id: "defaults", title: "The cost of another choice", source: "Design notes", minutes: 8, url: "https://example.com/articles/defaults", done: false, tag: "preserve-defaults" }
+    ];
+    const $ = (selector) => document.querySelector(selector);
+    let budget = "all";
+    let records = load();
+    let lastRead = null;
+
+    function load() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored === null) { const initial = structuredClone(SEED); localStorage.setItem(STORAGE_KEY, JSON.stringify(initial)); return initial; }
+      try { const parsed = JSON.parse(stored); return Array.isArray(parsed) ? parsed : []; } catch { return []; }
+    }
+    function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(records)); }
+    function available() { return records.filter((article) => !article.done && (budget === "all" || article.minutes <= Number(budget))); }
+    function render() {
+      const items = available();
+      $("#count").textContent = `${items.length} ${items.length === 1 ? "article" : "articles"}`;
+      $("#articles").replaceChildren(...items.map(articleRow));
+      const empty = !items.length;
+      $("#empty").hidden = !empty;
+      if (empty) {
+        const noUnread = !records.some((article) => !article.done);
+        $("#empty-title").textContent = noUnread ? "Queue clear." : "Nothing fits that window.";
+        $("#empty-copy").textContent = noUnread ? "Every saved article is marked read." : "Try a longer reading window.";
+      }
+      renderFeature([...items].sort((left, right) => left.minutes - right.minutes)[0]);
+      document.querySelectorAll(".budget").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.budget === budget)));
+    }
+    function articleRow(article) {
+      const row = document.createElement("article"); row.className = "article"; row.dataset.articleId = article.id;
+      row.innerHTML = `<div class="time" aria-label="${article.minutes} minute read">${article.minutes}<span>min</span></div><div class="article-copy"><h3 class="article-title">${escapeHtml(article.title)}</h3><p class="source">${escapeHtml(article.source)}</p></div><button class="read" type="button" data-action="read" aria-label="Mark ${escapeHtml(article.title)} as read">Mark read</button>`;
+      row.querySelector("[data-action='read']").addEventListener("click", () => markRead(article.id));
+      return row;
+    }
+    function renderFeature(article) {
+      const feature = $("#feature"); feature.hidden = !article;
+      if (!article) return;
+      feature.replaceChildren();
+      const label = document.createElement("small"); label.textContent = `${article.minutes} minutes · ${article.source}`;
+      const title = document.createElement("h3"); title.textContent = article.title;
+      const copy = document.createElement("p"); copy.textContent = "Open the original article when you are ready to read.";
+      const open = document.createElement("a"); open.className = "open"; open.href = article.url; open.textContent = "Open article ↗"; open.setAttribute("aria-label", `Open ${article.title}`);
+      const body = document.createElement("div"); body.append(title, copy); feature.append(label, body, open);
+    }
+    function markRead(id) {
+      const index = records.findIndex((article) => article.id === id); if (index < 0) return;
+      const original = records[index]; lastRead = { index, record: structuredClone(original) };
+      records = records.map((article) => article.id === id ? { ...article, done: true } : article);
+      save(); $("#undo-copy").textContent = `Marked “${original.title}” as read.`; $("#undo").hidden = false; render();
+    }
+    function undo() {
+      if (!lastRead) return;
+      const { index, record } = lastRead; records = records.filter((article) => article.id !== record.id); records.splice(index, 0, record); save(); lastRead = null; $("#undo").hidden = true; render();
+    }
+    function escapeHtml(value) { const span = document.createElement("span"); span.textContent = value; return span.innerHTML; }
+    document.querySelectorAll("[data-budget]").forEach((button) => button.addEventListener("click", () => { budget = button.dataset.budget; render(); }));
+    $("[data-action='undo']").addEventListener("click", undo);
+    render();
+  </script>
+</body>
+</html>

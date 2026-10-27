@@ -1,6 +1,6 @@
 # README artwork
 
-Original SVG artwork for UI Foundry, covered by the repository's MIT-0 license.
+Original SVG artwork for UI Foundry, covered by the repository's MIT license.
 
 - `wordmark-light.svg` and `wordmark-dark.svg`: the same identity, adapted to the surrounding GitHub theme.
 - `interface-study.svg` and `interface-study.zh-CN.svg`: a fictional publishing workspace and scheduling sheet, with matching English and Chinese content.

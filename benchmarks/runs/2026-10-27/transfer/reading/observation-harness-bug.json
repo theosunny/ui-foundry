@@ -1,0 +1,199 @@
+{
+  "runner": "benchmarks/check_reading.mjs",
+  "source_data": "benchmarks/tasks/reading/articles.json",
+  "server": "loopback HTTP",
+  "browser": {
+    "engine": "chromium",
+    "channel": "installed Chrome channel",
+    "version": "156.0.8078.48"
+  },
+  "checks": [
+    {
+      "name": "required frozen data hooks are present",
+      "status": "pass",
+      "evidence": {
+        "budgets": [
+          "5",
+          "15",
+          "30",
+          "all"
+        ],
+        "article_hook_count": 4,
+        "read_hook_count": 4
+      }
+    },
+    {
+      "name": "budget filters return exact unread article sets",
+      "status": "pass",
+      "evidence": {
+        "expected": {
+          "5": [
+            "small"
+          ],
+          "15": [
+            "small",
+            "craft",
+            "defaults"
+          ],
+          "all": [
+            "small",
+            "craft",
+            "tools",
+            "defaults"
+          ]
+        },
+        "actual": {
+          "5": [
+            "small"
+          ],
+          "15": [
+            "small",
+            "craft",
+            "defaults"
+          ],
+          "all": [
+            "small",
+            "craft",
+            "tools",
+            "defaults"
+          ]
+        }
+      }
+    },
+    {
+      "name": "buttons have labels and keyboard activates a budget",
+      "status": "pass",
+      "evidence": {
+        "labels": [
+          {
+            "tag": "button",
+            "label": "5 min"
+          },
+          {
+            "tag": "button",
+            "label": "15 min"
+          },
+          {
+            "tag": "button",
+            "label": "30 min"
+          },
+          {
+            "tag": "button",
+            "label": "Any time"
+          },
+          {
+            "tag": "button",
+            "label": "Mark The small team advantage as read"
+          },
+          {
+            "tag": "button",
+            "label": "Mark A quieter kind of software as read"
+          },
+          {
+            "tag": "button",
+            "label": "Mark When tools get out of the way as read"
+          },
+          {
+            "tag": "button",
+            "label": "Mark The cost of another choice as read"
+          }
+        ],
+        "rendered_after_enter": [
+          "small"
+        ]
+      }
+    },
+    {
+      "name": "mark read persists selected record and preserves untouched unknown fields",
+      "status": "fail",
+      "evidence": {
+        "selected": {
+          "id": "small",
+          "title": "The small team advantage",
+          "source": "Field notes",
+          "minutes": 4,
+          "url": "https://example.com/articles/small",
+          "done": true,
+          "tag": "preserve-small",
+          "unknown": "preserve-0"
+        },
+        "untouched": true,
+        "rendered_after_reload": [
+          "small",
+          "craft",
+          "tools",
+          "defaults"
+        ]
+      }
+    },
+    {
+      "name": "undo restores same saved record",
+      "status": "pass",
+      "evidence": {
+        "before": {
+          "id": "small",
+          "title": "The small team advantage",
+          "source": "Field notes",
+          "minutes": 4,
+          "url": "https://example.com/articles/small",
+          "done": false,
+          "tag": "preserve-small",
+          "unknown": "preserve-0"
+        },
+        "restored": {
+          "id": "small",
+          "title": "The small team advantage",
+          "source": "Field notes",
+          "minutes": 4,
+          "url": "https://example.com/articles/small",
+          "done": false,
+          "tag": "preserve-small",
+          "unknown": "preserve-0"
+        }
+      }
+    },
+    {
+      "name": "empty stored array remains empty without fabricated articles",
+      "status": "pass",
+      "evidence": {
+        "raw_storage": "[]",
+        "rendered_ids": []
+      }
+    },
+    {
+      "name": "article links preserve supplied URLs",
+      "status": "fail",
+      "evidence": {
+        "expected": {
+          "small": "https://example.com/articles/small",
+          "craft": "https://example.com/articles/craft",
+          "tools": "https://example.com/articles/tools",
+          "defaults": "https://example.com/articles/defaults"
+        },
+        "actual": {}
+      }
+    },
+    {
+      "name": "no required text entry is imposed",
+      "status": "pass",
+      "evidence": {
+        "required_text_controls": []
+      }
+    },
+    {
+      "name": "390px viewport has no page horizontal overflow",
+      "status": "pass",
+      "evidence": {
+        "viewport_width": 390,
+        "document_width": 390,
+        "body_width": 390
+      }
+    }
+  ],
+  "observed_errors": [],
+  "summary": {
+    "pass": 7,
+    "fail": 2,
+    "error": 0
+  }
+}

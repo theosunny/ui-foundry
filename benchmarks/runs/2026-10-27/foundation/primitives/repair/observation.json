@@ -1,0 +1,135 @@
+{
+  "runner": "benchmarks/check_foundation.mjs",
+  "source_css": "skills/ui-foundry/assets/web-foundation.css",
+  "server": "loopback HTTP",
+  "browser": {
+    "engine": "chromium",
+    "channel": "installed Chrome channel",
+    "version": "156.0.8078.48"
+  },
+  "checks": [
+    {
+      "name": "normal-text contrast meets WCAG AA in light and dark",
+      "status": "pass",
+      "evidence": {
+        "light": {
+          "body": {
+            "foreground": "rgb(23, 32, 42)",
+            "background": "rgba(0, 0, 0, 0)",
+            "ratio": 15.48
+          },
+          "muted": {
+            "foreground": "rgb(89, 105, 125)",
+            "background": "rgba(0, 0, 0, 0)",
+            "ratio": 5.28
+          },
+          "button": {
+            "foreground": "rgb(255, 255, 255)",
+            "background": "rgb(37, 99, 235)",
+            "ratio": 5.17
+          },
+          "error": {
+            "foreground": "rgb(185, 28, 28)",
+            "background": "rgba(0, 0, 0, 0)",
+            "ratio": 6.09
+          },
+          "canvas": "rgb(247, 248, 250)"
+        },
+        "dark": {
+          "body": {
+            "foreground": "rgb(241, 245, 249)",
+            "background": "rgba(0, 0, 0, 0)",
+            "ratio": 16.88
+          },
+          "muted": {
+            "foreground": "rgb(168, 180, 194)",
+            "background": "rgba(0, 0, 0, 0)",
+            "ratio": 8.78
+          },
+          "button": {
+            "foreground": "rgb(16, 20, 24)",
+            "background": "rgb(96, 165, 250)",
+            "ratio": 7.28
+          },
+          "error": {
+            "foreground": "rgb(252, 165, 165)",
+            "background": "rgba(0, 0, 0, 0)",
+            "ratio": 9.75
+          },
+          "canvas": "rgb(16, 20, 24)"
+        }
+      }
+    },
+    {
+      "name": "keyboard focus ring is visible",
+      "status": "pass",
+      "evidence": {
+        "active_id": "primary",
+        "color": "color(srgb 0.145098 0.388235 0.921569 / 0.7)",
+        "style": "solid",
+        "width": "3px",
+        "offset": "2px"
+      }
+    },
+    {
+      "name": "foundation CSS does not style body or outside button globally",
+      "status": "pass",
+      "evidence": {
+        "body_background": "rgba(0, 0, 0, 0)",
+        "body_font": "16px Times",
+        "button_min_block_size": "0px",
+        "button_padding": "1px 6px",
+        "button_display": "inline-block"
+      }
+    },
+    {
+      "name": "narrow 390px layout has no horizontal overflow with long content",
+      "status": "pass",
+      "evidence": {
+        "viewport_width": 390,
+        "document_width": 390,
+        "body_width": 374
+      }
+    },
+    {
+      "name": "reduced motion collapses transition duration",
+      "status": "pass",
+      "evidence": {
+        "durations": [
+          "1e-05s"
+        ],
+        "seconds": [
+          0.00001
+        ]
+      }
+    },
+    {
+      "name": "text controls meet 44px size and checkbox remains compact",
+      "status": "pass",
+      "evidence": {
+        "textfield": {
+          "width": 1166,
+          "height": 46.796875
+        },
+        "select": {
+          "width": 1166,
+          "height": 46
+        },
+        "textarea": {
+          "width": 1166,
+          "height": 112
+        },
+        "checkbox": {
+          "width": 18,
+          "height": 18
+        }
+      }
+    }
+  ],
+  "observed_errors": [],
+  "summary": {
+    "pass": 6,
+    "fail": 0,
+    "error": 0
+  }
+}
