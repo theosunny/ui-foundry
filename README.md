@@ -6,6 +6,8 @@
 
 它不承诺一键生成完美 UI，也不预设所有产品都应使用同一种主题。目标是持续做出更精致、更省力、更适合产品的设计。
 
+[ClawHub 安装页](https://clawhub.ai/theosunny/skills/ui-foundry) · [下载 0.1.0 安装包](https://github.com/theosunny/ui-foundry/releases/tag/v0.1.0)
+
 ## 怎么用
 
 安装后直接说：
@@ -30,7 +32,7 @@
 clawhub install @theosunny/ui-foundry
 ```
 
-安装位置由 ClawHub 的工作目录配置决定。注册表发布状态见[版本记录](CHANGELOG.md)。
+已验证 ClawHub CLI 0.23.3 可匿名安装 0.1.0，8 个发布文件与源码逐字节一致。使用带作者名称的包名时，文件位于工作目录下的 `skills/@theosunny/ui-foundry`；实际位置还受 CLI 配置影响。
 
 ### 其他支持 Agent Skills 的工具
 

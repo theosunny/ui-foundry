@@ -9,6 +9,14 @@
 - 空白审核模板：退出码 3，`reported_verdict: UNVERIFIED`，`quality_verified_by_script: false`。
 - ClawHub CLI 0.23.3 发布预检：`would-publish`，8 个发布文件；这不等于上传完成或平台审核通过。
 
+## 已完成发布与安装回验
+
+- [GitHub CI](https://github.com/theosunny/ui-foundry/actions/runs/40429651267)：公开源码提交 `af66659324109db34d29134ea801e39a3dc2a584` 的检查成功。
+- [GitHub 0.1.0 安装包](https://github.com/theosunny/ui-foundry/releases/tag/v0.1.0)：重新下载后校验 SHA-256，并核对 8 个文件与源码一致。
+- [ClawHub 0.1.0](https://clawhub.ai/theosunny/skills/ui-foundry)：从 `pending` 进入公开可见状态，平台扫描返回 `clean`。这属于平台安全扫描结果，不是设计认证。
+- 使用空白 CLI 配置和全新临时目录匿名安装 `@theosunny/ui-foundry@0.1.0` 成功。安装的 8 个发布文件与源码逐字节一致；额外 `_meta.json` 与 `.clawhub/origin.json` 为注册表安装元数据。
+- 注册表页面返回 HTTP 200，标题为“UI Foundry · 界面工坊 — ClawHub”。这只验证页面存在，没有声称做过页面视觉验收。
+
 这些自动检查不判断美观，也不能证明所有隐私内容必被模式检测识别；公开材料另做人工只读审查。
 
 ## 独立行为检验
@@ -27,6 +35,6 @@
 - 独立审查曾发现测试导入错误与缺失验证文档；已修复。保留失败记录，避免将首次检测说成全绿。
 - 公开目录不包含私人偏好档案、聊天记录、账号凭据、真实用户资料或本机主目录路径。保留源项目链接作为方法致谢，没有捆绑其原始 Skill 或代码。
 - 本次没有新增、渲染或实际操作 Web / 原生 App；视觉品质、设备行为、生产部署与不同客户端的自动触发均不由这些检查证明。
-- 历史私人产品试验不随包发布，也不当成通用审美认证。GitHub / ClawHub 的实际发布结果另行核对。
+- 历史私人产品试验不随包发布，也不当成通用审美认证。各客户端安装后的自动触发行为仍需分别验证。
 
 复测方法：从 [场景文件](../evals/cases.json) 选择请求，只把 `request` 和 `fixture` 交给独立执行者。保留 `review_criteria` 给审核者；核查真实输出。产品实施试验还须提供可运行产物与渲染/操作证据，不能只阅读计划。

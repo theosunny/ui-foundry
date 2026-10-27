@@ -8,4 +8,4 @@ Initial public edition of UI Foundry / 界面工坊.
 - Separate visual and interaction review, with native-platform boundaries.
 - Privacy-safe review template and local-only record validator.
 - Anonymous regression scenarios and explicit validation limits.
-- MIT-0 license. Public registry publication is verified separately from upload and security review.
+- MIT-0 license. GitHub release and ClawHub publication completed; anonymous ClawHub installation verified against all 8 source files.
