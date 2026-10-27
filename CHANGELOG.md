@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1 — 2026-10-27
+
+- Full English and Simplified Chinese READMEs with matching quick-start instructions.
+- Universal Skills CLI, per-agent, ClawHub, ZIP and agent-assisted installation options.
+- Clarified that the optional Python helper is bundled inside the skill; agents resolve its full path from the loaded SKILL.md. Ordinary users do not run maintainer checks.
+
 ## 0.1.0 — 2026-10-27
 
 Initial public edition of UI Foundry / 界面工坊.

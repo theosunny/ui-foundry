@@ -37,10 +37,15 @@
 
 小修可在现有记录写观察，不必六项 JSON。大改缺现有格式时复制 `assets/review-record.json` 到项目自己的证据目录。该模板全部为 `unverified`，必须替换占位证据后才能作真实记录。
 
+校验器随本 Skill 位于 `scripts/check_design_gate.py`。需要时由 Agent 定位当前实际加载的 `SKILL.md`，取它的父目录作为 Skill 根目录，并用完整路径调用脚本；审核记录同样传入实际路径。不要从被审查项目的当前工作目录寻找脚本，不要求普通用户执行。
+
+维护者手动使用 POSIX shell 时，把以下示例路径替换为实际绝对路径：
+
 ```sh
-python3 scripts/check_design_gate.py /path/to/review.json
+UI_FOUNDRY_DIR="/absolute/path/to/installed/ui-foundry"
+python3 "$UI_FOUNDRY_DIR/scripts/check_design_gate.py" "/absolute/path/to/review.json"
 ```
 
-命令路径相对本 Skill 目录。Python 3 只用于可选格式校验，核心设计流程不依赖它。脚本只读指定的本地 JSON，不联网，不读凭据，不修改文件。
+Python 3 只用于可选格式校验，核心设计流程不依赖它。脚本只读指定的本地 JSON，不联网，不读凭据，不修改文件。
 
 退出码：0 汇总为 PASS，1 记录无效，2 汇总为 REWORK，3 汇总为 UNVERIFIED。`quality_verified_by_script` 始终为 `false`；脚本不核实证据、渲染或审美。CI 可以验证记录格式或脚本单元测试，不能称为设计合格认证。

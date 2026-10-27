@@ -3,7 +3,7 @@ name: ui-foundry
 description: "Design lead for polished websites, product workspaces and native apps. Turn plain-language goals into coherent visual decisions, lower-effort interactions and verified implementation. Use for new UI, redesigns, text-heavy or generic interfaces, mobile experiences that feel like websites, portable design briefs, and improvements to this design workflow. Not for unrelated engineering tasks."
 license: MIT-0
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
   openclaw:
     homepage: "https://github.com/theosunny/ui-foundry"
 ---
@@ -68,7 +68,7 @@ metadata:
 - `unverified`：缺证据或环境，补证据；不能当作设计错误随意重做。
 - `not_applicable`：未涉及，说明原因。
 
-小修记录受影响项即可。大改可用 [记录模板](assets/review-record.json)。可选的 `python3 scripts/check_design_gate.py <record.json>` 只校验格式与汇总作者状态，**不会验证证据真假、美观或功能**。不把它当 CI 的设计认证。
+小修记录受影响项即可。大改可用 [记录模板](assets/review-record.json)。可选的 [记录校验器](scripts/check_design_gate.py) 随本 Skill 分发；需要时由 Agent 从当前加载的 `SKILL.md` 所在目录解析脚本完整路径，不相对产品项目猜测 `scripts/`，不要求用户手动执行。它只校验格式与汇总作者状态，**不会验证证据真假、美观或功能**。不把它当 CI 的设计认证。
 
 ## 5. 修根因，留下有边界的学习
 
