@@ -7,6 +7,7 @@ import stat
 import sys
 import tempfile
 import unittest
+import warnings
 import zipfile
 from pathlib import Path
 
@@ -108,7 +109,9 @@ class ArchiveVerificationTests(unittest.TestCase):
             duplicate_directory = directory / "duplicate"
             duplicate_directory.mkdir()
             duplicate = duplicate_directory / archive.name
-            self.rewrite_archive(archive, duplicate, entries + [entries[0]])
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore", message="Duplicate name:.*", category=UserWarning)
+                self.rewrite_archive(archive, duplicate, entries + [entries[0]])
             duplicate_manifest = self.manifest_for(manifest, duplicate, duplicate_directory / "manifest.json")
             with self.assertRaisesRegex(VERIFIER.ArchiveVerificationError, "duplicate paths"):
                 VERIFIER.verify_archive(duplicate, duplicate_manifest, directory / "duplicate-output")

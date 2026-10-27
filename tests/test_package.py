@@ -29,7 +29,7 @@ class PackageTests(unittest.TestCase):
 
     def test_bundle_contains_only_intended_files(self):
         files = {
-            str(path.relative_to(SKILL))
+            path.relative_to(SKILL).as_posix()
             for path in SKILL.rglob("*")
             if path.is_file() and "__pycache__" not in path.parts
         }
