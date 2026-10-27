@@ -1,5 +1,30 @@
 # Installation validation · 安装验证
 
+## 0.2.0 — 2026-10-27
+
+Release source: [`ed0967f`](https://github.com/theosunny/ui-foundry/commit/ed0967fc6765fa48bac4edc324d75c27cee4275b). [GitHub release](https://github.com/theosunny/ui-foundry/releases/tag/v0.2.0) · [six passing CI jobs](https://github.com/theosunny/ui-foundry/actions/runs/40471190019).
+
+| Check | Observed result |
+| --- | --- |
+| Package and helper | 28 Python tests passed locally and on Windows/Ubuntu with Python 3.10/3.13 |
+| Actual archive | 31 manifest files; isolated extraction, locked Web dependency installation, TypeScript and production build passed |
+| Browser | 22 checks passed locally and in CI: 6 CSS, 9 reference workflow, 7 component groups; scope and retained failures are in the [component verification record](component-kit-verification.md) |
+| Place adapter | 7 Node groups passed locally and in CI using mocked vendor responses; no live service claim |
+| Native | iOS 17 typecheck and 12 civil-date semantic checks passed locally and in macOS CI; no simulator UI or device operation claim |
+| Distribution | Two local builds, the downloaded GitHub ZIP and downloaded Windows CI ZIP share the hash below; all downloaded archive files verified against the manifest |
+| Local Skill | Existing installation backed up; all 31 installed canonical files match the release manifest. No claim of synchronization across every chat client |
+| ClawHub 0.2.0 | Upload accepted as `pending-publication`; an exact-version install with blank auth configuration in a new isolated workspace returned `Version not found`. Public installation is not available at this check |
+
+Archive SHA-256:
+
+```text
+eeb55107e83eabcb8ec94a5841258621f0242b7f2dd4729a95a39651d7df86e3
+```
+
+The publishing connection initially failed during TLS setup; after restoring connectivity the exact source/version was submitted once successfully. No security check or registry scan was bypassed. The previous 0.1.2 pending status remains a historical record, not evidence that the new version is publicly installable.
+
+**中文：** 0.2.0 的源码、GitHub 安装包和本机 Skill 已更新并回验。新增组件代码及开放式场景标准；测试支持列出的行为，不等于所有平台、真实地图和所有新产品自动通过。ClawHub 的接收、审核与匿名可安装分别确认。
+
 ## 0.1.2 — 2026-10-27
 
 Release source: [`39c91a0`](https://github.com/theosunny/ui-foundry/commit/39c91a07780ccbc6e56ac30ef902fe45e53d3ae2). [GitHub release](https://github.com/theosunny/ui-foundry/releases/tag/v0.1.2) · [passing CI run](https://github.com/theosunny/ui-foundry/actions/runs/40451824372).
