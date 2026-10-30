@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Saturday Studio — Local demo</title>
+    <style>
+      :root { --ink:#1e2733; --paper:#f7f2e9; --cream:#fffdf9; --coral:#d8523e; --clay:#a95e43; --line:#ddd4c7; --mute:#6b6b64; --dark:#263e44; }
+      * { box-sizing:border-box; }
+      body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.45 Georgia, "Times New Roman", serif; }
+      button,input { font:inherit; }
+      .shell { width:min(1180px,100%); margin:0 auto; padding:24px 30px 52px; }
+      header { display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--ink); padding:0 0 21px; }
+      .brand { display:flex; align-items:center; gap:11px; font-size:18px; font-weight:bold; letter-spacing:.02em; }
+      .mark { width:24px; height:24px; border:2px solid var(--coral); border-radius:50% 50% 45% 45%; position:relative; }
+      .mark:after { content:""; position:absolute; width:8px; height:8px; border:2px solid var(--coral); border-radius:50%; top:5px; left:5px; }
+      .demo { font:600 12px/1 ui-sans-serif,system-ui,sans-serif; letter-spacing:.11em; text-transform:uppercase; color:var(--mute); }
+      main { display:grid; grid-template-columns:minmax(0,1fr) 330px; gap:54px; padding-top:44px; }
+      .eyebrow { margin:0 0 9px; color:var(--coral); font:700 12px/1 ui-sans-serif,system-ui,sans-serif; text-transform:uppercase; letter-spacing:.14em; }
+      h1 { max-width:620px; margin:0; font-size:clamp(42px,5.4vw,70px); font-weight:normal; line-height:.96; letter-spacing:-.055em; }
+      .intro { max-width:560px; margin:19px 0 34px; color:#465059; font-size:19px; }
+      .workshops { display:grid; gap:13px; }
+      .workshop { position:relative; display:grid; grid-template-columns:170px 1fr auto; gap:18px; align-items:center; min-height:142px; padding:12px 18px 12px 12px; background:var(--cream); border:1px solid var(--line); border-radius:8px; cursor:pointer; transition:border-color .16s ease, transform .16s ease, box-shadow .16s ease; }
+      .workshop:has(input:checked) { border:2px solid var(--dark); padding:11px 17px 11px 11px; box-shadow:5px 5px 0 var(--dark); }
+      .workshop:hover { transform:translateY(-1px); }
+      .workshop:focus-within { outline:3px solid #8bb8bc; outline-offset:3px; }
+      .art { width:170px; height:118px; display:block; object-fit:cover; border-radius:3px; }
+      .workshop h2 { margin:0 0 4px; font-size:26px; font-weight:normal; letter-spacing:-.035em; }
+      .when { margin:0; color:var(--dark); font-weight:bold; }
+      .facts { display:flex; gap:11px; margin-top:10px; font:600 13px/1.25 ui-sans-serif,system-ui,sans-serif; color:var(--mute); }
+      .facts span + span { padding-left:11px; border-left:1px solid var(--line); }
+      .pick { display:grid; place-items:center; width:28px; height:28px; border:1px solid var(--ink); border-radius:50%; font:700 16px/1 ui-sans-serif,system-ui,sans-serif; }
+      input { position:absolute; width:1px; height:1px; opacity:0; }
+      input:checked + .art ~ .pick { background:var(--dark); color:white; }
+      aside { align-self:start; position:sticky; top:20px; background:var(--dark); color:#fffaf1; padding:28px 26px 25px; border-radius:8px; }
+      .aside-kicker { margin:0 0 28px; color:#c1d8cf; font:700 11px/1 ui-sans-serif,system-ui,sans-serif; letter-spacing:.15em; text-transform:uppercase; }
+      .summary-empty, .summary-picked { min-height:155px; }
+      .summary-empty p { margin:0; font-size:26px; line-height:1.08; letter-spacing:-.035em; }
+      .summary-picked { display:none; }
+      .summary-picked h2 { margin:0 0 10px; font-size:28px; font-weight:normal; line-height:1; letter-spacing:-.035em; }
+      .summary-picked p { margin:4px 0; color:#dce2d8; }
+      .fee { display:flex; justify-content:space-between; align-items:baseline; margin-top:21px!important; padding-top:16px; border-top:1px solid #617175; color:#fffaf1!important; font:700 16px/1 ui-sans-serif,system-ui,sans-serif; }
+      .fee strong { font-size:22px; }
+      .terms { margin:19px 0 0!important; color:#cbd4cc!important; font:13px/1.45 ui-sans-serif,system-ui,sans-serif; }
+      button { width:100%; min-height:48px; margin-top:22px; border:1px solid transparent; border-radius:4px; padding:10px 15px; background:#f4d56a; color:#192e34; cursor:pointer; font:700 15px/1 ui-sans-serif,system-ui,sans-serif; }
+      button:hover { background:#ffe58c; }
+      button:focus-visible { outline:3px solid white; outline-offset:3px; }
+      button:disabled { cursor:not-allowed; opacity:.52; }
+      .confirmation { display:none; padding-top:5px; }
+      .confirmation h2 { margin:0 0 10px; font-size:29px; font-weight:normal; line-height:1; letter-spacing:-.04em; }
+      .confirmation p { color:#dce2d8; }
+      #cancel { margin-top:9px; border-color:#9daaa7; background:transparent; color:#fffaf1; }
+      #cancel:hover { border-color:white; }
+      @media (max-width: 760px) { .shell { padding:18px 16px 34px; } header { padding-bottom:17px; } main { display:flex; flex-direction:column; gap:23px; padding-top:30px; } h1 { font-size:48px; } .intro { font-size:17px; margin-bottom:25px; } .workshops { gap:11px; } .workshop { grid-template-columns:108px 1fr; gap:13px; min-height:112px; padding:9px; } .workshop:has(input:checked) { padding:8px; } .art { width:108px; height:94px; } .workshop h2 { padding-right:26px; font-size:22px; line-height:1; } .when { margin-top:7px; font-size:14px; } .facts { flex-wrap:wrap; gap:5px 8px; margin-top:8px; font-size:11px; } .facts span + span { padding-left:8px; } .pick { position:absolute; top:11px; right:11px; width:24px; height:24px; font-size:14px; } aside { position:static; padding:22px 20px; } .summary-empty,.summary-picked { min-height:0; } .aside-kicker { margin-bottom:18px; } }
+      @media (prefers-reduced-motion:reduce) { * { transition:none!important; } }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header><div class="brand"><span class="mark" aria-hidden="true"></span>Saturday Studio</div><span class="demo">Local demo · no payment</span></header>
+      <main>
+        <section aria-labelledby="title">
+          <p class="eyebrow">Make room for a new practice</p>
+          <h1 id="title">A small class. A good afternoon.</h1>
+          <p class="intro">Choose one workshop at our community art studio. Every session is beginner-friendly and held in our shared making room.</p>
+          <div class="workshops" id="workshops" role="radiogroup" aria-label="Choose a workshop"></div>
+        </section>
+        <aside aria-live="polite">
+          <p class="aside-kicker">Your reservation</p>
+          <div class="summary-empty" id="empty"><p>Pick a class to see your place.</p></div>
+          <div class="summary-picked" id="picked"></div>
+          <div class="confirmation" id="confirmation"></div>
+        </aside>
+      </main>
+    </div>
+    <script>
+      const key = "uf:workshop-probe";
+      const initial = { workshops:[
+        {id:"clay",title:"Clay forms",date:"Saturday 10:00",price:120,minutes:90,seats:3,art:"clay.svg"},
+        {id:"cyan",title:"Light on paper",date:"Saturday 14:00",price:80,minutes:60,seats:8,art:"cyan.svg"},
+        {id:"print",title:"Print the city",date:"Sunday 16:00",price:100,minutes:75,seats:2,art:"print.svg"}
+      ], selectedId:null, reservation:null, audit:"keep-root" };
+      const stored = localStorage.getItem(key);
+      const state = stored === null ? structuredClone(initial) : JSON.parse(stored);
+      if (stored === null) localStorage.setItem(key, JSON.stringify(state));
+      const workshops = document.querySelector("#workshops");
+      const empty = document.querySelector("#empty");
+      const picked = document.querySelector("#picked");
+      const confirmation = document.querySelector("#confirmation");
+      const save = () => localStorage.setItem(key, JSON.stringify(state));
+      const selected = () => state.workshops.find((workshop) => workshop.id === state.selectedId);
+      const money = (amount) => `¥${amount} CNY`;
+      function renderCards() {
+        workshops.replaceChildren(...state.workshops.map((workshop) => {
+          const label = document.createElement("label");
+          label.className = "workshop";
+          label.innerHTML = `<input type="radio" name="workshop" data-select="workshop" id="${workshop.id}" value="${workshop.id}" ${state.selectedId === workshop.id ? "checked" : ""}><img class="art" src="${workshop.art}" alt=""><span><h2>${workshop.title}</h2><p class="when">${workshop.date}</p><div class="facts"><span>${money(workshop.price)}</span><span>${workshop.minutes} min</span><span>${workshop.seats} seats left</span></div></span><span class="pick" aria-hidden="true">${state.selectedId === workshop.id ? "✓" : ""}</span>`;
+          return label;
+        }));
+      }
+      function renderSummary() {
+        const workshop = selected();
+        const confirmed = state.reservation?.status === "confirmed" && state.reservation.workshopId === state.selectedId;
+        empty.style.display = workshop || confirmed ? "none" : "block";
+        picked.style.display = workshop && !confirmed ? "block" : "none";
+        confirmation.style.display = confirmed ? "block" : "none";
+        if (workshop && !confirmed) picked.innerHTML = `<h2>${workshop.title}</h2><p>${workshop.date} · ${workshop.minutes} minutes</p><p class="fee"><span>Selected fee</span><strong>${money(workshop.price)}</strong></p><p class="terms">Free cancellation before class.</p><button id="confirm" type="button">Reserve this workshop</button>`;
+        if (confirmed) confirmation.innerHTML = `<h2>Place reserved.</h2><p><strong>${workshop.title}</strong><br>${workshop.date} · ${money(workshop.price)}</p><p class="terms">Free cancellation before class.</p><button id="cancel" type="button">Cancel reservation</button>`;
+      }
+      function render() { renderCards(); renderSummary(); }
+      workshops.addEventListener("change", (event) => {
+        if (!event.target.matches("[data-select='workshop']")) return;
+        state.selectedId = event.target.value;
+        state.reservation = null;
+        save(); render();
+      });
+      document.addEventListener("click", (event) => {
+        if (event.target.id === "confirm") { state.reservation = { workshopId:state.selectedId, status:"confirmed" }; save(); render(); }
+        if (event.target.id === "cancel") { state.reservation = null; save(); render(); }
+      });
+      render();
+    </script>
+  </body>
+</html>

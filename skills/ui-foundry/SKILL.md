@@ -3,7 +3,7 @@ name: ui-foundry
 description: "Design lead with ready-to-use visual foundations, interaction patterns and component adapters for websites and native apps. Choose a complete direction from a plain-language goal, implement it, inspect actual screens and repair failures. Use for new UI, redesigns, text-heavy or generic interfaces, mobile experiences, portable design briefs and design-system improvements."
 license: MIT
 metadata:
-  version: "0.3.0-dev.1"
+  version: "0.3.0-dev.2"
   openclaw:
     homepage: "https://github.com/theosunny/ui-foundry"
 ---

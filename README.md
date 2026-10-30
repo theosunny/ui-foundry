@@ -92,6 +92,8 @@ We compare the same tasks with and without UI Foundry, preserve both outputs, te
 
 The [four-arm experiment](docs/factorial-evaluation.md) now includes actual baseline/rules/examples/combination outputs in two different domains. Behavior results tie between baseline, examples and combination; rules-only outputs have two narrow-screen failures. This is limited pilot evidence, not a stable design-improvement claim.
 
+A later [first-render probe](docs/first-render-evaluation.md) tests a concrete composition preflight. Two anonymous AI reviewers, with reversed display order, preferred its first outputs on both new tasks. Content and affordance defects remain; this is promising local evidence, not a reliability guarantee.
+
 [Benchmark & results](benchmarks/README.md) · [Open-source review](docs/open-source-readiness.md) · [What our claims require](docs/claims.md)
 
 ## Inside the skill

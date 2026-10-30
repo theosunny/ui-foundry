@@ -82,3 +82,7 @@ node benchmarks/check_factorial.mjs benchmarks/runs/2026-10-30/factorial output/
 ```
 
 This deliberately exits nonzero for the preserved rules-only viewport failures. Add a domain checker before adding a new task; unknown tasks fail closed. New industries map through user work, data semantics, device and consequence rather than a fixed component catalog. A replay is regression evidence, not new independent generation.
+
+## First-render composition probe
+
+The [before/after experiment](../docs/first-render-evaluation.md) freezes full Skill snapshots and one initial output per task/condition. It includes two independent static reviews with reversed display order. Replay using `node benchmarks/check_first_render.mjs benchmarks/runs/2026-10-30/first-render output/first-render-replay-new`; the preserved old energy viewport failure produces the expected nonzero exit. This is a two-task exploratory probe, not a multi-model reliability study.

@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased — 0.3.0-dev.2
+
+- Add a concrete composition preflight before main layout implementation, targeting the observed oversized headings and mobile comparison density failures.
+- Run a full-Skill before/after probe on workshop booking and energy analysis; retain raw outputs, two anonymous reviews with reversed order, behavior observations and unsupported-copy findings. See [evaluation](docs/first-render-evaluation.md).
+
 ## Unreleased — 0.3.0-dev.1
 
 - Route new products by task and content instead of defaulting every project to the same workspace; add direction starters for discovery, creation, onboarding and data exploration.

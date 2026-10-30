@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Current — Studio energy</title>
+    <style>
+      :root { --ink:#091d33; --teal:#007d8a; --wash:#edf5f5; --line:#d6e0e4; --muted:#607082; --paper:#fff; }
+      * { box-sizing:border-box; }
+      body { margin:0; min-width:320px; color:var(--ink); background:#f5f7f8; font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; }
+      button { font:inherit; color:inherit; }
+      .shell { min-height:100vh; display:grid; grid-template-columns:260px minmax(0,1fr); }
+      aside { padding:30px 20px; background:var(--ink); color:#edf6f8; display:flex; flex-direction:column; gap:32px; }
+      .brand { display:flex; align-items:center; gap:10px; font-size:19px; font-weight:760; letter-spacing:-.04em; }
+      .brand-mark { width:29px; height:29px; display:grid; place-items:center; color:#fff; background:var(--teal); border-radius:50% 50% 8px 50%; font-size:15px; }
+      .eyebrow { margin:0; color:#7590a6; font-size:11px; letter-spacing:.12em; text-transform:uppercase; font-weight:750; }
+      .studio-name { margin:8px 0 0; font-weight:650; font-size:15px; }
+      .nav-item { display:flex; gap:11px; align-items:center; padding:11px 12px; border-left:2px solid transparent; border-radius:0 7px 7px 0; color:#a9bac8; font-size:14px; }
+      .nav-item.active { background:#14304a; color:#fff; border-left-color:#19a3ae; }
+      .nav-dot { width:7px; height:7px; border:1px solid currentColor; border-radius:50%; }
+      .local { margin-top:auto; padding:13px; border:1px solid #25445d; border-radius:8px; font-size:12px; color:#b7c8d4; line-height:1.5; }
+      .local b { color:#54c2c9; font-weight:700; }
+      main { padding:32px clamp(22px,4vw,58px) 50px; max-width:1510px; width:100%; margin:auto; }
+      .top { display:flex; justify-content:space-between; gap:24px; align-items:start; margin-bottom:34px; }
+      h1 { font-size:clamp(28px,3vw,38px); line-height:1.1; letter-spacing:-.055em; margin:7px 0 8px; }
+      .subtitle { margin:0; color:var(--muted); font-size:15px; }
+      .period { border:1px solid var(--line); background:var(--paper); padding:10px 13px; border-radius:7px; color:#41566a; font-size:13px; white-space:nowrap; }
+      .controls { display:flex; align-items:end; justify-content:space-between; gap:24px; padding:18px 0 23px; border-bottom:1px solid var(--line); }
+      .control-group { display:grid; gap:8px; }
+      .control-label { color:var(--muted); font-size:12px; font-weight:700; }
+      .segmented { display:flex; gap:6px; flex-wrap:wrap; }
+      .choice { min-height:38px; border:1px solid var(--line); background:var(--paper); padding:0 15px; border-radius:6px; cursor:pointer; font-size:14px; }
+      .choice[aria-pressed="true"] { background:var(--ink); border-color:var(--ink); color:#fff; }
+      .range .choice[aria-pressed="true"] { background:var(--teal); border-color:var(--teal); }
+      .summary { display:grid; grid-template-columns:minmax(250px,.82fr) minmax(0,2.1fr); gap:24px; margin-top:27px; }
+      .total-card { background:var(--ink); color:#fff; border-radius:10px; padding:25px; min-height:222px; position:relative; overflow:hidden; }
+      .total-card:after { content:""; position:absolute; width:180px; height:180px; right:-66px; bottom:-88px; border:26px solid #16445a; border-radius:50%; }
+      .total-card .eyebrow { color:#94aec0; }
+      #total { font-size:55px; line-height:1; letter-spacing:-.07em; margin:28px 0 7px; font-weight:720; position:relative; z-index:1; }
+      .unit { color:#a9c2ce; font-size:14px; }
+      .total-note { position:relative; z-index:1; margin:31px 0 0; color:#d3e0e5; font-size:13px; }
+      .chart-card { border:1px solid var(--line); border-radius:10px; background:var(--paper); padding:24px 25px 18px; min-width:0; }
+      .card-heading { display:flex; align-items:start; justify-content:space-between; gap:16px; }
+      h2 { font-size:17px; letter-spacing:-.025em; margin:0 0 5px; }
+      .card-heading p { margin:0; color:var(--muted); font-size:13px; }
+      .key { display:flex; align-items:center; gap:7px; color:var(--muted); font-size:12px; white-space:nowrap; }
+      .key i { display:block; width:8px; height:8px; border-radius:50%; background:var(--teal); }
+      .chart { height:151px; margin-top:20px; display:grid; grid-template-columns:repeat(7,1fr); gap:12px; align-items:end; border-bottom:1px solid var(--line); padding:0 4px 0; }
+      .bar-group { height:100%; display:grid; grid-template-rows:1fr auto; align-items:end; gap:8px; text-align:center; min-width:21px; }
+      .bar { min-height:4px; width:min(34px,76%); justify-self:center; background:var(--teal); border-radius:4px 4px 0 0; position:relative; transition:height .16s ease; }
+      .bar span { position:absolute; left:50%; transform:translateX(-50%); top:-20px; color:#254052; font-size:11px; font-weight:700; }
+      .day { color:#708092; font-size:11px; }
+      .details { margin-top:27px; border:1px solid var(--line); border-radius:10px; background:var(--paper); overflow:hidden; }
+      .details-header { padding:19px 24px 15px; display:flex; justify-content:space-between; align-items:center; }
+      .details-header p { margin:4px 0 0; color:var(--muted); font-size:13px; }
+      table { width:100%; border-collapse:collapse; font-size:14px; }
+      th { padding:11px 24px; text-align:left; color:#617285; background:#f8fafb; font-size:11px; letter-spacing:.08em; text-transform:uppercase; }
+      th:last-child, td:last-child { text-align:right; }
+      td { padding:15px 24px; border-top:1px solid #e6edf0; }
+      td:last-child { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-weight:700; }
+      tr:last-child td { border-bottom:0; }
+      .value-mark { display:inline-block; width:6px; height:6px; background:var(--teal); border-radius:50%; margin-right:10px; vertical-align:middle; }
+      button:focus-visible { outline:3px solid #58bac1; outline-offset:2px; }
+      @media (max-width:760px) { .shell { grid-template-columns:1fr; } aside { min-height:auto; padding:15px 18px; display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:16px; } aside .studio, aside nav { display:none; } .local { margin:0; padding:7px 9px; font-size:10px; } main { padding:26px 18px 35px; } .top { margin-bottom:24px; } .period { font-size:11px; padding:8px 9px; } .controls { display:grid; gap:15px; align-items:start; } .summary { grid-template-columns:1fr; gap:16px; margin-top:19px; } .total-card { min-height:188px; } #total { margin-top:19px; font-size:50px; } .chart-card { padding:20px 13px 16px; } .chart { gap:4px; } .bar span { font-size:10px; } .details { margin-top:18px; overflow-x:auto; } .details-header { padding:17px; } table { min-width:430px; } th,td { padding-left:17px; padding-right:17px; } }
+      @media (prefers-reduced-motion:reduce) { .bar { transition:none; } }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <aside>
+        <div class="brand"><span class="brand-mark">↗</span>current</div>
+        <div class="studio"><p class="eyebrow">Workspace</p><p class="studio-name">Two-room maker studio</p></div>
+        <nav aria-label="Workspace sections"><div class="nav-item active"><span class="nav-dot"></span>Energy overview</div><div class="nav-item"><span class="nav-dot"></span>Meter records</div></nav>
+        <div class="local"><b>Local demo</b><br />Data stays in this browser.</div>
+      </aside>
+      <main>
+        <div class="top"><div><p class="eyebrow">Energy analysis</p><h1>Power, room by room.</h1><p class="subtitle">Read daily use before planning the next studio session.</p></div><div class="period">1–7 November 2026</div></div>
+        <section class="controls" aria-label="Usage controls">
+          <div class="control-group"><span class="control-label">Meter</span><div class="segmented" role="group" aria-label="Choose meter"><button class="choice" type="button" data-meter="studio" aria-pressed="false">Studio</button><button class="choice" type="button" data-meter="workshop" aria-pressed="false">Workshop</button></div></div>
+          <div class="control-group range"><span class="control-label">Period</span><div class="segmented" role="group" aria-label="Choose period"><button class="choice" type="button" data-range="7" aria-pressed="false">7 days</button><button class="choice" type="button" data-range="3" aria-pressed="false">Last 3 days</button></div></div>
+        </section>
+        <section class="summary" aria-label="Selected energy usage">
+          <article class="total-card"><p class="eyebrow" id="total-label">Current period</p><div id="total">89 kWh</div><span class="unit">kilowatt-hours used</span><p class="total-note" id="total-note">Studio · 1–7 November</p></article>
+          <article class="chart-card"><div class="card-heading"><div><h2 id="chart-title">Studio daily usage</h2><p id="chart-description">1–7 November · kilowatt-hours</p></div><span class="key"><i></i>Meter reading</span></div><div class="chart" id="chart" role="img" aria-label="Daily electricity usage chart"></div></article>
+        </section>
+        <section class="details" aria-labelledby="details-title"><div class="details-header"><div><h2 id="details-title">Daily meter readings</h2><p id="details-description">Exact values for selected period</p></div></div><table><thead><tr><th scope="col">Date</th><th scope="col">Room</th><th scope="col">Usage</th></tr></thead><tbody id="rows"></tbody></table></section>
+      </main>
+    </div>
+    <script>
+      const key = "uf:energy-probe";
+      const initial = { meters: [{ id: "studio", name: "Studio", daily: [12, 8, 14, 18, 10, 16, 11] }, { id: "workshop", name: "Workshop", daily: [20, 24, 18, 16, 22, 19, 21] }], selectedId: "studio", range: 7, audit: "keep-root" };
+      const dates = ["1 Nov", "2 Nov", "3 Nov", "4 Nov", "5 Nov", "6 Nov", "7 Nov"];
+      function load() { const saved = localStorage.getItem(key); if (saved === null) { localStorage.setItem(key, JSON.stringify(initial)); return structuredClone(initial); } try { return JSON.parse(saved); } catch { return structuredClone(initial); } }
+      let state = load();
+      function render() {
+        const meter = state.meters.find((item) => item.id === state.selectedId) || state.meters[0];
+        const count = state.range === 3 ? 3 : 7;
+        const readings = meter.daily.slice(-count); const labels = dates.slice(-count); const total = readings.reduce((sum, value) => sum + value, 0); const max = Math.max(...readings);
+        document.querySelector("#total").textContent = `${total} kWh`;
+        document.querySelector("#total-label").textContent = count === 3 ? "Last 3 days" : "Current 7-day period";
+        document.querySelector("#total-note").textContent = `${meter.name} · ${labels[0]}–${labels[labels.length - 1]}`;
+        document.querySelector("#chart-title").textContent = `${meter.name} daily usage`;
+        document.querySelector("#chart-description").textContent = `${labels[0]}–${labels[labels.length - 1]} · kilowatt-hours`;
+        document.querySelector("#chart").setAttribute("aria-label", `${meter.name} usage: ${readings.map((value, index) => `${labels[index]} ${value} kWh`).join(", ")}`);
+        document.querySelector("#chart").innerHTML = readings.map((value, index) => `<div class="bar-group"><div class="bar" style="height:${Math.max(12, value / max * 100)}%"><span>${value}</span></div><span class="day">${labels[index].replace(" Nov", "")}</span></div>`).join("");
+        document.querySelector("#rows").innerHTML = readings.map((value, index) => `<tr><td>${labels[index]} 2026</td><td>${meter.name}</td><td><span class="value-mark"></span>${value} kWh</td></tr>`).join("");
+        document.querySelectorAll("[data-meter]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.meter === meter.id)));
+        document.querySelectorAll("[data-range]").forEach((button) => button.setAttribute("aria-pressed", String(Number(button.dataset.range) === count)));
+      }
+      document.addEventListener("click", (event) => { const button = event.target.closest("[data-meter],[data-range]"); if (!button) return; if (button.dataset.meter) state.selectedId = button.dataset.meter; if (button.dataset.range) state.range = Number(button.dataset.range); localStorage.setItem(key, JSON.stringify(state)); render(); });
+      render();
+    </script>
+  </body>
+</html>

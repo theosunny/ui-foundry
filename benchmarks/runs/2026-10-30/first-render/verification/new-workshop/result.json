@@ -1,0 +1,37 @@
+{
+  "id": "new-workshop",
+  "condition": "new",
+  "task": "workshop-booking",
+  "checks": [
+    {
+      "name": "given comparison facts",
+      "status": "pass",
+      "evidence": {
+        "items": 3
+      }
+    },
+    {
+      "name": "selected reservation and cancellation",
+      "status": "pass",
+      "evidence": {
+        "preserved": true
+      }
+    },
+    {
+      "name": "changed selection persists",
+      "status": "pass",
+      "evidence": {
+        "workshopId": "print",
+        "status": "confirmed"
+      }
+    },
+    {
+      "name": "mobile viewport",
+      "status": "pass",
+      "evidence": {
+        "viewport": 390,
+        "document": 390
+      }
+    }
+  ]
+}

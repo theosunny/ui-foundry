@@ -19,6 +19,7 @@
 | 0.3.0 development collection | Initial mobile reference passed behavior but had repetitive oversized cards; revised list passed 6 browser groups, including exact undo and persistence | Authored regression example; visual preference, independent review and transfer remain unverified |
 | iOS reference render | Existing SwiftUI editor compiled and displayed in an iOS 27 simulator host | Static initial frame only, no native interaction or high-quality design claim |
 | Four-arm pilot | 2 tasks × 4 arms; baseline 10/10, rules 8/10, examples 10/10, combination 10/10 | No measured behavioral advantage for the combination; initial failures, sources and harness corrections retained. See [experiment](../docs/factorial-evaluation.md) |
+| Composition preflight probe | Full Skill before/after on 2 new task families; before 7/8 behavior checks, after 8/8; two anonymous AI reviewers prefer after on both tasks, with reversed display order | Limited positive evidence; unsupported copy and weak selector affordances remain. No stable superiority claim. See [evaluation](../docs/first-render-evaluation.md) |
 
 ## Inspect the work
 

@@ -92,6 +92,8 @@ ClawHub 与 GitHub 版本可能不同；最新实际验证状态见[安装记录
 
 [四组实验](docs/factorial-evaluation.md)现已实际生成两个领域的基准、规则、示例、组合产物。基准、示例和组合的行为检查持平；仅规则组有两项窄屏失败。示例按任务机制迁移，不以行业作白名单；现有结果不支持宣传“稳定更好”。
 
+后续[首轮构图实验](docs/first-render-evaluation.md)检验了生成前的具体构图预检。两个新任务上，两位匿名审核者在反转展示顺序后仍更偏好新版首稿；文案与控件仍有缺陷。这是局部正向证据，不是质量保证。
+
 [对照方法与结果](benchmarks/README.md) · [开源验收](docs/open-source-readiness.md) · [宣传与证据](docs/claims.md)
 
 ## Skill 里有什么
