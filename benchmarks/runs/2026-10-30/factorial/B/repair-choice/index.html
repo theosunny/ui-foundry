@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fixmate — compare repair quotes</title>
+  <style>
+    :root { --ink:#14221d; --muted:#65736b; --line:#dbe5dd; --paper:#f7faf6; --green:#156b48; --lime:#dff4b7; --amber:#fff2c9; }
+    * { box-sizing:border-box } body { margin:0; color:var(--ink); background:var(--paper); font:16px/1.45 ui-rounded, system-ui, sans-serif; }
+    button { font:inherit; cursor:pointer } .shell { max-width:1140px; margin:auto; padding:22px 18px 56px; }
+    header { display:flex; align-items:center; justify-content:space-between; margin-bottom:34px } .brand { font-weight:800; letter-spacing:-.06em; font-size:25px } .tag { font-size:12px; padding:5px 9px; background:var(--amber); border-radius:99px; font-weight:700 }
+    .intro { max-width:680px; margin-bottom:24px } h1 { font-size:clamp(32px,5vw,56px); line-height:1.02; margin:0 0 12px; letter-spacing:-.055em } .intro p { color:var(--muted); margin:0; font-size:18px }
+    .grid { display:grid; grid-template-columns:minmax(0,1fr) 330px; gap:22px; align-items:start } .quotes { display:grid; gap:12px }
+    .quote { width:100%; border:1px solid var(--line); border-radius:16px; padding:18px; background:white; text-align:left; display:grid; grid-template-columns:1.3fr repeat(3,.7fr) 24px; gap:12px; align-items:center; transition:.16s; }
+    .quote:hover { border-color:#78a58e; transform:translateY(-1px) } .quote[aria-pressed="true"] { outline:3px solid var(--lime); border-color:var(--green) }
+    .name { font-weight:800; font-size:18px } .rating { color:var(--muted); font-size:13px; margin-top:2px }.metric small { display:block; text-transform:uppercase; font-size:10px; letter-spacing:.08em; color:var(--muted); font-weight:800 }.metric strong { font-size:15px }.tick { border:2px solid #bbc9bf; width:20px; height:20px; border-radius:50% }.quote[aria-pressed="true"] .tick { border:6px solid var(--green) }
+    aside { background:var(--ink); color:white; border-radius:18px; padding:22px; position:sticky; top:16px } aside h2 { margin:0 0 8px; font-size:20px } aside p { color:#bfd0c5; margin:0 0 20px }.details { border-top:1px solid #3b5044; padding-top:14px; display:grid; gap:12px }.details div { display:flex; justify-content:space-between; gap:16px }.details span { color:#b8c7bd }.details b { text-align:right }.notice { font-size:13px; background:#263a2f; padding:12px; border-radius:10px; margin:20px 0 }.primary,.cancel { width:100%; border:0; border-radius:10px; padding:12px 14px; font-weight:800 }.primary { background:var(--lime); color:#173321 }.primary:disabled { opacity:.45; cursor:not-allowed }.cancel { margin-top:8px; color:white; background:transparent; border:1px solid #587264 }.confirmed { background:#dff4b7; color:#173321; padding:10px; border-radius:10px; font-weight:800; margin-bottom:14px }
+    .empty { color:#819188; font-size:14px } footer { color:var(--muted); font-size:13px; margin-top:16px } @media (max-width:720px) { .grid { grid-template-columns:1fr } aside { position:static; order:-1 }.quote { grid-template-columns:1fr 1fr 24px }.quote .metric:first-of-type { grid-column:1 }.metric strong { font-size:14px } }
+  </style>
+</head>
+<body>
+  <main class="shell"><header><div class="brand">fixmate</div><span class="tag">LOCAL DEMO</span></header>
+    <section class="intro" aria-labelledby="page-title"><h1 id="page-title">Choose repair without guesswork.</h1><p>Three local quotes for your request. Compare price, arrival time and warranty before you book.</p></section>
+    <div class="grid"><section class="quotes" aria-label="Repair quotes" id="quote-list"></section>
+      <aside aria-live="polite"><h2 id="panel-title">Select a repairer</h2><p id="panel-copy">Pick any quote to see the booking details.</p><div id="panel-content"></div></aside>
+    </div><footer>Demo only — no payment is taken and no vendor receives a request.</footer>
+  </main>
+  <script>
+    const key = "uf:repair-choice";
+    const initial = {quotes:[{id:"q1",name:"Green Repair",price:180,time:"Saturday 10:00",warranty:"30 days",rating:"4.8"},{id:"q2",name:"Neighbour Craft",price:220,time:"Saturday 14:00",warranty:"90 days",rating:"4.9"},{id:"q3",name:"Star Service",price:150,time:"Sunday 09:00",warranty:"None",rating:"4.6"}],selectedId:null,booking:null,extra:"preserve-me"};
+    let state;
+    if (localStorage.getItem(key) === null) { state = initial; localStorage.setItem(key, JSON.stringify(state)); } else { try { state = JSON.parse(localStorage.getItem(key)); } catch { state = initial; } }
+    const save = () => localStorage.setItem(key, JSON.stringify(state));
+    const getSelected = () => state.quotes.find(q => q.id === state.selectedId);
+    function render() { const selected=getSelected(), booked=state.booking?.status === "confirmed" ? state.quotes.find(q=>q.id===state.booking.quoteId) : null;
+      document.querySelector("#quote-list").innerHTML = state.quotes.map(q => `<button class="quote" type="button" aria-pressed="${q.id===state.selectedId}" data-id="${q.id}"><span><span class="name">${q.name}</span><span class="rating">★ ${q.rating} local rating</span></span><span class="metric"><small>Fee</small><strong>¥${q.price} CNY</strong></span><span class="metric"><small>Arrival</small><strong>${q.time}</strong></span><span class="metric"><small>Warranty</small><strong>${q.warranty}</strong></span><i class="tick" aria-hidden="true"></i></button>`).join("");
+      const panel=document.querySelector("#panel-content"), title=document.querySelector("#panel-title"), copy=document.querySelector("#panel-copy");
+      if (booked) { title.textContent="Booking confirmed"; copy.textContent=`${booked.name} is reserved for ${booked.time}.`; panel.innerHTML=`<div class="confirmed">Confirmed locally</div><div class="details"><div><span>Fee</span><b>¥${booked.price} CNY</b></div><div><span>Cancellation</span><b>Free before arrival</b></div></div><button class="cancel" type="button" id="cancel">Cancel booking</button>`; }
+      else if (selected) { title.textContent="Ready to book"; copy.textContent=selected.name; panel.innerHTML=`<div class="details"><div><span>Service fee</span><b>¥${selected.price} CNY</b></div><div><span>Appointment</span><b>${selected.time}</b></div><div><span>Warranty</span><b>${selected.warranty}</b></div></div><p class="notice">Free cancellation before arrival. This confirms only in this browser.</p><button class="primary" type="button" id="confirm">Confirm local booking</button>`; }
+      else { panel.innerHTML='<p class="empty">No quote selected yet.</p>'; }
+      document.querySelectorAll("[data-id]").forEach(b=>b.onclick=()=>{state.selectedId=b.dataset.id; save(); render()});
+      document.querySelector("#confirm")?.addEventListener("click",()=>{state.booking={quoteId:state.selectedId,status:"confirmed"};save();render()});
+      document.querySelector("#cancel")?.addEventListener("click",()=>{state.booking=null;save();render()});
+    } render();
+  </script>
+</body></html>

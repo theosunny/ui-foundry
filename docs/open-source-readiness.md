@@ -30,6 +30,8 @@ These levels apply per claim. They are not averaged into a single “95/100” m
 
 The repository can be published and contributed to as a beta. A broad claim that it consistently produces better-looking and more usable products requires more evidence: repeated held-out tasks, multiple model/client combinations, real users, accessibility assessment, and native device/simulator runs. Those are not replaced by filesystem installation into several client directories.
 
+Concrete open acceptance items and current evidence are tracked in [validation still needed](next-validation.md).
+
 ## 中文
 
 开源合格不等于“任何需求一次做完美”。验收要回答：服务谁、解决什么、别人是否装得上、规则是否独立可用、效果是否有真实证据、失败能否修复、别人能否复现与参与。

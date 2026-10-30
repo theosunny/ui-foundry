@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Repair choices — local demo</title>
+  <style>
+    :root { color-scheme: light; --ink:#192326; --muted:#647277; --line:#d9e0df; --paper:#f7faf8; --green:#146b54; --tint:#e2f1e9; --accent:#f0b647; }
+    * { box-sizing:border-box } body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.45 ui-sans-serif,system-ui,sans-serif }
+    main { max-width:1050px; margin:auto; padding:24px 18px 44px } header { display:flex; gap:14px; align-items:flex-start; justify-content:space-between; margin-bottom:28px } h1,h2,p { margin:0 } h1 { font-size:clamp(1.65rem,4vw,2.5rem); letter-spacing:-.045em } h2 { font-size:1.1rem } .eyebrow { color:var(--green); font-size:.78rem; font-weight:800; letter-spacing:.09em; text-transform:uppercase; margin-bottom:5px }.demo { font-size:.8rem; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:5px 9px; white-space:nowrap }
+    .layout { display:grid; gap:20px }.quotes { display:grid; gap:12px }.quote { background:#fff; border:1px solid var(--line); border-radius:16px; padding:17px; cursor:pointer; transition:.15s }.quote:focus-within,.quote:hover { border-color:var(--green) }.quote.selected { border:2px solid var(--green); background:var(--tint); padding:16px }.quote-top { display:flex; justify-content:space-between; gap:12px }.name { font-size:1.12rem; font-weight:750 }.rating { color:var(--muted); font-size:.9rem }.price { font-size:1.45rem; font-weight:800; white-space:nowrap }.facts { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:16px 0 }.fact { background:#f6f8f7; border-radius:9px; padding:8px 9px; font-size:.86rem }.fact b { display:block; color:var(--muted); font-size:.72rem; letter-spacing:.04em; text-transform:uppercase }.quote.selected .fact { background:#fff }.select { border:1px solid var(--ink); background:#fff; border-radius:8px; padding:9px 12px; font:inherit; font-weight:700; cursor:pointer }.quote.selected .select { background:var(--green); color:#fff; border-color:var(--green) }
+    .panel { height:max-content; background:var(--ink); color:#fff; padding:21px; border-radius:16px; position:sticky; top:16px }.panel p { color:#dbe3e1; margin-top:8px }.chosen { margin:19px 0; padding:13px; background:#263436; border-radius:10px }.chosen span { display:block; color:#bdcfca; font-size:.83rem }.confirm { width:100%; border:0; border-radius:8px; background:var(--accent); color:#172126; padding:12px; font:inherit; font-weight:800; cursor:pointer }.confirm:disabled { opacity:.5; cursor:not-allowed }.terms { font-size:.8rem; margin-top:12px!important }.booking { border-top:1px solid #506060; margin-top:17px; padding-top:17px }.cancel { margin-top:11px; background:transparent; color:#fff; border:1px solid #aebcba; border-radius:7px; padding:8px 10px; font:inherit; cursor:pointer }.notice { margin-top:18px; color:#9a5505; background:#fff0ce; border-radius:9px; padding:10px 12px; font-size:.88rem }
+    @media (min-width:760px){ main { padding:48px 28px }.layout { grid-template-columns:minmax(0,1fr) 330px }.facts { grid-template-columns:1.35fr 1fr 1fr } }
+  </style>
+</head>
+<body>
+  <main>
+    <header><div><p class="eyebrow">Home repair</p><h1>Choose repair help</h1></div><span class="demo">Local demo · no real request</span></header>
+    <div class="layout"><section aria-labelledby="quotes-heading"><h2 id="quotes-heading">Three available quotes</h2><div class="quotes" id="quotes"></div><p class="notice">Selecting or confirming stays in this browser. No payment or vendor contact is made.</p></section><aside class="panel" aria-live="polite"><h2>Your booking</h2><p id="summary">Choose a quote to review its details.</p><div class="chosen" id="chosen" hidden></div><button class="confirm" id="confirm" disabled>Confirm local booking</button><p class="terms">Fee shown in CNY. Free cancellation before arrival.</p><div class="booking" id="booking" hidden></div></aside></div>
+  </main>
+  <script>
+    const key = "uf:repair-choice";
+    const initial = { quotes:[{id:"q1",name:"Green Repair",price:180,time:"Saturday 10:00",warranty:"30 days",rating:"4.8"},{id:"q2",name:"Neighbour Craft",price:220,time:"Saturday 14:00",warranty:"90 days",rating:"4.9"},{id:"q3",name:"Star Service",price:150,time:"Sunday 09:00",warranty:"None",rating:"4.6"}],selectedId:null,booking:null,extra:"preserve-me" };
+    let state;
+    const saved = localStorage.getItem(key);
+    try { state = saved === null ? structuredClone(initial) : JSON.parse(saved); if (!state || typeof state !== "object" || !Array.isArray(state.quotes)) throw new Error(); } catch { state = structuredClone(initial); }
+    if (saved === null) localStorage.setItem(key, JSON.stringify(state));
+    const quotes = document.querySelector("#quotes"), summary = document.querySelector("#summary"), chosen = document.querySelector("#chosen"), confirm = document.querySelector("#confirm"), booking = document.querySelector("#booking");
+    const save = () => localStorage.setItem(key, JSON.stringify(state));
+    function render() {
+      const selected = state.quotes.find(q => q.id === state.selectedId);
+      quotes.innerHTML = state.quotes.map(q => `<article class="quote ${q.id===state.selectedId?"selected":""}"><div class="quote-top"><div><div class="name">${q.name}</div><div class="rating">★ ${q.rating} rating</div></div><div class="price">¥${q.price}</div></div><div class="facts"><div class="fact"><b>Appointment</b>${q.time}</div><div class="fact"><b>Warranty</b>${q.warranty}</div></div><button class="select" type="button" data-id="${q.id}" aria-pressed="${q.id===state.selectedId}">${q.id===state.selectedId?"Selected":"Select quote"}</button></article>`).join("");
+      confirm.disabled = !selected || Boolean(state.booking);
+      summary.textContent = selected ? `${selected.name} is selected. Review fee and cancellation before confirming.` : "Choose a quote to review its details.";
+      chosen.hidden = !selected; if (selected) chosen.innerHTML = `<span>Selected service</span><strong>${selected.name} · ¥${selected.price} CNY</strong><br><span>${selected.time} · ${selected.warranty} warranty</span>`;
+      booking.hidden = !state.booking; if (state.booking) { const q = state.quotes.find(q => q.id === state.booking.quoteId); booking.innerHTML = `<strong>Booking confirmed</strong><p>${q ? q.name : state.booking.quoteId}</p><button class="cancel" type="button" id="cancel">Cancel booking</button>`; }
+    }
+    quotes.addEventListener("click", e => { const id = e.target.dataset.id; if (id) { state.selectedId=id; save(); render(); } });
+    confirm.addEventListener("click", () => { if (state.selectedId) { state.booking={quoteId:state.selectedId,status:"confirmed"}; save(); render(); } });
+    booking.addEventListener("click", e => { if (e.target.id === "cancel") { state.booking=null; save(); render(); } });
+    render();
+  </script>
+</body>
+</html>

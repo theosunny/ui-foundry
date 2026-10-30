@@ -1,0 +1,34 @@
+{
+  "id": "old-energy",
+  "condition": "old",
+  "task": "energy-review",
+  "checks": [
+    {
+      "name": "initial total",
+      "status": "pass",
+      "evidence": {
+        "total": 89
+      }
+    },
+    {
+      "name": "meter/range totals and persistence",
+      "status": "pass",
+      "evidence": {
+        "total": 62,
+        "preserved": true
+      }
+    },
+    {
+      "name": "full range restored",
+      "status": "pass",
+      "evidence": {
+        "total": 140
+      }
+    },
+    {
+      "name": "mobile viewport",
+      "status": "fail",
+      "error": "Error: {\"viewport\":390,\"document\":468}"
+    }
+  ]
+}
