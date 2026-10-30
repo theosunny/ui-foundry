@@ -1,0 +1,41 @@
+{
+  "status": "frozen-before-generation",
+  "date": "2026-10-30",
+  "design": "2 tasks x 4 arms, one generation each; pilot only",
+  "arms": {
+    "A": "baseline",
+    "B": "rules",
+    "C": "examples",
+    "D": "rules+examples"
+  },
+  "limits": [
+    "Same inherited model/tool platform; resolved model id and cost unavailable",
+    "Host instructions and skill exposure not guaranteed absent",
+    "No human evaluation; fresh context per arm; two tasks share an arm context",
+    "Compact experimental guidance, not ablation of every line of UI Foundry"
+  ],
+  "inputs": {
+    "inputs/A/guidance.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "inputs/A/tasks.json": "43e8f30b8b0acad29fa665a8aec79818ac159d863c94d2cfcb625554a3fff24f",
+    "inputs/C/guidance.txt": "137161b61c5642722cfd6c7f83ce6a7db38c089408184c9d3c17a07fe8a27c03",
+    "inputs/C/tasks.json": "43e8f30b8b0acad29fa665a8aec79818ac159d863c94d2cfcb625554a3fff24f",
+    "inputs/D/guidance.txt": "1056a5bd970379927e33a5c599b5a082ffa1a2fdbc5fe8bc4bb1765db17f3c43",
+    "inputs/D/tasks.json": "43e8f30b8b0acad29fa665a8aec79818ac159d863c94d2cfcb625554a3fff24f",
+    "inputs/B/guidance.txt": "1eeab1761133d4bef0a304cc8d21d0b50d86f9c0fdec67a9985270d502c0d5ab",
+    "inputs/B/tasks.json": "43e8f30b8b0acad29fa665a8aec79818ac159d863c94d2cfcb625554a3fff24f"
+  },
+  "artifacts": {
+    "A/checks.md": "eca3679e1db4f4639b507a8837cbfa748e9a6569b819d652c3d9bb2f1f0241fc",
+    "A/exhibit-notes/index.html": "533981f220bc45a684d4c69346171f9a15c031d7dc1112b6eed049a0377a3395",
+    "A/repair-choice/index.html": "b26b9dfa5b93a0eaba8d38eef7dad3b66b166900acff86a4f85a23802fdbe247",
+    "B/checks.md": "727a5af27ad9e154ff490e57fbc2c0086c64673921c70973e6b668a3fcb96076",
+    "B/exhibit-notes/index.html": "aa55a45fc29130e82c709f86e4b343150fc478ec957361e238a19355da4a9aba",
+    "B/repair-choice/index.html": "a4a4e37c3394d4f93e8e8462bec9cf2d734a58eeb356cdc76e88f2ea9068d664",
+    "C/checks.md": "1da25494e1ffaae2c5f9e50651f324648ca7f6363bc87cd7f8d10ac485fbb657",
+    "C/exhibit-notes/index.html": "3ef9730b60071b48f4c67d4c4265fd30da4c9eacdd0cf626d031c30b1ab0b556",
+    "C/repair-choice/index.html": "1046d8c644d80e6f1cae7b90784972fea780f5165518cb115408e7eed998e352",
+    "D/checks.md": "c8925bedac1408fb1ad12d36965bf02cfff91801c31eddc9b80a70efb3844fb1",
+    "D/exhibit-notes/index.html": "6d9b261202e6050e1c2f66c7a60b9188d98033a71ee18e9fed5e4ca2c83ec03c",
+    "D/repair-choice/index.html": "ccf70943e5bd36527e647a65a385913eee27867ee5e94e1739cc8dac7fa2aaf3"
+  }
+}

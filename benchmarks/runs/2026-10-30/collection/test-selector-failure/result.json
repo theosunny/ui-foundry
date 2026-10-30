@@ -1,0 +1,30 @@
+{
+  "scope": "authored reference; local storage, Chrome",
+  "checks": [
+    {
+      "name": "search filters and clearing restores results",
+      "status": "pass"
+    },
+    {
+      "name": "favorite persists after reload and filter shows favorites",
+      "status": "pass"
+    },
+    {
+      "name": "dialog escape and saved item survive reload",
+      "status": "pass"
+    },
+    {
+      "name": "delete and undo restore exact record and order",
+      "status": "pass"
+    },
+    {
+      "name": "editing preserves identity and cancellation preserves saved data",
+      "status": "fail",
+      "error": "Error: locator.click: Error: strict mode violation: getByRole('button', { name: '取消' }) resolved to 3 elements:\n    1) <button class=\"icon\" aria-pressed=\"true\" aria-label=\"取消收藏 晨间散步路线\">★ 已收藏</button> aka getByRole('button', { name: '取消收藏 晨间散步路线' })\n    2) <button class=\"icon\" aria-pressed=\"true\" aria-label=\"取消收藏 一本值得再读的书\">★ 已收藏</button> aka getByRole('button', { name: '取消收藏 一本值得再读的书' })\n    3) <button id=\"cancel\" class=\"icon\" type=\"button\">取消</button> aka getByRole('button', { name: '取消', exact: true })\n\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '取消' })\u001b[22m\n"
+    },
+    {
+      "name": "mobile has no horizontal overflow",
+      "status": "pass"
+    }
+  ]
+}

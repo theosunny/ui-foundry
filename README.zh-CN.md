@@ -27,7 +27,7 @@
 
 **你不必先学会设计，才能做出一个好产品。**
 
-UI Foundry 给编程 Agent 一套能落地的设计体系：**具体视觉底稿、可运行界面范例、交互模式、组件适配和审核返修**。从想法或现有页面出发，由 Agent 选择并实现完整设计；你决定产品目标和重要约束。
+UI Foundry 让编程 Agent 兼任产品设计师：从想法或现有页面出发，选择视觉方向、设计交互、实现并检查主要任务。它提供**视觉底稿、可运行范例、组件适配与审核返修**；你负责产品目标和必要约束。
 
 <p align="center">
   <strong>网页 · 产品工作台 · 原生 App</strong><br/>
@@ -57,6 +57,8 @@ Codex 中可用 **`$ui-foundry`** 明确调用。其他客户端使用各自的 
 
 [指定客户端与手动安装](docs/installation.zh-CN.md) · [ClawHub](https://clawhub.ai/theosunny/skills/ui-foundry) · [下载 ZIP](https://github.com/theosunny/ui-foundry/releases)
 
+ClawHub 与 GitHub 版本可能不同；最新实际验证状态见[安装记录](docs/installation-validation.md)。
+
 </details>
 
 ## 把功夫花在这些细节上
@@ -70,6 +72,8 @@ Codex 中可用 **`$ui-foundry`** 明确调用。其他客户端使用各自的 
 **常用交互也是设计的一部分。** 日期、搜索、地点、选择、上传、导航和反馈，按 Web、iOS、Android 匹配合适控件。包内提供可运行的 Web 交互起点、服务端地点搜索适配和 SwiftUI 范例；由 Agent 完成数据接线、取消、错误恢复和有目的的动效。[组件能力与验证范围](docs/component-kit.md)。
 
 未列出的场景也有统一标准：高频能力可以直接复用，特殊任务由 Agent 在数据、平台、状态和验收约束下设计。固定质量要求，保留设计创造力。
+
+现有代码包含日程与地点选择，以及[内容收藏示例](skills/ui-foundry/assets/collection-reference.html)的搜索、筛选、编辑、保存和撤销。上传、看板、支付等更多场景目前主要是选型与验收标准，不应当成已内置完整实现。[查看能力与验证范围](docs/capabilities.md)。
 
 ## 你在哪一步，就从哪一步开始
 
@@ -85,6 +89,8 @@ Codex 中可用 **`$ui-foundry`** 明确调用。其他客户端使用各自的 
 ## 效果，拿证据来说
 
 同一任务，对比加载和不加载 Skill 的结果：两组产物都公开，检查实际保存的数据，再匿名评审界面。失败保留，修复另开一轮并复测反例。首轮样本很小，不足以证明稳定领先。
+
+[四组实验](docs/factorial-evaluation.md)现已实际生成两个领域的基准、规则、示例、组合产物。基准、示例和组合的行为检查持平；仅规则组有两项窄屏失败。示例按任务机制迁移，不以行业作白名单；现有结果不支持宣传“稳定更好”。
 
 [对照方法与结果](benchmarks/README.md) · [开源验收](docs/open-source-readiness.md) · [宣传与证据](docs/claims.md)
 

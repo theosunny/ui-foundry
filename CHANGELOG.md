@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 0.3.0-dev.1
+
+- Route new products by task and content instead of defaulting every project to the same workspace; add direction starters for discovery, creation, onboarding and data exploration.
+- Add a fictional local collection reference with search, filtering, create/edit, favorite, delete, undo and persistence. Add browser regression checks and preserve the initial visual issue and test-selector failure.
+- Clarify the positioning, installation version caveat and [capability map](docs/capabilities.md). Record an iOS simulator initial frame separately from native interaction testing.
+- Development version: no claim of independent visual review, real-user validation, live map integration or a complete native application.
+
 ## 0.2.0 — 2026-10-27
 
 - Task-aware common-component routing for Web, SwiftUI and Android Compose: dates, search, places, selection, files, editing, navigation and feedback.

@@ -6,6 +6,8 @@
 
 Starting from an idea or an existing UI, it provides concrete visual recipes, original CSS and a runnable reference, routes implementation through compatible components, then requires actual rendering, task inspection and repair. The user supplies product intent and important constraints, not a specification for every control.
 
+Positioning for users: **Let your coding agent act as a product designer—from the brief to a runnable interface, with design decisions, interaction implementation and review.** This is a beta design toolkit for a coding agent, not a hosted application builder. Outcomes depend on the model, tools and project; actual product quality requires project-specific verification.
+
 The intended experience is idea-to-usable-product: the agent owns the design choices, integration and verification. “Ready to use” requires a working primary flow with real state, persistence where needed and recovery from failure. An installed sample or a library list alone does not meet that promise. External accounts, hosting and production services still use the target project's actual configuration and authorization.
 
 Primary use: building or improving an interface with a coding agent. Secondary use: a complete portable design brief or a targeted design-workflow repair. It is a small portable design toolkit and workflow, not a hosted app builder or a replacement for mature component libraries, user research or project-specific design.

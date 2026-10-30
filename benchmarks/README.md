@@ -54,10 +54,11 @@ From the repository root, Node 24 and an installed Chrome channel are required. 
 cd benchmarks
 npm ci --ignore-scripts
 python3 ../tooling/package_skill.py
-node check_release.mjs ../dist/ui-foundry-0.2.0.zip
+node check_release.mjs ../dist/ui-foundry-0.3.0-dev.1.zip
 node check_schedule.mjs runs/2026-10-27/pilot --output output/replay/schedule A B
 node check_reading.mjs runs/2026-10-27/repair/reading --output output/replay/reading
 node check_foundation.mjs --css ../skills/ui-foundry/assets/web-foundation.css --output output/replay/foundation
+node check_collection.mjs ../skills/ui-foundry/assets/collection-reference.html ../output/collection-replay-new
 ```
 
 The pilot command intentionally exits nonzero because it reproduces the preserved empty-list defect. The release command verifies the **actual ZIP and manifest**, extracts a fresh copy, and tests those installed assets; use the matching archive version. Each release check creates a new ignored evidence directory. Other replays need an explicit, separate output directory. The runners reject output under `benchmarks/runs/`, or any output that overlaps its input; committed evidence is read-only. Use ignored `output/` for local replay evidence and create a new attempt only when recording a new repair.
@@ -71,3 +72,13 @@ The release gate also installs and builds the shipped Web interaction kit **from
 这是公开的小样本对照，不是“用了就一定更好”的认证。固定任务、相同模型环境、独立上下文；一组加载公开 Skill，一组不加载。先匿名看产物，再揭晓分组。记录完成真实任务的负担、数据保留、视觉取舍和声明是否属实。
 
 已确认不合格时自动在授权范围内修复，再测原失败和反例；保留旧结果，不改验收标准。用于调参的题目只能证明回归修复，不能冒充新的泛化测试。没运行设备、没做真人测试，就如实保留未验证状态。
+
+## Four-arm experiment
+
+[The executed pilot](../docs/factorial-evaluation.md) separates baseline, compact rules, decision examples and their combination. Inputs, output hashes, initial failures, blind static reviews and separate repairs are retained. Replay the frozen output contracts with:
+
+```sh
+node benchmarks/check_factorial.mjs benchmarks/runs/2026-10-30/factorial output/factorial-replay-new
+```
+
+This deliberately exits nonzero for the preserved rules-only viewport failures. Add a domain checker before adding a new task; unknown tasks fail closed. New industries map through user work, data semantics, device and consequence rather than a fixed component catalog. A replay is regression evidence, not new independent generation.

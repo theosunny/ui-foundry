@@ -57,6 +57,8 @@ In Codex, invoke **`$ui-foundry`** explicitly if needed. Other clients use their
 
 [Specific agents & manual installation](docs/installation.md) · [ClawHub](https://clawhub.ai/theosunny/skills/ui-foundry) · [Download ZIP](https://github.com/theosunny/ui-foundry/releases)
 
+ClawHub and GitHub versions can differ; see the [installation record](docs/installation-validation.md) for the last verified status.
+
 </details>
 
 ## The details that make a difference
@@ -70,6 +72,8 @@ It includes ready-to-use typography, spacing, light/dark color tokens and a work
 **Common interactions are part of the design.** Dates, search, places, selection, uploads, navigation and feedback route to suitable Web, iOS or Android controls. The package includes a runnable Web interaction kit, a server-side place-search adapter and a SwiftUI reference. The agent connects data, cancellation, errors and meaningful motion. [Component kit and verified scope](docs/component-kit.md).
 
 The standard extends to unnamed scenarios: reuse common implementations or design for a special task within explicit data, platform, state and verification requirements. Quality requirements stay consistent; creative decisions remain open.
+
+Runnable references currently include scheduling, place selection and [a collection flow](skills/ui-foundry/assets/collection-reference.html) with search, filters, editing, persistence and undo. Uploads, boards and payments currently have selection and verification guidance, not complete bundled implementations. [See the capability map](docs/capabilities.md).
 
 ## Start wherever you are
 
@@ -85,6 +89,8 @@ The workflow is simple: **understand the task → design → build → inspect �
 ## Show the evidence
 
 We compare the same tasks with and without UI Foundry, preserve both outputs, test actual saved data, and review anonymized screens. Failures stay in the record; repairs get a new attempt and a counterexample check. The first pilot is small and does not establish reliable superiority.
+
+The [four-arm experiment](docs/factorial-evaluation.md) now includes actual baseline/rules/examples/combination outputs in two different domains. Behavior results tie between baseline, examples and combination; rules-only outputs have two narrow-screen failures. This is limited pilot evidence, not a stable design-improvement claim.
 
 [Benchmark & results](benchmarks/README.md) · [Open-source review](docs/open-source-readiness.md) · [What our claims require](docs/claims.md)
 

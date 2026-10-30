@@ -1,0 +1,29 @@
+{
+  "scope": "authored reference; local storage, Chrome",
+  "checks": [
+    {
+      "name": "search filters and clearing restores results",
+      "status": "pass"
+    },
+    {
+      "name": "favorite persists after reload and filter shows favorites",
+      "status": "pass"
+    },
+    {
+      "name": "dialog escape and saved item survive reload",
+      "status": "pass"
+    },
+    {
+      "name": "delete and undo restore exact record and order",
+      "status": "pass"
+    },
+    {
+      "name": "editing preserves identity and cancellation preserves saved data",
+      "status": "pass"
+    },
+    {
+      "name": "mobile has no horizontal overflow",
+      "status": "pass"
+    }
+  ]
+}

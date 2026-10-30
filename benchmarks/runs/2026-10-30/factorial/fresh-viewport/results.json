@@ -1,0 +1,368 @@
+{
+  "browser": "Chrome",
+  "scope": "four-arm pilot, not a general superiority claim",
+  "results": [
+    {
+      "arm": "A",
+      "task": "repair-choice",
+      "checks": [
+        {
+          "name": "quote facts visible",
+          "status": "pass",
+          "evidence": {
+            "quotes": 3
+          }
+        },
+        {
+          "name": "select q2 and confirm actual booking",
+          "status": "pass",
+          "evidence": {
+            "quoteId": "q2",
+            "status": "confirmed"
+          }
+        },
+        {
+          "name": "cancel and reload preserve original data",
+          "status": "pass",
+          "evidence": {
+            "booking": null,
+            "audit": "additional-root-field"
+          }
+        },
+        {
+          "name": "changed selection q3 persists after reload",
+          "status": "pass",
+          "evidence": {
+            "quoteId": "q3",
+            "status": "confirmed"
+          }
+        },
+        {
+          "name": "390px page width",
+          "status": "pass",
+          "evidence": {
+            "viewport": 390,
+            "document": 390
+          }
+        }
+      ],
+      "pass": 5,
+      "fail": 0
+    },
+    {
+      "arm": "A",
+      "task": "exhibit-notes",
+      "checks": [
+        {
+          "name": "draft survives object switching",
+          "status": "pass",
+          "evidence": {
+            "draftRetained": true
+          }
+        },
+        {
+          "name": "save/reload preserve identity and unknown fields",
+          "status": "pass",
+          "evidence": {
+            "note": "Draft for first exhibit",
+            "audit": "additional-root-field"
+          }
+        },
+        {
+          "name": "cancel restores committed note",
+          "status": "pass",
+          "evidence": {
+            "restored": true
+          }
+        },
+        {
+          "name": "second object save preserves first",
+          "status": "pass",
+          "evidence": {
+            "note": "Second exhibit saved"
+          }
+        },
+        {
+          "name": "390px page width",
+          "status": "pass",
+          "evidence": {
+            "viewport": 390,
+            "document": 390
+          }
+        }
+      ],
+      "pass": 5,
+      "fail": 0
+    },
+    {
+      "arm": "B",
+      "task": "repair-choice",
+      "checks": [
+        {
+          "name": "quote facts visible",
+          "status": "pass",
+          "evidence": {
+            "quotes": 3
+          }
+        },
+        {
+          "name": "select q2 and confirm actual booking",
+          "status": "pass",
+          "evidence": {
+            "quoteId": "q2",
+            "status": "confirmed"
+          }
+        },
+        {
+          "name": "cancel and reload preserve original data",
+          "status": "pass",
+          "evidence": {
+            "booking": null,
+            "audit": "additional-root-field"
+          }
+        },
+        {
+          "name": "changed selection q3 persists after reload",
+          "status": "pass",
+          "evidence": {
+            "quoteId": "q3",
+            "status": "confirmed"
+          }
+        },
+        {
+          "name": "390px page width",
+          "status": "fail",
+          "error": "Error: {\"viewport\":390,\"document\":391}"
+        }
+      ],
+      "pass": 4,
+      "fail": 1
+    },
+    {
+      "arm": "B",
+      "task": "exhibit-notes",
+      "checks": [
+        {
+          "name": "draft survives object switching",
+          "status": "pass",
+          "evidence": {
+            "draftRetained": true
+          }
+        },
+        {
+          "name": "save/reload preserve identity and unknown fields",
+          "status": "pass",
+          "evidence": {
+            "note": "Draft for first exhibit",
+            "audit": "additional-root-field"
+          }
+        },
+        {
+          "name": "cancel restores committed note",
+          "status": "pass",
+          "evidence": {
+            "restored": true
+          }
+        },
+        {
+          "name": "second object save preserves first",
+          "status": "pass",
+          "evidence": {
+            "note": "Second exhibit saved"
+          }
+        },
+        {
+          "name": "390px page width",
+          "status": "fail",
+          "error": "Error: {\"viewport\":390,\"document\":410}"
+        }
+      ],
+      "pass": 4,
+      "fail": 1
+    },
+    {
+      "arm": "C",
+      "task": "repair-choice",
+      "checks": [
+        {
+          "name": "quote facts visible",
+          "status": "pass",
+          "evidence": {
+            "quotes": 3
+          }
+        },
+        {
+          "name": "select q2 and confirm actual booking",
+          "status": "pass",
+          "evidence": {
+            "quoteId": "q2",
+            "status": "confirmed"
+          }
+        },
+        {
+          "name": "cancel and reload preserve original data",
+          "status": "pass",
+          "evidence": {
+            "booking": null,
+            "audit": "additional-root-field"
+          }
+        },
+        {
+          "name": "changed selection q3 persists after reload",
+          "status": "pass",
+          "evidence": {
+            "quoteId": "q3",
+            "status": "confirmed"
+          }
+        },
+        {
+          "name": "390px page width",
+          "status": "pass",
+          "evidence": {
+            "viewport": 390,
+            "document": 390
+          }
+        }
+      ],
+      "pass": 5,
+      "fail": 0
+    },
+    {
+      "arm": "C",
+      "task": "exhibit-notes",
+      "checks": [
+        {
+          "name": "draft survives object switching",
+          "status": "pass",
+          "evidence": {
+            "draftRetained": true
+          }
+        },
+        {
+          "name": "save/reload preserve identity and unknown fields",
+          "status": "pass",
+          "evidence": {
+            "note": "Draft for first exhibit",
+            "audit": "additional-root-field"
+          }
+        },
+        {
+          "name": "cancel restores committed note",
+          "status": "pass",
+          "evidence": {
+            "restored": true
+          }
+        },
+        {
+          "name": "second object save preserves first",
+          "status": "pass",
+          "evidence": {
+            "note": "Second exhibit saved"
+          }
+        },
+        {
+          "name": "390px page width",
+          "status": "pass",
+          "evidence": {
+            "viewport": 390,
+            "document": 390
+          }
+        }
+      ],
+      "pass": 5,
+      "fail": 0
+    },
+    {
+      "arm": "D",
+      "task": "repair-choice",
+      "checks": [
+        {
+          "name": "quote facts visible",
+          "status": "pass",
+          "evidence": {
+            "quotes": 3
+          }
+        },
+        {
+          "name": "select q2 and confirm actual booking",
+          "status": "pass",
+          "evidence": {
+            "quoteId": "q2",
+            "status": "confirmed"
+          }
+        },
+        {
+          "name": "cancel and reload preserve original data",
+          "status": "pass",
+          "evidence": {
+            "booking": null,
+            "audit": "additional-root-field"
+          }
+        },
+        {
+          "name": "changed selection q3 persists after reload",
+          "status": "pass",
+          "evidence": {
+            "quoteId": "q3",
+            "status": "confirmed"
+          }
+        },
+        {
+          "name": "390px page width",
+          "status": "pass",
+          "evidence": {
+            "viewport": 390,
+            "document": 390
+          }
+        }
+      ],
+      "pass": 5,
+      "fail": 0
+    },
+    {
+      "arm": "D",
+      "task": "exhibit-notes",
+      "checks": [
+        {
+          "name": "draft survives object switching",
+          "status": "pass",
+          "evidence": {
+            "draftRetained": true
+          }
+        },
+        {
+          "name": "save/reload preserve identity and unknown fields",
+          "status": "pass",
+          "evidence": {
+            "note": "Draft for first exhibit",
+            "audit": "additional-root-field"
+          }
+        },
+        {
+          "name": "cancel restores committed note",
+          "status": "pass",
+          "evidence": {
+            "restored": true
+          }
+        },
+        {
+          "name": "second object save preserves first",
+          "status": "pass",
+          "evidence": {
+            "note": "Second exhibit saved"
+          }
+        },
+        {
+          "name": "390px page width",
+          "status": "pass",
+          "evidence": {
+            "viewport": 390,
+            "document": 390
+          }
+        }
+      ],
+      "pass": 5,
+      "fail": 0
+    }
+  ]
+}
