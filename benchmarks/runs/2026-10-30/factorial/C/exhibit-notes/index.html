@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Exhibit notes — local demo</title>
+  <style>
+    :root { --ink:#121212; --coral:#D85048; --paper:#fff; --wash:#f3f1ef; --line:#d7d3d0; --muted:#746e69 } *{box-sizing:border-box} body{margin:0;background:var(--wash);color:var(--ink);font:15px/1.45 ui-sans-serif,system-ui,sans-serif} main{max-width:1180px;margin:auto;padding:20px} header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid var(--ink);padding-bottom:18px;margin-bottom:20px} h1,h2,p{margin:0}h1{font-size:clamp(1.65rem,4vw,2.6rem);letter-spacing:-.055em}.brand{color:var(--coral);font-weight:850;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;margin-bottom:4px}.demo{font-size:.78rem;color:var(--muted);border:1px solid var(--line);padding:5px 8px}.workspace{display:grid;gap:16px}.list{display:flex;overflow:auto;gap:8px;padding-bottom:3px}.item{min-width:180px;flex:1;text-align:left;background:#fff;border:1px solid var(--line);padding:13px;cursor:pointer}.item[aria-current="true"]{border:2px solid var(--ink);box-shadow:5px 5px 0 var(--coral);padding:12px}.item span{display:block;color:var(--muted);font-size:.82rem}.editor{background:#fff;border:1px solid var(--line);padding:20px}.meta{display:grid;gap:2px;border-bottom:1px solid var(--line);padding-bottom:17px;margin-bottom:18px}.meta h2{font-size:1.6rem;letter-spacing:-.035em}.credit{color:var(--muted)}label{display:block;font-size:.8rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}textarea{width:100%;min-height:190px;resize:vertical;border:1px solid var(--ink);border-radius:0;padding:12px;font:inherit;line-height:1.5}.actions{display:flex;align-items:center;gap:9px;margin-top:14px}.save{border:0;background:var(--coral);color:#fff;padding:10px 14px;font:inherit;font-weight:800;cursor:pointer}.cancel{border:1px solid var(--ink);background:#fff;padding:9px 13px;font:inherit;cursor:pointer}.state{margin-left:auto;color:var(--muted);font-size:.85rem}@media(min-width:760px){main{padding:44px}.workspace{grid-template-columns:290px minmax(0,1fr)}.list{display:grid;align-content:start;overflow:visible}.editor{min-height:470px;padding:30px}}
+  </style>
+</head>
+<body>
+  <main><header><div><p class="brand">Field notes / collection</p><h1>Exhibit note editor</h1></div><span class="demo">Local demo</span></header><div class="workspace"><nav class="list" id="list" aria-label="Exhibits"></nav><section class="editor" aria-labelledby="title"><div class="meta"><h2 id="title"></h2><span id="medium"></span><span class="credit" id="credit"></span></div><label for="note">Curatorial note</label><textarea id="note" aria-describedby="save-state"></textarea><div class="actions"><button class="save" id="save" type="button">Save note</button><button class="cancel" id="cancel" type="button">Cancel draft</button><span class="state" id="save-state" aria-live="polite"></span></div></section></div></main>
+  <script>
+    const key="uf:exhibit-notes";
+    const initial={items:[{id:"p1",title:"After the Rain",medium:"Photography",note:"Notice the reflection.",credit:"Artist A",extra:"keep-item-a"},{id:"p2",title:"Chair by the Sea",medium:"Installation",note:"Visitors may walk around it.",credit:"Artist B",extra:"keep-item-b"}],selectedId:"p1",extra:"preserve-root"};
+    let state, drafts={}; const raw=localStorage.getItem(key);
+    try { state=raw===null?structuredClone(initial):JSON.parse(raw); if(!state||typeof state!=="object"||!Array.isArray(state.items))throw new Error(); } catch { state=structuredClone(initial); }
+    if(raw===null)localStorage.setItem(key,JSON.stringify(state));
+    const list=document.querySelector("#list"),title=document.querySelector("#title"),medium=document.querySelector("#medium"),credit=document.querySelector("#credit"),note=document.querySelector("#note"),status=document.querySelector("#save-state");
+    const selected=()=>state.items.find(item=>item.id===state.selectedId)||state.items[0];
+    function render(message="") { const item=selected(); state.selectedId=item.id; list.innerHTML=state.items.map(x=>`<button class="item" type="button" data-id="${x.id}" aria-current="${x.id===item.id}"><strong>${x.title}</strong><span>${x.medium}</span></button>`).join(""); title.textContent=item.title; medium.textContent=item.medium; credit.textContent=`Credit: ${item.credit}`; note.value=drafts[item.id] ?? item.note; status.textContent=message; }
+    list.addEventListener("click",e=>{const id=e.target.closest("button")?.dataset.id;if(id){drafts[selected().id]=note.value;state.selectedId=id;render("Draft kept for this session");}});
+    note.addEventListener("input",()=>{drafts[selected().id]=note.value;status.textContent="Unsaved draft";});
+    document.querySelector("#save").addEventListener("click",()=>{const item=selected();item.note=note.value;delete drafts[item.id];localStorage.setItem(key,JSON.stringify(state));render("Saved locally");});
+    document.querySelector("#cancel").addEventListener("click",()=>{const item=selected();delete drafts[item.id];note.value=item.note;status.textContent="Draft discarded";});
+    render("Ready to edit");
+  </script>
+</body>
+</html>

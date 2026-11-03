@@ -1,0 +1,81 @@
+[
+  {
+    "id": "repair-choice",
+    "request": "Build a mobile-first repair-quote comparison and local booking demo for a tenant. Decide the design. English UI is fine.",
+    "storageKey": "uf:repair-choice",
+    "initial": {
+      "quotes": [
+        {
+          "id": "q1",
+          "name": "Green Repair",
+          "price": 180,
+          "time": "Saturday 10:00",
+          "warranty": "30 days",
+          "rating": "4.8"
+        },
+        {
+          "id": "q2",
+          "name": "Neighbour Craft",
+          "price": 220,
+          "time": "Saturday 14:00",
+          "warranty": "90 days",
+          "rating": "4.9"
+        },
+        {
+          "id": "q3",
+          "name": "Star Service",
+          "price": 150,
+          "time": "Sunday 09:00",
+          "warranty": "None",
+          "rating": "4.6"
+        }
+      ],
+      "selectedId": null,
+      "booking": null,
+      "extra": "preserve-me"
+    },
+    "requirements": [
+      "Make price, appointment time and warranty comparable for all quotes. Use supplied facts.",
+      "Select any quote and allow changing the selection. Before confirming, show its fee in CNY and cancellation terms: free cancellation before arrival.",
+      "Confirmation persists booking={quoteId: selected ID, status: \"confirmed\"}. Clearly label local demo, no real payment or vendor request.",
+      "Cancellation persists booking=null; quotes and extra fields survive reload.",
+      "Initialize only when localStorage key is absent. Preserve unknown fields from valid existing objects.",
+      "Deliver self-contained index.html with semantic controls and labels, no external requests. Adapt to 390px and 1280px. No extra login, payment or questionnaire."
+    ]
+  },
+  {
+    "id": "exhibit-notes",
+    "request": "Build a desktop-first exhibit-note editor for a small curator. Existing brand is ink black, white and coral #D85048. Choose design details. English UI is fine. Local demo only.",
+    "storageKey": "uf:exhibit-notes",
+    "initial": {
+      "items": [
+        {
+          "id": "p1",
+          "title": "After the Rain",
+          "medium": "Photography",
+          "note": "Notice the reflection.",
+          "credit": "Artist A",
+          "extra": "keep-item-a"
+        },
+        {
+          "id": "p2",
+          "title": "Chair by the Sea",
+          "medium": "Installation",
+          "note": "Visitors may walk around it.",
+          "credit": "Artist B",
+          "extra": "keep-item-b"
+        }
+      ],
+      "selectedId": "p1",
+      "extra": "preserve-root"
+    },
+    "requirements": [
+      "Give title and medium hierarchy; show credit in details. Editing note must not require retyping title.",
+      "Switch between both exhibits; unsaved note draft survives switching away and back.",
+      "Save writes matching item.note, keeping other items, credit, identity and unknown fields. Verify after reload.",
+      "Show save state. Cancel current draft restores this item's committed note.",
+      "At 390px object switching and editing remain reachable; 1280px suits repeated editing. No publishing, accounts or AI-generation features.",
+      "Initialize only when storage key is absent. Deliver self-contained index.html with semantic labelled controls, no external requests."
+    ]
+  }
+]

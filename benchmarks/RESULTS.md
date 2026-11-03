@@ -16,6 +16,10 @@
 | HeroUI adapter | Build plus 3/3 Chrome checks on genuine locked components | Tested integration, not proof every HeroUI product is good |
 | Existing-brand counterexample | Brief keeps charcoal/red brand, React 18/Tailwind 3/shadcn; selects public introduction rather than workspace | Routing preserved; document-only, not rendered evidence |
 | 0.2.0 component release | Actual 31-file ZIP: 22 browser checks; server adapter 7 mocked groups; iOS 17 typecheck and 12 civil-date checks | Integration/regression evidence, not a new blind generation win; no live map or native runtime claim |
+| 0.3.0 development collection | Initial mobile reference passed behavior but had repetitive oversized cards; revised list passed 6 browser groups, including exact undo and persistence | Authored regression example; visual preference, independent review and transfer remain unverified |
+| iOS reference render | Existing SwiftUI editor compiled and displayed in an iOS 27 simulator host | Static initial frame only, no native interaction or high-quality design claim |
+| Four-arm pilot | 2 tasks × 4 arms; baseline 10/10, rules 8/10, examples 10/10, combination 10/10 | No measured behavioral advantage for the combination; initial failures, sources and harness corrections retained. See [experiment](../docs/factorial-evaluation.md) |
+| Composition preflight probe | Full Skill before/after on 2 new task families; before 7/8 behavior checks, after 8/8; two anonymous AI reviewers prefer after on both tasks, with reversed display order | Limited positive evidence; unsupported copy and weak selector affordances remain. No stable superiority claim. See [evaluation](../docs/first-render-evaluation.md) |
 
 ## Inspect the work
 
@@ -27,6 +31,7 @@
 - [HeroUI fixture, versions and build observations](integrations/heroui/report.md), [browser results](integrations/heroui/result.json)
 - [Counterexample request, criteria and brief](runs/2026-10-27/counterexample/): existing brand and incompatible stack remain intact; known trial terms remain beside the CTA. The brief's unconfirmed input workflow is provisional, not an established product capability.
 - [Component failures and repairs](../docs/component-kit-verification.md), [initial observations](runs/2026-10-27/components/initial/), [final component evidence](runs/2026-10-27/components/final/): actual calendar and combobox operation, persistence, stale searches, failure recovery and IME checks. Independent screenshot review was scoped to visible states.
+- [Collection reference, initial and revision](runs/2026-10-30/collection/review.md) · [iOS simulator frame](runs/2026-10-30/ios-reference/README.md). These are development artifacts, not independent generation trials.
 
 ### Real reference, after repair
 

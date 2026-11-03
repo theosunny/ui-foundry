@@ -28,6 +28,7 @@ CANONICAL_FILES = (
     "SKILL.md",
     "agents/openai.yaml",
     "assets/review-record.json",
+    "assets/collection-reference.html",
     "assets/native-patterns/MeetingEditor.swift",
     "assets/place-service/README.md",
     "assets/place-service/amap-place-service.mjs",

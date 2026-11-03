@@ -10,6 +10,7 @@ The delivery goal is a usable product flow: the agent selects controls, connects
 | --- | --- | --- |
 | [Scenario routing](../skills/ui-foundry/references/component-patterns.md) | Choose controls for dates, places, search, selection, uploads, editing, navigation and feedback across Web/iOS/Android | A routing guide, not a claim that every listed component was tested here |
 | [Web interaction kit](../skills/ui-foundry/assets/web-patterns/) | Real HeroUI controls with calendar, searchable place selection and saved state | Fictional local demo by default; the agent connects the target app's data and permissions |
+| [Collection reference](../skills/ui-foundry/assets/collection-reference.html) | Runnable search, favorite filter, create, edit, delete and undo with browser storage | Fictional local data; no accounts, sharing, sync or production backend |
 | [Place service](../skills/ui-foundry/assets/place-service/) | Server-side AMap POI v5 search, typed result shape, abort/timeout handling and same-origin route adapter | Needs the application's server key and real auth/rate-limit policies; live vendor search is not verified by a mocked test |
 | [SwiftUI reference](../skills/ui-foundry/assets/native-patterns/MeetingEditor.swift) | iOS 17+ system date selection, search, resolved MapKit preview and manual fallback | Component reference, not a full app or backend; compilation does not establish native UX quality |
 

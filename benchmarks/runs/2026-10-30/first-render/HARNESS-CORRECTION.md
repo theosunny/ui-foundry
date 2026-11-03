@@ -1,0 +1,1 @@
+The initial fact checker compared case-sensitive rendered text and marked an uppercase date as missing. The final checker normalizes case and whitespace, without relaxing factual content, then reruns all four unchanged outputs. Initial false failure retained; old energy viewport overflow remains real.

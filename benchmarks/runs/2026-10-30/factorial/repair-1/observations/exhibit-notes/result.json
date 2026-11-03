@@ -1,0 +1,45 @@
+{
+  "arm": "D",
+  "task": "exhibit-notes",
+  "checks": [
+    {
+      "name": "draft survives object switching",
+      "status": "pass",
+      "evidence": {
+        "draftRetained": true
+      }
+    },
+    {
+      "name": "save/reload preserve identity and unknown fields",
+      "status": "pass",
+      "evidence": {
+        "note": "Draft for first exhibit",
+        "audit": "additional-root-field"
+      }
+    },
+    {
+      "name": "cancel restores committed note",
+      "status": "pass",
+      "evidence": {
+        "restored": true
+      }
+    },
+    {
+      "name": "second object save preserves first",
+      "status": "pass",
+      "evidence": {
+        "note": "Second exhibit saved"
+      }
+    },
+    {
+      "name": "390px page width",
+      "status": "pass",
+      "evidence": {
+        "viewport": 390,
+        "document": 390
+      }
+    }
+  ],
+  "pass": 5,
+  "fail": 0
+}

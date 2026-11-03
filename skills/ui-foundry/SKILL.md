@@ -3,7 +3,7 @@ name: ui-foundry
 description: "Design lead with ready-to-use visual foundations, interaction patterns and component adapters for websites and native apps. Choose a complete direction from a plain-language goal, implement it, inspect actual screens and repair failures. Use for new UI, redesigns, text-heavy or generic interfaces, mobile experiences, portable design briefs and design-system improvements."
 license: MIT
 metadata:
-  version: "0.2.0"
+  version: "0.3.0-dev.2"
   openclaw:
     homepage: "https://github.com/theosunny/ui-foundry"
 ---
@@ -47,11 +47,13 @@ metadata:
 
 ## 3. 用操作减少工作，用设计建立品质
 
-先读取 [视觉配方](references/visual-recipes.md)，选定一个适合任务的完整起点；用 [设计实践](references/design-practice.md) 减少用户工作，按 [工具适配](references/tool-adapters.md) 接到已有组件与验证工具。Web 可直接采用包内 CSS 底稿，再贴合产品；原生使用平台控件。不要只交一段风格建议或把选库交回用户。
+先读取 [视觉配方](references/visual-recipes.md)，根据任务选择合适起点或重新设计；用 [设计实践](references/design-practice.md) 减少用户工作，按 [工具适配](references/tool-adapters.md) 接到已有组件与验证工具。Web 可直接采用包内 CSS 底稿，再贴合产品；原生使用平台控件。不要只交一段风格建议或把选库交回用户。
 
 涉及地点、日期、搜索、选择、上传、导航或异步反馈时，按 [场景组件](references/component-patterns.md) 自动选择对应平台实现，复用随包代码与成熟控件，完成数据接线、状态恢复及有目的的动效。交付完整任务结果，不把库清单或未接通的展示当成成品；不要求用户逐个指出应该用什么组件。
 
 这套标准适用于未列出的交互。优先沿用项目组件；高频且适配的场景采用内置实现，其他场景按任务、数据语义、平台、状态与验收要求选择成熟方案或设计新组合。约束可用性和真实结果，给构图、视觉与合理创新留空间；不能把示例列表、某个库或固定风格当成能力边界。
+
+行业不作为能力白名单。遇到新场景，先判断是在发现/比较、选择/承诺、创作/编辑、执行/追踪还是协作/交接，再结合频率、信息密度、后果、设备与既有品牌选择机制。少量示例传递判断方法；不复制领域字段、不推导业务事实，不强制每次加载全部示例。若标准控件不适用，可设计新组合并验证可发现性、数据和恢复路径。
 
 在项目已有设计记录里留下选定的 token、构图、组件来源及版本、关键状态；后续页面沿用。小修无需另建文档。沿用已接受方向时调整对应底稿，不覆盖整个主题。
 

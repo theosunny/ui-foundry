@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Repair choice — local demo</title>
+  <style>
+    :root{--ink:#17211d;--leaf:#2e714f;--paper:#f5f3ec;--line:#d9ddd5;--warm:#f3b653}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.45 ui-sans-serif,system-ui,sans-serif}main{max-width:1060px;margin:auto;padding:28px 18px 56px}.eyebrow{color:var(--leaf);font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.76rem}h1{font-size:clamp(2rem,5vw,4rem);line-height:.96;letter-spacing:-.06em;margin:10px 0 12px;max-width:700px}p{margin:0}.intro{max-width:620px;color:#516057}.notice{margin:24px 0;padding:12px 14px;background:#e2eee4;border-left:4px solid var(--leaf);font-size:.9rem}.layout{display:grid;gap:22px}.quotes{display:grid;gap:12px}.quote{background:white;border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:15px;cursor:pointer;transition:.16s}.quote:has(input:checked){border:2px solid var(--leaf);box-shadow:0 8px 0 #b7d6be}.quote input{accent-color:var(--leaf);width:19px;height:19px}.quote-top{display:flex;align-items:start;justify-content:space-between;gap:16px}.quote h2{font-size:1.15rem;margin:0}.rating{color:#805700;font-weight:700;font-size:.9rem}.price{font-size:1.7rem;font-weight:850;letter-spacing:-.05em}.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;border-top:1px solid var(--line);padding-top:14px}.facts span{font-size:.78rem;color:#657269;display:block}.facts strong{font-size:.94rem}.confirm{background:var(--ink);color:white;border-radius:16px;padding:22px;align-self:start}.confirm h2{margin:0 0 4px;font-size:1.35rem}.confirm p{color:#d4ddd6;font-size:.94rem}.fee{margin:18px 0;padding:15px 0;border-block:1px solid #536058;font-size:1.45rem;font-weight:800}.terms{font-size:.88rem!important}.action{width:100%;margin-top:18px;border:0;border-radius:10px;background:var(--warm);color:#1b201a;padding:13px 16px;font:inherit;font-weight:800;cursor:pointer}.action:disabled{opacity:.48;cursor:not-allowed}.booking{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px}.booking h2{margin:0 0 8px}.booking strong{color:var(--leaf)}.quiet{margin-top:12px;background:transparent;border:0;text-decoration:underline;color:inherit;font:inherit;cursor:pointer}@media(min-width:760px){main{padding-top:58px}.layout{grid-template-columns:minmax(0,1fr) 340px}.confirm{position:sticky;top:22px}.facts{grid-template-columns:1.2fr 1fr 1fr}}
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Home repair · local demo</p>
+    <h1>Choose repair help with facts in view.</h1>
+    <p class="intro">Compare local estimates for your repair request. This is a local demo: no payment is taken and no vendor is contacted.</p>
+    <p class="notice">Your choice is saved on this device only.</p>
+    <section id="app" aria-live="polite"></section>
+  </main>
+  <script>
+    const key="uf:repair-choice";
+    const initial={quotes:[{id:"q1",name:"Green Repair",price:180,time:"Saturday 10:00",warranty:"30 days",rating:"4.8"},{id:"q2",name:"Neighbour Craft",price:220,time:"Saturday 14:00",warranty:"90 days",rating:"4.9"},{id:"q3",name:"Star Service",price:150,time:"Sunday 09:00",warranty:"None",rating:"4.6"}],selectedId:null,booking:null,extra:"preserve-me"};
+    function load(){const raw=localStorage.getItem(key);if(raw===null){localStorage.setItem(key,JSON.stringify(initial));return structuredClone(initial)}try{const saved=JSON.parse(raw);return saved&&typeof saved==="object"&&Array.isArray(saved.quotes)?saved:(localStorage.setItem(key,JSON.stringify(initial)),structuredClone(initial))}catch{return structuredClone(initial)}}
+    let data=load(); const app=document.querySelector("#app");
+    function save(){localStorage.setItem(key,JSON.stringify(data))}
+    function selected(){return data.quotes.find(q=>q.id===data.selectedId)}
+    function esc(value){return String(value).replace(/[&<>\"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"})[c])}
+    function render(){if(data.booking){const q=data.quotes.find(item=>item.id===data.booking.quoteId);app.innerHTML=`<section class="booking"><p class="eyebrow">Booking confirmed</p><h2>${esc(q?.name||"Selected repair")}</h2><p><strong>Confirmed</strong> · ${esc(q?.time||"")}</p><p class="fee">CNY ${esc(q?.price||"")}</p><p>Free cancellation before arrival. No vendor has been contacted in this local demo.</p><button class="quiet" id="cancel">Cancel booking</button></section>`;document.querySelector("#cancel").onclick=()=>{data.booking=null;save();render()};return}const choice=selected();app.innerHTML=`<div class="layout"><section aria-label="Repair quotes"><div class="quotes">${data.quotes.map(q=>`<label class="quote"><div class="quote-top"><div><input type="radio" name="quote" value="${esc(q.id)}" ${q.id===data.selectedId?"checked":""} aria-label="Select ${esc(q.name)}" /><h2>${esc(q.name)}</h2></div><div><span class="rating">★ ${esc(q.rating)}</span><div class="price">CNY ${esc(q.price)}</div></div></div><div class="facts"><div><span>Appointment</span><strong>${esc(q.time)}</strong></div><div><span>Warranty</span><strong>${esc(q.warranty)}</strong></div><div><span>Quote</span><strong>Fixed fee</strong></div></div></label>`).join("")}</div></section><aside class="confirm"><p class="eyebrow">Your selection</p><h2>${choice?esc(choice.name):"Pick a repair team"}</h2><p>${choice?esc(choice.time):"Choose any quote to continue."}</p><div class="fee">${choice?`CNY ${esc(choice.price)}`:"—"}</div><p class="terms">Cancellation: free before arrival.</p><button class="action" id="confirm" ${choice?"":"disabled"}>Confirm local booking</button></aside></div>`;document.querySelectorAll("input[name=quote]").forEach(input=>input.onchange=()=>{data.selectedId=input.value;save();render()});const button=document.querySelector("#confirm");if(button)button.onclick=()=>{data.booking={quoteId:data.selectedId,status:"confirmed"};save();render()}}
+    render();
+  </script>
+</body>
+</html>

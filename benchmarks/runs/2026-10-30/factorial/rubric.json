@@ -1,0 +1,10 @@
+{
+ "status":"frozen-before-output-inspection",
+ "checks": {
+ "repair-choice":["quote fact comparison visible","select q2 and confirm persists exact booking","cancel booking persists null and keeps quotes/unknown fields","select q3 then confirm preserves changed selection and existing data","narrow page no horizontal overflow"],
+ "exhibit-notes":["edit p1 draft; switch p2 then p1 retains draft","save p1 then reload preserves exact note, p2, credit and unknown fields","cancel unsaved p1 restores committed p1","edit and save p2 preserves p1 and all other fields","narrow page no horizontal overflow"]
+ },
+ "critical":"Lost data, wrong booked quote or a nonfunctional primary action fails the task regardless of visual preference.",
+ "review":"Anonymous same-content same-viewport screenshots; assess hierarchy, composition, density, consistency, brand and task fit separately. Static review does not establish task behavior; AI preference does not establish human preference.",
+ "repair":"Freeze initial output and result; repair D only if needed; compare initials separately from repaired regression. Do not tune Skill on test cases and call them held-out again."
+}

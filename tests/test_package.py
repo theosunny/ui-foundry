@@ -36,7 +36,7 @@ class PackageTests(unittest.TestCase):
         self.assertEqual(files, {
             "SKILL.md", "LICENSE", "agents/openai.yaml",
             "references/design-practice.md", "references/review.md",
-            "references/maintenance.md", "assets/review-record.json",
+            "references/maintenance.md", "assets/review-record.json", "assets/collection-reference.html",
             "references/visual-recipes.md", "references/tool-adapters.md", "references/component-patterns.md",
             "assets/web-foundation.css", "assets/workspace-reference.html",
             "scripts/check_design_gate.py", ".clawhubignore",

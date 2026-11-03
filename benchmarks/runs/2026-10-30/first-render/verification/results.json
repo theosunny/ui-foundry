@@ -1,0 +1,150 @@
+{
+  "scope": "matched first-render probe, not a reliability guarantee",
+  "results": [
+    {
+      "id": "old-workshop",
+      "condition": "old",
+      "task": "workshop-booking",
+      "checks": [
+        {
+          "name": "given comparison facts",
+          "status": "pass",
+          "evidence": {
+            "items": 3
+          }
+        },
+        {
+          "name": "selected reservation and cancellation",
+          "status": "pass",
+          "evidence": {
+            "preserved": true
+          }
+        },
+        {
+          "name": "changed selection persists",
+          "status": "pass",
+          "evidence": {
+            "workshopId": "print",
+            "status": "confirmed"
+          }
+        },
+        {
+          "name": "mobile viewport",
+          "status": "pass",
+          "evidence": {
+            "viewport": 390,
+            "document": 390
+          }
+        }
+      ]
+    },
+    {
+      "id": "old-energy",
+      "condition": "old",
+      "task": "energy-review",
+      "checks": [
+        {
+          "name": "initial total",
+          "status": "pass",
+          "evidence": {
+            "total": 89
+          }
+        },
+        {
+          "name": "meter/range totals and persistence",
+          "status": "pass",
+          "evidence": {
+            "total": 62,
+            "preserved": true
+          }
+        },
+        {
+          "name": "full range restored",
+          "status": "pass",
+          "evidence": {
+            "total": 140
+          }
+        },
+        {
+          "name": "mobile viewport",
+          "status": "fail",
+          "error": "Error: {\"viewport\":390,\"document\":468}"
+        }
+      ]
+    },
+    {
+      "id": "new-workshop",
+      "condition": "new",
+      "task": "workshop-booking",
+      "checks": [
+        {
+          "name": "given comparison facts",
+          "status": "pass",
+          "evidence": {
+            "items": 3
+          }
+        },
+        {
+          "name": "selected reservation and cancellation",
+          "status": "pass",
+          "evidence": {
+            "preserved": true
+          }
+        },
+        {
+          "name": "changed selection persists",
+          "status": "pass",
+          "evidence": {
+            "workshopId": "print",
+            "status": "confirmed"
+          }
+        },
+        {
+          "name": "mobile viewport",
+          "status": "pass",
+          "evidence": {
+            "viewport": 390,
+            "document": 390
+          }
+        }
+      ]
+    },
+    {
+      "id": "new-energy",
+      "condition": "new",
+      "task": "energy-review",
+      "checks": [
+        {
+          "name": "initial total",
+          "status": "pass",
+          "evidence": {
+            "total": 89
+          }
+        },
+        {
+          "name": "meter/range totals and persistence",
+          "status": "pass",
+          "evidence": {
+            "total": 62,
+            "preserved": true
+          }
+        },
+        {
+          "name": "full range restored",
+          "status": "pass",
+          "evidence": {
+            "total": 140
+          }
+        },
+        {
+          "name": "mobile viewport",
+          "status": "pass",
+          "evidence": {
+            "viewport": 390,
+            "document": 390
+          }
+        }
+      ]
+    }
+  ]
+}

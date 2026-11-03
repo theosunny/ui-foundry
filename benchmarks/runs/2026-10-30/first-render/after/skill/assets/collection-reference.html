@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>灵感收藏 · UI Foundry 示例</title>
+		<style>
+			:root {
+				color-scheme: light;
+				--ink: #181d29;
+				--muted: #687081;
+				--line: #e5e7ed;
+				--accent: #4856a4;
+				--bg: #f5f6f9;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			body {
+				margin: 0;
+				background: var(--bg);
+				color: var(--ink);
+				font:
+					16px/1.5 system-ui,
+					-apple-system,
+					sans-serif;
+			}
+			button,
+			input {
+				font: inherit;
+			}
+			button {
+				cursor: pointer;
+			}
+			button:focus-visible,
+			input:focus-visible {
+				outline: 3px solid #8ba8f2;
+				outline-offset: 2px;
+			}
+			.app {
+				max-width: 980px;
+				margin: auto;
+				padding: 48px 28px 90px;
+			}
+			header {
+				display: flex;
+				justify-content: space-between;
+				gap: 20px;
+				align-items: end;
+			}
+			.eyebrow {
+				font-size: 12px;
+				letter-spacing: 0.14em;
+				color: var(--muted);
+			}
+			h1 {
+				font-size: clamp(30px, 5vw, 48px);
+				letter-spacing: -0.04em;
+				line-height: 1.1;
+				margin: 6px 0 0;
+			}
+			h2 {
+				margin: 0;
+				font-size: 18px;
+			}
+			.count {
+				color: var(--muted);
+				font-size: 14px;
+			}
+			.add {
+				border: 0;
+				background: var(--ink);
+				color: white;
+				border-radius: 10px;
+				padding: 11px 17px;
+				min-height: 44px;
+			}
+			.controls {
+				display: flex;
+				gap: 8px;
+				align-items: center;
+				margin: 30px 0 20px;
+			}
+			.search {
+				flex: 1;
+				min-width: 0;
+				border: 1px solid var(--line);
+				background: #fff;
+				border-radius: 10px;
+				padding: 11px 14px;
+				min-height: 44px;
+			}
+			.filter {
+				border: 1px solid var(--line);
+				background: white;
+				border-radius: 10px;
+				padding: 10px 16px;
+				min-height: 44px;
+			}
+			.filter[aria-pressed="true"] {
+				background: var(--ink);
+				color: #fff;
+				border-color: var(--ink);
+			}
+			.list {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 12px;
+			}
+			.item {
+				background: white;
+				border: 1px solid var(--line);
+				border-radius: 14px;
+				padding: 20px;
+				display: grid;
+				gap: 14px;
+				min-height: 160px;
+			}
+			.item-top {
+				display: flex;
+				justify-content: space-between;
+				gap: 16px;
+			}
+			.tag {
+				color: var(--accent);
+				font-size: 12px;
+				font-weight: 700;
+			}
+			.item p {
+				margin: 0;
+				color: var(--muted);
+				overflow-wrap: anywhere;
+			}
+			.actions {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 10px;
+			}
+			.icon {
+				border: 0;
+				background: transparent;
+				color: var(--muted);
+				min-height: 44px;
+				padding: 8px;
+			}
+			.icon[aria-pressed="true"] {
+				color: #b13f65;
+			}
+			.empty {
+				grid-column: 1/-1;
+				text-align: center;
+				padding: 52px 12px;
+				color: var(--muted);
+			}
+			.status {
+				position: fixed;
+				left: 50%;
+				bottom: 20px;
+				transform: translateX(-50%);
+				padding: 10px 16px;
+				background: #242b3b;
+				color: white;
+				border-radius: 10px;
+				display: flex;
+				gap: 18px;
+				align-items: center;
+			}
+			.status:empty {
+				display: none;
+			}
+			.status button {
+				border: 0;
+				background: none;
+				color: #d4ddff;
+				min-height: 32px;
+			}
+			.error {
+				color: #ad2936;
+			}
+			dialog {
+				border: 0;
+				border-radius: 16px;
+				padding: 24px;
+				width: min(440px, calc(100% - 32px));
+				box-shadow: 0 20px 80px #17203933;
+			}
+			dialog::backdrop {
+				background: #12182a77;
+			}
+			dialog form {
+				display: grid;
+				gap: 16px;
+			}
+			label {
+				display: grid;
+				gap: 5px;
+				font-size: 14px;
+			}
+			dialog input {
+				border: 1px solid #cbd1dd;
+				border-radius: 8px;
+				padding: 10px;
+				min-height: 44px;
+			}
+			.dialog-actions {
+				display: flex;
+				justify-content: flex-end;
+				gap: 8px;
+			}
+			@media (max-width: 600px) {
+				.app {
+					padding: 28px 16px 90px;
+				}
+				.list {
+					grid-template-columns: 1fr;
+				}
+				.item {
+					min-height: auto;
+				}
+				.controls {
+					flex-wrap: wrap;
+				}
+				.search {
+					flex-basis: 100%;
+				}
+			}
+			@media (prefers-reduced-motion: reduce) {
+				* {
+					scroll-behavior: auto !important;
+					transition: none !important;
+					animation: none !important;
+				}
+			}
+			.list {
+				display: block;
+				background: #fff;
+				border: 1px solid var(--line);
+				border-radius: 14px;
+				overflow: hidden;
+			}
+			.item {
+				border: 0;
+				border-radius: 0;
+				border-bottom: 1px solid var(--line);
+				min-height: 0;
+				padding: 16px 20px;
+				grid-template-columns: minmax(0, 1fr) auto;
+				align-items: center;
+				gap: 8px;
+			}
+			.item:last-child {
+				border-bottom: 0;
+			}
+			.item-top {
+				align-items: start;
+			}
+			.item h2 {
+				font-size: 16px;
+			}
+			.item p {
+				font-size: 14px;
+			}
+			.tag {
+				font-size: 11px;
+			}
+			.actions {
+				justify-content: flex-end;
+			}
+			.empty {
+				margin: 0;
+			}
+			@media (max-width: 600px) {
+				.item {
+					padding: 14px 16px;
+					grid-template-columns: minmax(0, 1fr) auto;
+				}
+				.item-top {
+					display: block;
+				}
+				.item-top .icon {
+					margin-left: -8px;
+					min-height: 44px;
+					padding: 4px 8px;
+					font-size: 13px;
+				}
+				.actions .icon {
+					white-space: nowrap;
+					font-size: 14px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<main class="app">
+			<header>
+				<div>
+					<div class="eyebrow">COLLECTION / 示例</div>
+					<h1>灵感收藏</h1>
+					<div class="count" id="count"></div>
+				</div>
+				<button class="add" id="open">＋ 添加</button>
+			</header>
+			<div class="controls">
+				<input
+					class="search"
+					type="search"
+					id="query"
+					placeholder="搜索标题或备注"
+					aria-label="搜索收藏"
+				/><button class="filter" id="all" aria-pressed="true">全部</button
+				><button class="filter" id="favorites" aria-pressed="false">已收藏</button>
+			</div>
+			<section class="list" id="list" aria-label="收藏列表"></section>
+			<p id="storage-error" class="error" role="alert"></p>
+		</main>
+		<dialog id="dialog">
+			<form id="form">
+				<h2 id="dialog-heading">添加收藏</h2>
+				<label>标题<input id="title" required maxlength="120" autocomplete="off" /></label
+				><label>备注<input id="note" maxlength="240" autocomplete="off" /></label>
+				<div class="dialog-actions">
+					<button class="icon" type="button" id="cancel">取消</button
+					><button class="add" type="submit">保存</button>
+				</div>
+			</form>
+		</dialog>
+		<div class="status" id="status" role="status" aria-live="polite"></div>
+		<script>
+			const key = "ui-foundry:collection-demo:v1";
+			const seed = [
+				{ id: "a", title: "晨间散步路线", note: "河边的光线很好，适合拍摄。", favorite: true },
+				{ id: "b", title: "一本值得再读的书", note: "记录让我停下来思考的一页。", favorite: false },
+				{ id: "c", title: "下次想试的咖啡", note: "找一个安静的下午。", favorite: false },
+			];
+			let items;
+			try {
+				const data = localStorage.getItem(key);
+				const parsed = data === null ? seed : JSON.parse(data);
+				items = Array.isArray(parsed)
+					? parsed.filter(
+							(x) =>
+								x &&
+								typeof x.id === "string" &&
+								typeof x.title === "string" &&
+								typeof x.note === "string" &&
+								typeof x.favorite === "boolean",
+						)
+					: [];
+			} catch {
+				items = [];
+				document.querySelector("#storage-error").textContent =
+					"无法读取本地数据，刷新后可能无法保留更改。";
+			}
+			let favoritesOnly = false,
+				removed = null,
+				editingId = null;
+			const $ = (s) => document.querySelector(s);
+			const list = $("#list"),
+				status = $("#status"),
+				dialog = $("#dialog");
+			function persist() {
+				try {
+					localStorage.setItem(key, JSON.stringify(items));
+					$("#storage-error").textContent = "";
+					return true;
+				} catch {
+					$("#storage-error").textContent = "设备存储不可用，更改仅保留在当前页面。";
+					return false;
+				}
+			}
+			function element(tag, text, cls) {
+				const n = document.createElement(tag);
+				if (text) n.textContent = text;
+				if (cls) n.className = cls;
+				return n;
+			}
+			function render() {
+				const q = $("#query").value.trim().toLocaleLowerCase();
+				const shown = items.filter(
+					(x) =>
+						(!favoritesOnly || x.favorite) &&
+						`${x.title} ${x.note}`.toLocaleLowerCase().includes(q),
+				);
+				$("#count").textContent = `${items.length} 条收藏 · 仅保存在此设备`;
+				list.replaceChildren();
+				if (!shown.length) {
+					list.append(
+						element("p", q ? "没有匹配结果" : favoritesOnly ? "还没有收藏" : "还没有内容", "empty"),
+					);
+					return;
+				}
+				for (const item of shown) {
+					const card = element("article", null, "item");
+					const top = element("div", null, "item-top");
+					const content = element("div");
+					content.append(
+						element("span", item.favorite ? "收藏" : "灵感", "tag"),
+						element("h2", item.title),
+						element("p", item.note),
+					);
+					const remove = element("button", "删除", "icon");
+					remove.setAttribute("aria-label", `删除 ${item.title}`);
+					remove.onclick = () => {
+						removed = { item, index: items.findIndex((x) => x.id === item.id) };
+						items = items.filter((x) => x.id !== item.id);
+						const saved = persist();
+						render();
+						status.replaceChildren(document.createTextNode(saved ? "已删除" : "仅从当前页面移除"));
+						const undo = element("button", "撤销");
+						undo.onclick = () => {
+							if (!removed) return;
+							items.splice(Math.min(removed.index, items.length), 0, removed.item);
+							removed = null;
+							const restored = persist();
+							render();
+							status.textContent = restored ? "已恢复" : "已在当前页面恢复";
+						};
+						status.append(undo);
+					};
+					const edit = element("button", "编辑", "icon");
+					edit.setAttribute("aria-label", `编辑 ${item.title}`);
+					edit.onclick = () => {
+						editingId = item.id;
+						$("#dialog-heading").textContent = "编辑收藏";
+						$("#title").value = item.title;
+						$("#note").value = item.note;
+						dialog.showModal();
+						$("#title").focus();
+					};
+					const controls = element("div");
+					controls.append(edit, remove);
+					top.append(content, controls);
+					const actions = element("div", null, "actions");
+					const fav = element("button", item.favorite ? "★ 已收藏" : "☆ 收藏", "icon");
+					fav.setAttribute("aria-pressed", String(item.favorite));
+					fav.setAttribute("aria-label", `${item.favorite ? "取消收藏" : "收藏"} ${item.title}`);
+					fav.onclick = () => {
+						item.favorite = !item.favorite;
+						persist();
+						render();
+					};
+					actions.append(fav);
+					card.append(top, actions);
+					list.append(card);
+				}
+			}
+			$("#query").addEventListener("input", render);
+			for (const [id, value] of [
+				["all", false],
+				["favorites", true],
+			])
+				$("#" + id).onclick = () => {
+					favoritesOnly = value;
+					$("#all").setAttribute("aria-pressed", String(!value));
+					$("#favorites").setAttribute("aria-pressed", String(value));
+					render();
+				};
+			$("#open").onclick = () => {
+				status.replaceChildren();
+				editingId = null;
+				$("#dialog-heading").textContent = "添加收藏";
+				dialog.showModal();
+				$("#title").focus();
+			};
+			$("#cancel").onclick = () => dialog.close();
+			dialog.addEventListener("close", () => $("#form").reset());
+			$("#form").onsubmit = (e) => {
+				e.preventDefault();
+				const title = $("#title").value.trim();
+				if (!title) return;
+				const existing = items.find((item) => item.id === editingId);
+				if (existing) {
+					existing.title = title;
+					existing.note = $("#note").value.trim();
+				} else {
+					items.unshift({
+						id: crypto.randomUUID(),
+						title,
+						note: $("#note").value.trim(),
+						favorite: false,
+					});
+				}
+				const saved = persist();
+				e.target.reset();
+				dialog.close();
+				$("#query").value = "";
+				favoritesOnly = false;
+				$("#all").setAttribute("aria-pressed", "true");
+				$("#favorites").setAttribute("aria-pressed", "false");
+				render();
+				status.textContent = saved ? "已保存" : "仅保留在当前页面";
+			};
+			render();
+		</script>
+	</body>
+</html>

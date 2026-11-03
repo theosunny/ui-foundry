@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Old Workshop — local booking demo</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #202724;
+        --muted: #65706a;
+        --paper: #f5f0e7;
+        --cream: #fffdf8;
+        --line: #d8d0c3;
+        --clay: #b55235;
+        --moss: #426b55;
+        --sun: #f2ca63;
+        --shadow: 0 18px 48px rgba(56, 43, 24, 0.12);
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: Georgia, "Times New Roman", serif; }
+      button { font: inherit; }
+      .page { max-width: 1240px; margin: 0 auto; padding: 26px 28px 44px; }
+      .topbar { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+      .brand { display: inline-flex; align-items: center; gap: 11px; font-size: 20px; font-weight: 700; letter-spacing: -0.03em; }
+      .mark { display: grid; width: 30px; height: 30px; place-items: center; border: 2px solid var(--ink); border-radius: 50% 50% 44% 44%; font-size: 16px; transform: rotate(-8deg); }
+      .local { margin: 0; color: var(--moss); font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+      .eyebrow { margin: 44px 0 12px; color: var(--clay); font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+      h1 { max-width: 720px; margin: 0; font-size: clamp(42px, 7vw, 76px); font-weight: 500; letter-spacing: -0.06em; line-height: 0.94; }
+      .intro { max-width: 520px; margin: 22px 0 40px; color: var(--muted); font-size: 18px; line-height: 1.5; }
+      .layout { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 28px; align-items: start; }
+      .workshops { display: grid; gap: 12px; }
+      .card { display: grid; grid-template-columns: 188px minmax(0, 1fr) auto; align-items: center; gap: 20px; min-height: 184px; padding: 16px; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--cream); box-shadow: 0 2px 0 rgba(56,43,24,.03); transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease; }
+      .card[data-selected="true"] { border-color: var(--ink); box-shadow: 5px 5px 0 var(--sun); }
+      .art { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; background: #e7ded1; }
+      .day { display: block; margin-bottom: 8px; color: var(--clay); font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+      h2 { margin: 0 0 16px; font-size: clamp(26px, 3vw, 38px); font-weight: 500; letter-spacing: -.045em; line-height: 1; }
+      .facts { display: flex; flex-wrap: wrap; gap: 7px 14px; color: var(--muted); font-family: Arial, sans-serif; font-size: 14px; }
+      .facts span { white-space: nowrap; }
+      .facts strong { color: var(--ink); font-weight: 700; }
+      .select { min-width: 104px; min-height: 44px; padding: 9px 14px; border: 1px solid var(--ink); border-radius: 999px; background: transparent; color: var(--ink); cursor: pointer; font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; }
+      .select:hover, .select:focus-visible { background: var(--ink); color: white; outline: none; }
+      .select[aria-pressed="true"] { background: var(--moss); border-color: var(--moss); color: white; }
+      .booking { position: sticky; top: 18px; overflow: hidden; border: 1px solid var(--ink); border-radius: 16px; background: var(--ink); color: #fffdf8; box-shadow: var(--shadow); }
+      .booking-head { padding: 25px 24px 22px; border-bottom: 1px solid rgba(255,255,255,.22); }
+      .booking-head p { margin: 0 0 8px; color: var(--sun); font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+      .booking-head h2 { margin: 0; font-size: 32px; letter-spacing: -.04em; }
+      .summary { padding: 24px; }
+      .summary .placeholder { margin: 0; color: #d7d5ca; font-size: 17px; line-height: 1.45; }
+      .selected-name { margin: 0 0 5px; color: white; font-size: 25px; letter-spacing: -.04em; }
+      .selected-detail { margin: 0; color: #d7d5ca; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.45; }
+      .fee { display: flex; justify-content: space-between; align-items: baseline; margin: 26px 0 17px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.22); font-family: Arial, sans-serif; font-size: 14px; }
+      .fee strong { color: var(--sun); font-size: 25px; letter-spacing: -.04em; }
+      .terms { margin: 0 0 18px; color: #d7d5ca; font-family: Arial, sans-serif; font-size: 13px; line-height: 1.45; }
+      .confirm, .cancel { width: 100%; min-height: 48px; border: 0; border-radius: 8px; cursor: pointer; font-family: Arial, sans-serif; font-size: 15px; font-weight: 800; }
+      .confirm { background: var(--sun); color: var(--ink); }
+      .confirm:hover, .confirm:focus-visible { background: #fff0b8; outline: 2px solid white; outline-offset: 2px; }
+      .confirm:disabled { opacity: .5; cursor: not-allowed; }
+      .confirmed { padding: 20px; border: 1px solid rgba(255,255,255,.26); border-radius: 10px; background: rgba(255,255,255,.08); }
+      .confirmed strong { display: block; margin-bottom: 7px; color: var(--sun); font-family: Arial, sans-serif; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+      .confirmed p { margin: 0; font-size: 18px; line-height: 1.35; }
+      .cancel { margin-top: 15px; border: 1px solid rgba(255,255,255,.52); background: transparent; color: white; }
+      .cancel:hover, .cancel:focus-visible { background: white; color: var(--ink); outline: none; }
+      [hidden] { display: none !important; }
+      @media (max-width: 760px) {
+        .page { padding: 20px 16px 32px; }
+        .eyebrow { margin-top: 36px; }
+        .intro { margin-bottom: 27px; font-size: 17px; }
+        .layout { grid-template-columns: 1fr; gap: 22px; }
+        .card { grid-template-columns: 104px minmax(0, 1fr); gap: 14px; min-height: 0; padding: 12px; }
+        .art { height: 118px; }
+        h2 { margin-bottom: 10px; font-size: 28px; }
+        .facts { gap: 5px 10px; font-size: 12px; }
+        .select { grid-column: 2; width: 100%; }
+        .booking { position: static; }
+      }
+      @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="topbar"><div class="brand"><span class="mark" aria-hidden="true">O</span>Old Workshop</div><p class="local">Local demo · no payment</p></header>
+      <p class="eyebrow">Weekend studio sessions</p>
+      <h1>Make room for a slow afternoon.</h1>
+      <p class="intro">Three small workshops, led at our neighbourhood art studio. Choose a table, then reserve when it feels right.</p>
+      <div class="layout">
+        <section class="workshops" aria-label="Available workshops" id="workshops"></section>
+        <aside class="booking" aria-live="polite">
+          <div class="booking-head"><p>Your booking</p><h2>One good plan</h2></div>
+          <div class="summary" id="summary"></div>
+        </aside>
+      </div>
+    </main>
+    <script>
+      const key = "uf:workshop-probe";
+      const initial = { workshops: [
+        { id: "clay", title: "Clay forms", date: "Saturday 10:00", price: 120, minutes: 90, seats: 3, art: "clay.svg" },
+        { id: "cyan", title: "Light on paper", date: "Saturday 14:00", price: 80, minutes: 60, seats: 8, art: "cyan.svg" },
+        { id: "print", title: "Print the city", date: "Sunday 16:00", price: 100, minutes: 75, seats: 2, art: "print.svg" }
+      ], selectedId: null, reservation: null, audit: "keep-root" };
+      const saved = localStorage.getItem(key);
+      if (saved === null) localStorage.setItem(key, JSON.stringify(initial));
+      let state = JSON.parse(localStorage.getItem(key));
+      const workshops = document.getElementById("workshops");
+      const summary = document.getElementById("summary");
+      const money = new Intl.NumberFormat("en-CN", { style: "currency", currency: "CNY", maximumFractionDigits: 0 });
+      function save(next) { state = next; localStorage.setItem(key, JSON.stringify(state)); render(); }
+      function selected() { return state.workshops.find((workshop) => workshop.id === state.selectedId); }
+      function render() {
+        const current = selected();
+        workshops.innerHTML = state.workshops.map((workshop) => {
+          const isSelected = workshop.id === state.selectedId;
+          return `<article class="card" data-selected="${isSelected}"><img class="art" src="${workshop.art}" alt="Illustration for ${workshop.title}"><div><span class="day">${workshop.date}</span><h2>${workshop.title}</h2><div class="facts"><span><strong>${money.format(workshop.price)}</strong></span><span>${workshop.minutes} min</span><span>${workshop.seats} seats left</span></div></div><button class="select" type="button" data-select="${workshop.id}" aria-pressed="${isSelected}">${isSelected ? "Selected" : "Choose"}</button></article>`;
+        }).join("");
+        if (state.reservation && current) {
+          summary.innerHTML = `<div class="confirmed"><strong>Reservation confirmed</strong><p>${current.title}<br><small>${current.date} · ${money.format(current.price)}</small></p></div><button class="cancel" type="button" id="cancel">Cancel reservation</button>`;
+        } else if (current) {
+          summary.innerHTML = `<p class="selected-name">${current.title}</p><p class="selected-detail">${current.date} · ${current.minutes} minutes · ${current.seats} seats left</p><div class="fee"><span>Selected fee</span><strong>${money.format(current.price)}</strong></div><p class="terms">Free cancellation before class. Your seat is only reserved after confirmation.</p><button class="confirm" type="button" id="confirm">Reserve this workshop</button>`;
+        } else {
+          summary.innerHTML = `<p class="placeholder">Choose a workshop to see its fee and reserve your place.</p>`;
+        }
+        document.querySelectorAll("[data-select]").forEach((button) => button.addEventListener("click", () => save({ ...state, selectedId: button.dataset.select, reservation: null })));
+        document.getElementById("confirm")?.addEventListener("click", () => save({ ...state, reservation: { workshopId: state.selectedId, status: "confirmed" } }));
+        document.getElementById("cancel")?.addEventListener("click", () => save({ ...state, reservation: null }));
+      }
+      render();
+    </script>
+  </body>
+</html>

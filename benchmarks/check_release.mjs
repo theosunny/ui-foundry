@@ -35,6 +35,7 @@ const html = (await readFile(join(source, "workspace-reference.html"), "utf8")).
 );
 await writeFile(join(directory, "index.html"), html);
 for (const [script, args] of [
+	["check_collection.mjs", [join(source, "collection-reference.html"), join(output, "collection")]],
 	[
 		"check_foundation.mjs",
 		["--css", join(source, "web-foundation.css"), "--output", join(output, "primitives")],
